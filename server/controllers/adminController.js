@@ -1,7 +1,7 @@
 import Admin from "../models/Admin.js";
 import { generateToken, verifyToken } from "../utils/jwt.js";
 
-/** Register a new admin */
+/** Register Admin */
 export const registerAdmin = async (req, res) => {
   try {
     const { full_name, email, password, phone_number, permissions } = req.body;
@@ -18,7 +18,7 @@ export const registerAdmin = async (req, res) => {
   }
 };
 
-/** Login admin */
+/** Login Admin */
 export const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -34,7 +34,7 @@ export const loginAdmin = async (req, res) => {
   }
 };
 
-/** Get current logged-in admin */
+/** Get current logged-in Admin */
 export const authMeAdmin = async (req, res) => {
   try {
     const token = req.cookies.admin_token;
@@ -50,7 +50,7 @@ export const authMeAdmin = async (req, res) => {
   }
 };
 
-/** Logout admin */
+/** Logout Admin */
 export const logoutAdmin = async (req, res) => {
   res.clearCookie("admin_token", { httpOnly: true, sameSite: "lax" });
   res.json({ message: "Admin logged out" });
