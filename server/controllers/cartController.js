@@ -1,13 +1,20 @@
 import { Cart, CartItem } from "../models/cartAssociations.js";
 import Product from "../models/Product.js";
 import { sequelize } from "../config/db.js";
+import { Op } from "sequelize";
 
-/** Get user's cart */
+/** Get user's cart (exclude items with quantity = 0) */
 export const getCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({
       where: { user_id: req.user.user_id },
-      include: { model: CartItem, as: "items", include: Product },
+      include: {
+        model: CartItem,
+        as: "items",
+        where: { quantity: { [Op.gt]: 0 } }, // only items with quantity > 0
+        required: false, // allows cart to be returned even if no items
+        include: Product,
+      },
     });
 
     if (!cart) return res.json({ items: [], total_price: 0 });
@@ -25,11 +32,9 @@ export const addToCart = async (req, res) => {
     const product = await Product.findByPk(product_id);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
-    // Get or create user's cart automatically
     let cart = await Cart.findOne({ where: { user_id: req.user.user_id }, transaction: t });
     if (!cart) cart = await Cart.create({ user_id: req.user.user_id }, { transaction: t });
 
-    // Get or create cart item
     let cartItem = await CartItem.findOne({
       where: { cart_id: cart.cart_id, product_id },
       transaction: t,
@@ -52,7 +57,11 @@ export const addToCart = async (req, res) => {
     }
 
     // Update total price
-    cart.total_price = await CartItem.sum("price", { where: { cart_id: cart.cart_id }, transaction: t });
+    const totalPrice = await CartItem.sum("price", {
+      where: { cart_id: cart.cart_id, quantity: { [Op.gt]: 0 } },
+      transaction: t,
+    });
+    cart.total_price = totalPrice || 0;
     await cart.save({ transaction: t });
 
     await t.commit();
@@ -76,7 +85,11 @@ export const incrementCartItem = async (req, res) => {
     await cartItem.save({ transaction: t });
 
     const cart = await Cart.findByPk(cartItem.cart_id);
-    cart.total_price = await CartItem.sum("price", { where: { cart_id: cart.cart_id }, transaction: t });
+    const totalPrice = await CartItem.sum("price", {
+      where: { cart_id: cart.cart_id, quantity: { [Op.gt]: 0 } },
+      transaction: t,
+    });
+    cart.total_price = totalPrice || 0;
     await cart.save({ transaction: t });
 
     await t.commit();
@@ -87,7 +100,7 @@ export const incrementCartItem = async (req, res) => {
   }
 };
 
-/** Decrement cart item by 1 (remove if <= 0) */
+/** Decrement cart item by 1 (set quantity to 0, do not delete) */
 export const decrementCartItem = async (req, res) => {
   const t = await sequelize.transaction();
   try {
@@ -98,14 +111,19 @@ export const decrementCartItem = async (req, res) => {
     cartItem.quantity -= 1;
 
     if (cartItem.quantity <= 0) {
-      await cartItem.destroy({ transaction: t });
+      cartItem.quantity = 0;
+      cartItem.price = 0;
     } else {
       cartItem.price = cartItem.quantity * product.price;
-      await cartItem.save({ transaction: t });
     }
+    await cartItem.save({ transaction: t });
 
     const cart = await Cart.findByPk(cartItem.cart_id);
-    cart.total_price = (await CartItem.sum("price", { where: { cart_id: cart.cart_id }, transaction: t })) || 0;
+    const totalPrice = await CartItem.sum("price", {
+      where: { cart_id: cart.cart_id, quantity: { [Op.gt]: 0 } },
+      transaction: t,
+    });
+    cart.total_price = totalPrice || 0;
     await cart.save({ transaction: t });
 
     await t.commit();
@@ -116,21 +134,27 @@ export const decrementCartItem = async (req, res) => {
   }
 };
 
-/** Remove cart item completely */
+/** Remove cart item (set quantity and price to 0, keep item) */
 export const removeCartItem = async (req, res) => {
   const t = await sequelize.transaction();
   try {
     const cartItem = await CartItem.findByPk(req.params.itemId, { transaction: t });
     if (!cartItem) return res.status(404).json({ message: "Cart item not found" });
 
-    await cartItem.destroy({ transaction: t });
+    cartItem.quantity = 0;
+    cartItem.price = 0;
+    await cartItem.save({ transaction: t });
 
     const cart = await Cart.findByPk(cartItem.cart_id);
-    cart.total_price = (await CartItem.sum("price", { where: { cart_id: cart.cart_id }, transaction: t })) || 0;
+    const totalPrice = await CartItem.sum("price", {
+      where: { cart_id: cart.cart_id, quantity: { [Op.gt]: 0 } },
+      transaction: t,
+    });
+    cart.total_price = totalPrice || 0;
     await cart.save({ transaction: t });
 
     await t.commit();
-    res.json({ message: "Cart item removed", cart });
+    res.json({ message: "Cart item cleared", cart });
   } catch (err) {
     await t.rollback();
     res.status(500).json({ error: err.message });
