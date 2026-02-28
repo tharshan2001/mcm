@@ -9,6 +9,7 @@ import adminRoutes from "./routes/adminRoutes.js"
 import productRoutes from "./routes/productRoutes.js";
 import productCategoryRoutes from "./routes/productCategoryRoutes.js";
 import couponRoutes from "./routes/couponRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/categories", productCategoryRoutes);
 app.use("/api/coupons", couponRoutes);
+app.use("/api/cart", cartRoutes);
 
 
 // Test route

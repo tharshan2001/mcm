@@ -1,23 +1,16 @@
+import User from "../models/User.js";
 import { verifyToken } from "../utils/jwt.js";
 
-export const authenticateUser = (req, res, next) => {
+export const authenticateUser = async (req, res, next) => {
   const token = req.cookies.user_token;
   if (!token) return res.status(401).json({ message: "Unauthorized" });
 
   try {
-    req.user = verifyToken(token, "user");
-    next();
-  } catch (err) {
-    res.status(401).json({ message: "Invalid token" });
-  }
-};
+    const decoded = verifyToken(token, "user"); // { user_id, iat, exp }
+    const user = await User.findByPk(decoded.user_id); // fetch full user record
+    if (!user) return res.status(401).json({ message: "User not found" });
 
-export const authenticateAdmin = (req, res, next) => {
-  const token = req.cookies.admin_token;
-  if (!token) return res.status(401).json({ message: "Unauthorized" });
-
-  try {
-    req.admin = verifyToken(token, "admin");
+    req.user = user; // attach full user object
     next();
   } catch (err) {
     res.status(401).json({ message: "Invalid token" });
