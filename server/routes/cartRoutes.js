@@ -10,7 +10,6 @@ import {
 
 const router = express.Router();
 
-// (Optional) Get the current user's cart
 // You can remove this route if you don't want to expose GET
 router.get("/", authenticateUser, getCart);
 

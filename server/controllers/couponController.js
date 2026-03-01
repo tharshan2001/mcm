@@ -1,4 +1,5 @@
 import Coupon from "../models/Coupon.js";
+import { Op } from "sequelize";
 
 /** CREATE a new coupon (Admin) */
 export const createCoupon = async (req, res) => {
@@ -65,6 +66,41 @@ export const deleteCoupon = async (req, res) => {
 
     await coupon.destroy();
     res.json({ message: "Coupon deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+/** APPLY coupon */
+export const applyCoupon = async (req, res) => {
+  try {
+    const { coupon_code, cart_total } = req.body;
+
+    if (!coupon_code) return res.status(400).json({ message: "Coupon code is required" });
+
+    const coupon = await Coupon.findOne({
+      where: {
+        coupon_code,
+        status: "active",
+        expiration_date: { [Op.gte]: new Date() }
+      }
+    });
+
+    if (!coupon) return res.status(404).json({ message: "Coupon not valid or expired" });
+
+    // Optional: check usage conditions (min cart total, max usage, etc.)
+    if (coupon.usage_conditions) {
+      const minTotal = parseFloat(coupon.usage_conditions) || 0;
+      if (cart_total < minTotal) {
+        return res.status(400).json({ message: `Cart total must be at least ${minTotal} to use this coupon` });
+      }
+    }
+
+    res.json({
+      message: "Coupon applied successfully",
+      coupon_id: coupon.coupon_id,
+      discount_amount: coupon.discount_amount
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
