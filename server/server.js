@@ -11,6 +11,8 @@ import productCategoryRoutes from "./routes/productCategoryRoutes.js";
 import couponRoutes from "./routes/couponRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import feedbackRoutes from "./routes/feedbackRoutes.js";
+
 
 
 dotenv.config();
@@ -34,6 +36,7 @@ app.use("/api/categories", productCategoryRoutes);
 app.use("/api/coupons", couponRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/feedback",feedbackRoutes);
 
 
 // Test route
