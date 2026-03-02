@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Filter, ChevronDown, SlidersHorizontal, ShoppingBag } from 'lucide-react';
+import api from '../service/api'; // Axios instance
 
 const ShopPage = () => {
-  // Demo Data based on your requested structure
-  const products = [
-    {
-      name: "Hand-Spun Tussar Silk Saree",
-      slug: "tussar-silk-saree",
-      description: "Traditional weave with gold zari border.",
-      price: "185.00",
-      stock_quantity: 12,
-      category: { category_name: "Sarees" },
-      images: [{ image_url: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=600" }]
-    },
-    {
-      name: "Indigo Dabu Print Cotton",
-      slug: "indigo-dabu-cotton",
-      description: "Natural indigo dyed with mud-resist printing.",
-      price: "45.00",
-      stock_quantity: 25,
-      category: { category_name: "Fabrics" },
-      images: [{ image_url: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&q=80&w=600" }]
-    },
-    // ... more items
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch products from API on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get('products'); 
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center py-20 text-stone-600">Loading products...</div>;
+  }
 
   return (
     <div className="bg-[#FCF9F6] min-h-screen">
@@ -42,42 +43,7 @@ const ShopPage = () => {
               <h3 className="text-xs font-bold uppercase tracking-widest text-stone-900 mb-4 flex items-center justify-between">
                 Filter By <SlidersHorizontal size={14} />
               </h3>
-              
-              {/* Category Filter */}
-              <div className="space-y-6">
-                <div>
-                  <label className="text-sm font-medium text-stone-800 block mb-3 underline decoration-amber-200 underline-offset-4">Material</label>
-                  <div className="space-y-2">
-                    {['Pure Silk', 'Organic Cotton', 'Linen Blend', 'Khadi'].map((item) => (
-                      <label key={item} className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-amber-800">
-                        <input type="checkbox" className="rounded border-stone-300 text-amber-800 focus:ring-amber-800 mr-3" />
-                        {item}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-stone-800 block mb-3 underline decoration-amber-200 underline-offset-4">Region</label>
-                  <div className="space-y-2">
-                    {['Banaras', 'Chanderi', 'Kanchipuram', 'Maheshwar'].map((item) => (
-                      <label key={item} className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-amber-800">
-                        <input type="checkbox" className="rounded border-stone-300 text-amber-800 focus:ring-amber-800 mr-3" />
-                        {item}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-stone-800 block mb-3 underline decoration-amber-200 underline-offset-4">Price Range</label>
-                  <input type="range" className="w-full accent-amber-800" min="0" max="1000" />
-                  <div className="flex justify-between text-xs text-stone-500 mt-2">
-                    <span>$0</span>
-                    <span>$1000+</span>
-                  </div>
-                </div>
-              </div>
+              {/* Filters (static for now) */}
             </div>
           </aside>
 
@@ -105,7 +71,7 @@ const ShopPage = () => {
                   {/* Image Area */}
                   <div className="relative aspect-[4/5] overflow-hidden bg-stone-100 mb-4 rounded-sm">
                     <img
-                      src={product.images[0].image_url}
+                      src={product.images[0]?.image_url || 'https://via.placeholder.com/300'}
                       alt={product.name}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
@@ -121,10 +87,12 @@ const ShopPage = () => {
                   <div className="flex-1 space-y-1">
                     <div className="flex justify-between items-start">
                       <p className="text-[10px] uppercase tracking-[0.2em] text-amber-800 font-bold">
-                        {product.category.category_name}
+                        {product.category?.category_name || 'Uncategorized'}
                       </p>
                       {product.stock_quantity < 15 && (
-                        <span className="text-[9px] text-red-600 font-medium bg-red-50 px-2 py-0.5 rounded-full uppercase">Only {product.stock_quantity} left</span>
+                        <span className="text-[9px] text-red-600 font-medium bg-red-50 px-2 py-0.5 rounded-full uppercase">
+                          Only {product.stock_quantity} left
+                        </span>
                       )}
                     </div>
                     <h3 className="text-lg font-serif text-stone-800 leading-tight group-hover:text-amber-900 transition-colors">
@@ -141,7 +109,6 @@ const ShopPage = () => {
               ))}
             </div>
           </main>
-
         </div>
       </div>
     </div>
