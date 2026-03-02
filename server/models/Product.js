@@ -41,8 +41,9 @@ const Product = sequelize.define(
     tableName: "Product",
     timestamps: true,
     hooks: {
+      // Only generate slug if it is not already set
       beforeValidate: (product) => {
-        if (product.name) {
+        if (!product.slug && product.name) {
           product.slug = slugify(product.name, { lower: true, strict: true });
         }
       },

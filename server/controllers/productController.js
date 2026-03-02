@@ -1,12 +1,21 @@
 import { Product, ProductImage, ProductCategory } from "../models/index.js";
 
-/** CREATE product with slug */
+/** CREATE product with short unique slug */
 export const createProduct = async (req, res) => {
   const t = await Product.sequelize.transaction();
   try {
     const { product_name, product_description, price, stock, category_id, images } = req.body;
-    const admin_id = req.admin.admin_id;
+    const admin_id = req.admin?.admin_id;
 
+    if (!admin_id) {
+      return res.status(400).json({ error: "Admin not authenticated" });
+    }
+
+    // Generate slug with short random 3-4 digit number
+    const randomSuffix = Math.floor(100 + Math.random() * 9000); // 3-4 digit number
+    const slug = `${product_name?.toLowerCase().replace(/\s+/g, "-")}-${randomSuffix}`;
+
+    // Create product
     const product = await Product.create(
       {
         name: product_name,
@@ -15,10 +24,12 @@ export const createProduct = async (req, res) => {
         stock_quantity: stock,
         category_id,
         admin_id,
+        slug,
       },
       { transaction: t }
     );
 
+    // Save images
     if (images?.length) {
       await ProductImage.bulkCreate(
         images.map((url) => ({ product_id: product.product_id, image_url: url })),
@@ -28,13 +39,16 @@ export const createProduct = async (req, res) => {
 
     await t.commit();
 
-    // Return slug instead of numeric ID
     res.status(201).json({
       message: "Product created",
       slug: product.slug,
     });
   } catch (err) {
     await t.rollback();
+    if (err.name === "SequelizeValidationError") {
+      const messages = err.errors.map((e) => e.message);
+      return res.status(400).json({ error: "Validation error", details: messages });
+    }
     res.status(500).json({ error: err.message });
   }
 };
