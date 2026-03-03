@@ -4,8 +4,8 @@ import {
   createProduct,
   getAllProducts,
   getProductBySlug,
-  updateProduct,
-  deleteProduct,
+  updateProductById,
+  archiveProductById,
   getAllMaterials,
 } from "../controllers/productController.js";
 
@@ -13,8 +13,8 @@ const router = express.Router();
 
 // ADMIN routes
 router.post("/", adminAuth, createProduct);
-router.put("/:slug", adminAuth, updateProduct);
-router.delete("/:slug", adminAuth, deleteProduct);
+router.put("/:id", adminAuth, updateProductById);
+router.delete("/:id", adminAuth, archiveProductById); 
 
 // PUBLIC routes
 router.get("/", getAllProducts);

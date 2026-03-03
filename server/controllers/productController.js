@@ -42,6 +42,7 @@ export const createProduct = async (req, res) => {
     res.status(201).json({
       message: "Product created",
       slug: product.slug,
+      id: product.product_id,
     });
   } catch (err) {
     await t.rollback();
@@ -53,11 +54,11 @@ export const createProduct = async (req, res) => {
   }
 };
 
-/** GET single product by slug */
+/** GET single product by slug (only if not archived) */
 export const getProductBySlug = async (req, res) => {
   try {
     const product = await Product.findOne({
-      where: { slug: req.params.slug },
+      where: { slug: req.params.slug, archived: false },
       include: [
         { model: ProductCategory, as: "category" },
         { model: ProductImage, as: "images" },
@@ -66,7 +67,6 @@ export const getProductBySlug = async (req, res) => {
 
     if (!product) return res.status(404).json({ message: "Product not found" });
 
-    // Return API without exposing product_id
     const { product_id, admin_id, ...safeProduct } = product.toJSON();
     res.json(safeProduct);
   } catch (err) {
@@ -74,11 +74,11 @@ export const getProductBySlug = async (req, res) => {
   }
 };
 
-/** UPDATE product by slug */
-export const updateProduct = async (req, res) => {
+/** UPDATE product by ID */
+export const updateProductById = async (req, res) => {
   const t = await Product.sequelize.transaction();
   try {
-    const product = await Product.findOne({ where: { slug: req.params.slug } });
+    const product = await Product.findByPk(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
     const { images, product_name, ...productData } = req.body;
@@ -86,7 +86,8 @@ export const updateProduct = async (req, res) => {
     // If name is updated, regenerate slug
     if (product_name) {
       productData.name = product_name;
-      productData.slug = slugify(product_name, { lower: true, strict: true });
+      const randomSuffix = Math.floor(100 + Math.random() * 9000);
+      productData.slug = `${product_name.toLowerCase().replace(/\s+/g, "-")}-${randomSuffix}`;
     }
 
     await product.update(productData, { transaction: t });
@@ -109,35 +110,32 @@ export const updateProduct = async (req, res) => {
   }
 };
 
-/** DELETE product by slug */
-export const deleteProduct = async (req, res) => {
-  const t = await Product.sequelize.transaction();
+/** ARCHIVE product by ID */
+export const archiveProductById = async (req, res) => {
   try {
-    const product = await Product.findOne({ where: { slug: req.params.slug } });
+    const product = await Product.findByPk(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
-    await ProductImage.destroy({ where: { product_id: product.product_id }, transaction: t });
-    await product.destroy({ transaction: t });
+    // Mark as archived
+    await product.update({ archived: true });
 
-    await t.commit();
-    res.json({ message: "Product deleted" });
+    res.json({ message: "Product archived" });
   } catch (err) {
-    await t.rollback();
     res.status(500).json({ error: err.message });
   }
 };
 
-/** GET all products (no id exposed) */
+/** GET all products (exclude archived) */
 export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.findAll({
+      where: { archived: false },
       include: [
         { model: ProductCategory, as: "category" },
         { model: ProductImage, as: "images" },
       ],
     });
 
-    // Strip IDs from API response
     const safeProducts = products.map((p) => {
       const { product_id, admin_id, ...rest } = p.toJSON();
       return rest;
@@ -149,10 +147,11 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
-/** GET all materials */
+/** GET all materials (exclude archived) */
 export const getAllMaterials = async (req, res) => {
   try {
     const products = await Product.findAll({
+      where: { archived: false },
       include: [
         {
           model: ProductCategory,
@@ -160,10 +159,7 @@ export const getAllMaterials = async (req, res) => {
           required: true,
           where: { category_name: "materials" },
         },
-        {
-          model: ProductImage,
-          as: "images",
-        },
+        { model: ProductImage, as: "images" },
       ],
     });
 
@@ -178,4 +174,3 @@ export const getAllMaterials = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-

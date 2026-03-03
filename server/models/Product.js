@@ -36,12 +36,15 @@ const Product = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    archived: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,  // Not archived by default
+    },
   },
   {
     tableName: "Product",
     timestamps: true,
     hooks: {
-      // Only generate slug if it is not already set
       beforeValidate: (product) => {
         if (!product.slug && product.name) {
           product.slug = slugify(product.name, { lower: true, strict: true });
