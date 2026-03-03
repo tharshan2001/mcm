@@ -4,14 +4,14 @@ import { generateToken, verifyToken } from "../utils/jwt.js";
 /** Register a new user */
 export const registerUser = async (req, res) => {
   try {
-    const { full_name, email, password, phone_number, role_id, address } = req.body;
+    const { full_name, email, password} = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) return res.status(400).json({ message: "Email already exists" });
 
     // Create new user
-    const user = await User.create({ full_name, email, password, phone_number, role_id, address });
+    const user = await User.create({ full_name, email, password});
 
     // Generate token
     const token = generateToken({ user_id: user.user_id }, "user");
