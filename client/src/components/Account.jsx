@@ -56,7 +56,7 @@ const Account = () => {
   ];
 
   return (
-    <div className="bg-[#FCF9F6] min-h-screen">
+    <div className="bg-[#FCF9F6] h-[740px]">
       {/* Header */}
       <div className="bg-white border-b border-stone-200 py-10 px-6">
         <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-6">
@@ -103,7 +103,7 @@ const Account = () => {
             </div>
           ) : (
             <div className="bg-white border border-stone-200 p-20 text-center">
-              <p className="text-stone-400 italic font-serif capitalize">{activeTab} coming soon</p>
+              <p className="text-stone-400 italic font-serif capitalize">{activeTab}</p>
             </div>
           )}
         </main>

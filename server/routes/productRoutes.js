@@ -6,6 +6,7 @@ import {
   getProductBySlug,
   updateProduct,
   deleteProduct,
+  getAllMaterials
 } from "../controllers/productController.js";
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router.delete("/:slug", adminAuth, deleteProduct);
 
 // PUBLIC routes
 router.get("/", getAllProducts);
-router.get("/:slug", getProductBySlug);
+router.get("/", getAllProducts);
+router.get("/getAllMaterials", getAllMaterials);
 
 export default router;

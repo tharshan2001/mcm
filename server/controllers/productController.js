@@ -1,4 +1,5 @@
 import { Product, ProductImage, ProductCategory } from "../models/index.js";
+import { Op } from "sequelize";
 
 /** CREATE product with short unique slug */
 export const createProduct = async (req, res) => {
@@ -145,6 +146,36 @@ export const getAllProducts = async (req, res) => {
 
     res.json(safeProducts);
   } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+/** GET all materials */
+export const getAllMaterials = async (req, res) => {
+  try {
+    const products = await Product.findAll({
+      include: [
+        {
+          model: ProductCategory,
+          as: "category",
+          required: true,
+          where: { category_name: "materials" },
+        },
+        {
+          model: ProductImage,
+          as: "images",
+        },
+      ],
+    });
+
+    const safeProducts = products.map((p) => {
+      const { product_id, admin_id, ...rest } = p.toJSON();
+      return rest;
+    });
+
+    res.json(safeProducts);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 };
