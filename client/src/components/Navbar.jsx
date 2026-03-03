@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ShoppingBag, User, Search, Menu, X, Heart } from 'lucide-react';
 
 const Navbar = () => {
@@ -26,35 +27,35 @@ const Navbar = () => {
 
           {/* Left: Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-stone-700 uppercase tracking-wider">
-            <a href="#" className="hover:text-amber-800 transition-colors">Shop All</a>
-            <a href="#" className="hover:text-amber-800 transition-colors">Sarees</a>
-            <a href="#" className="hover:text-amber-800 transition-colors">Home Decor</a>
+            <Link to="/shop-all" className="hover:text-amber-800 transition-colors">Shop All</Link>
+            <Link to="/sarees" className="hover:text-amber-800 transition-colors">Sarees</Link>
+            <Link to="/home-decor" className="hover:text-amber-800 transition-colors">Home Decor</Link>
           </div>
 
           {/* Center: Brand Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <span className="text-2xl md:text-3xl font-serif font-bold text-[#5C4033] tracking-tighter cursor-pointer">
+            <Link to="/" className="text-2xl md:text-3xl font-serif font-bold text-[#5C4033] tracking-tighter cursor-pointer">
               LOOM<span className="font-light italic">&</span>CRAFT
-            </span>
+            </Link>
           </div>
 
           {/* Right: Icons */}
           <div className="flex items-center space-x-3 md:space-x-6">
-            <button className="hidden sm:block text-stone-700 hover:text-amber-800">
+            <Link to="/search" className="hidden sm:block text-stone-700 hover:text-amber-800">
               <Search size={20} strokeWidth={1.5} />
-            </button>
-            <button className="hidden sm:block text-stone-700 hover:text-amber-800">
+            </Link>
+            <Link to="/account" className="hidden sm:block text-stone-700 hover:text-amber-800">
               <User size={20} strokeWidth={1.5} />
-            </button>
-            <button className="text-stone-700 hover:text-amber-800 relative">
+            </Link>
+            <Link to="/wishlist" className="text-stone-700 hover:text-amber-800 relative">
               <Heart size={20} strokeWidth={1.5} />
-            </button>
-            <button className="text-stone-700 hover:text-amber-800 relative">
+            </Link>
+            <Link to="/cart" className="text-stone-700 hover:text-amber-800 relative">
               <ShoppingBag size={20} strokeWidth={1.5} />
               <span className="absolute -top-1 -right-2 bg-amber-700 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center">
                 2
               </span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -63,13 +64,13 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white border-b border-stone-200 animate-in slide-in-from-top duration-300">
           <div className="px-4 pt-2 pb-6 space-y-4 text-center">
-            <a href="#" className="block text-lg font-medium text-stone-800 py-2 border-b border-stone-50">Shop All</a>
-            <a href="#" className="block text-lg font-medium text-stone-800 py-2 border-b border-stone-50">Sarees</a>
-            <a href="#" className="block text-lg font-medium text-stone-800 py-2 border-b border-stone-50">Home Decor</a>
-            <a href="#" className="block text-lg font-medium text-stone-800 py-2 border-b border-stone-50">Our Story</a>
+            <Link to="/shop-all" className="block text-lg font-medium text-stone-800 py-2 border-b border-stone-50">Shop All</Link>
+            <Link to="/sarees" className="block text-lg font-medium text-stone-800 py-2 border-b border-stone-50">Sarees</Link>
+            <Link to="/home-decor" className="block text-lg font-medium text-stone-800 py-2 border-b border-stone-50">Home Decor</Link>
+            <Link to="/our-story" className="block text-lg font-medium text-stone-800 py-2 border-b border-stone-50">Our Story</Link>
             <div className="flex justify-center space-x-8 pt-4">
-               <Search size={20} />
-               <User size={20} />
+              <Link to="/search"><Search size={20} /></Link>
+              <Link to="/account"><User size={20} /></Link>
             </div>
           </div>
         </div>
