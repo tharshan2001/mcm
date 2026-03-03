@@ -5,6 +5,8 @@ import ShopPage from "./components/ShopPage";
 import Navbar from "./components/Navbar";
 import Account from "./components/Account";
 import { Toaster } from "react-hot-toast";
+import MaterialsPage from "./page/MaterialsPage";
+import About from "./components/About";
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/shop-all" element={<ShopPage />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/material" element={<MaterialsPage />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </div>
   );

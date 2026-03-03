@@ -1,5 +1,5 @@
-import { Product, ProductImage, ProductCategory } from "../models/index.js";
-import { Op } from "sequelize";
+import { OrderItem, Product, ProductImage, ProductCategory } from "../models/index.js";
+import { Sequelize } from "sequelize";
 
 /** CREATE product with short unique slug */
 export const createProduct = async (req, res) => {
@@ -179,3 +179,4 @@ export const getAllMaterials = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+

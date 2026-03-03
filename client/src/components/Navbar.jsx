@@ -69,10 +69,10 @@ const Navbar = () => {
               Material
             </Link>
             <Link
-              to="/interior"
+              to="/about"
               className="hover:text-amber-800 transition-colors"
             >
-              Interior
+              About us
             </Link>
           </div>
 

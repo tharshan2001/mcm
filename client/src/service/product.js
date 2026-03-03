@@ -1,15 +1,23 @@
-// src/main.js or wherever you want to fetch products
+// src/service/product.js
 import api from "./service/api";
 
+// Fetch ALL products
 async function fetchAllProducts() {
   try {
-    const response = await api.get("products"); // GET http://localhost:8090/api/products
-    const products = response.data; // Axios wraps the response in .data
-    console.log("All products:", products);
+    const response = await api.get("products");
+    console.log("All products:", response.data);
   } catch (error) {
     console.error("Failed to fetch products:", error);
   }
 }
 
-// Call the function
-fetchAllProducts();
+// Fetch ONLY materials
+async function fetchAllMaterials() {
+  try {
+    const response = await api.get("products/getAllMaterials");
+    console.log("Materials:", response.data);
+  } catch (error) {
+    console.error("Failed to fetch materials:", error);
+  }
+}
+

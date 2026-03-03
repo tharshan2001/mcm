@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
 const startServer = async () => {
   try {
     await connectDB();
-    await sequelize.sync({ alter: true }); // Auto-sync tables
+    await sequelize.sync({ alter: false, force: false }); 
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   } catch (err) {
     console.error("Failed to start server:", err);
