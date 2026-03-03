@@ -1,6 +1,8 @@
 import express from "express";
 import { authenticateUser } from "../middleware/auth.js";
 import { placeOrder } from "../controllers/orderController.js";
+import { validateBody } from "../middleware/validate.js";
+import { placeOrderSchema } from "../validation/orderValidation.js";
 
 const router = express.Router();
 
@@ -11,6 +13,6 @@ const router = express.Router();
  * - Processes payment internally
  * - Creates order + transaction
  */
-router.post("/place", authenticateUser, placeOrder);
+router.post("/place", authenticateUser, validateBody(placeOrderSchema), placeOrder);
 
 export default router;

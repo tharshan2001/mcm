@@ -7,22 +7,24 @@ import {
   decrementCartItem,
   removeCartItem
 } from "../controllers/cartController.js";
+import { validateBody, validateParams } from "../middleware/validate.js";
+import { addToCartSchema, cartItemIdParamSchema } from "../validation/cartValidation.js";
 
 const router = express.Router();
 
-// You can remove this route if you don't want to expose GET
+// Get user's cart
 router.get("/", authenticateUser, getCart);
 
-// Add a product to cart (quantity defaults to 1)
-router.post("/add", authenticateUser, addToCart);
+// Add a product to cart
+router.post("/add", authenticateUser, validateBody(addToCartSchema), addToCart);
 
-// Increment cart item quantity by 1
-router.post("/increment/:itemId", authenticateUser, incrementCartItem);
+// Increment cart item quantity
+router.post("/increment/:itemId", authenticateUser, validateParams(cartItemIdParamSchema), incrementCartItem);
 
-// Decrement cart item quantity by 1 (sets quantity to 0 if it reaches 0)
-router.post("/decrement/:itemId", authenticateUser, decrementCartItem);
+// Decrement cart item quantity
+router.post("/decrement/:itemId", authenticateUser, validateParams(cartItemIdParamSchema), decrementCartItem);
 
-// Clear a cart item (sets quantity and price to 0, keeps the item)
-router.delete("/remove/:itemId", authenticateUser, removeCartItem);
+// Remove/clear a cart item
+router.delete("/remove/:itemId", authenticateUser, validateParams(cartItemIdParamSchema), removeCartItem);
 
 export default router;

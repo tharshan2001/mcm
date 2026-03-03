@@ -8,12 +8,14 @@ import {
   archiveProductById,
   getAllMaterials,
 } from "../controllers/productController.js";
+import { validateBody } from "../middleware/validate.js";
+import { createProductSchema, updateProductSchema } from "../validation/productValidation.js";
 
 const router = express.Router();
 
 // ADMIN routes
-router.post("/", adminAuth, createProduct);
-router.put("/:id", adminAuth, updateProductById);
+router.post("/", adminAuth, validateBody(createProductSchema), createProduct);
+router.put("/:id", adminAuth, validateBody(updateProductSchema), updateProductById);
 router.delete("/:id", adminAuth, archiveProductById); 
 
 // PUBLIC routes

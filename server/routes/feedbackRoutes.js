@@ -6,19 +6,21 @@ import {
   getFeedbacksByProduct,
   deleteFeedback,
 } from "../controllers/feedbackController.js";
+import { validateBody, validateParams } from "../middleware/validate.js";
+import { createFeedbackSchema, feedbackIdParamSchema, productIdParamSchema } from "../validation/feedbackValidation.js";
 
 const router = express.Router();
 
 // Create feedback (user)
-router.post("/", authenticateUser, createFeedback);
+router.post("/", authenticateUser, validateBody(createFeedbackSchema), createFeedback);
 
 // Get all feedbacks
 router.get("/", getAllFeedbacks);
 
 // Get feedbacks for a product
-router.get("/product/:productId", getFeedbacksByProduct);
+router.get("/product/:productId", validateParams(productIdParamSchema), getFeedbacksByProduct);
 
 // Delete feedback (admin only)
-router.delete("/:id", authenticateUser, deleteFeedback);
+router.delete("/:id", authenticateUser, validateParams(feedbackIdParamSchema), deleteFeedback);
 
 export default router;
