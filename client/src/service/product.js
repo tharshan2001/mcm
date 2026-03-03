@@ -14,7 +14,7 @@ async function fetchAllProducts() {
 // Fetch ONLY materials
 async function fetchAllMaterials() {
   try {
-    const response = await api.get("products/getAllMaterials");
+    const response = await api.get("products/materials");
     console.log("Materials:", response.data);
   } catch (error) {
     console.error("Failed to fetch materials:", error);

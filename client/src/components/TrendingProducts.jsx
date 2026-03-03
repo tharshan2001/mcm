@@ -8,7 +8,7 @@ const products = [
     category: "Sarees",
     price: "$280",
     tag: "Trending 2026",
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=800",
+    image: "https://priyaodisha.com/cdn/shop/files/download_dcc25d49-66bc-4b9d-ace3-7bf8c42b1538.jpg?v=1762500197&width=1080",
     description: "Lightweight silk with a modern matte Zari border."
   },
   {
@@ -17,7 +17,7 @@ const products = [
     category: "Home Decor",
     price: "$85",
     tag: "Hyper-Texture",
-    image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&q=80&w=800",
+    image: "https://www.odikala.com/cdn/shop/files/TRI3D__dress261__all_set0_nomo_cr_dupatta_2__2025-10-13-11-42-15__1600X2400_1def020f-b13b-43b4-8035-c5c049f042dd_800x.jpg?v=1760336098",
     description: "Bio-crafted regenerative cotton in Mineral Green."
   },
   {
@@ -26,7 +26,7 @@ const products = [
     category: "Sarees",
     price: "$195",
     tag: "Artisan Choice",
-    image: "https://images.unsplash.com/photo-1528459105426-b923161e5981?auto=format&fit=crop&q=80&w=800",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0DIYkBlEJjS0DkE1S2PMkTRbpugQaad0sHw&s",
     description: "Hand-spun yarns dyed with botanical terracotta pigments."
   },
   {
@@ -35,7 +35,7 @@ const products = [
     category: "Dining",
     price: "$45",
     tag: "Eco-Friendly",
-    image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=800",
+    image: "https://itokri.com/cdn/shop/files/green-handloom-cotton-mangalagiri-3pc-unstitched-dress-material-04-771.jpg?v=1771842401&width=480",
     description: "Sustainably sourced wood with a hand-rubbed oil finish."
   }
 ];

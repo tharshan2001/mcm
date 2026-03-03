@@ -9,7 +9,7 @@ const MaterialsPage = () => {
 
   const fetchAllMaterials = async () => {
     try {
-      const response = await api.get("products/getAllMaterials");
+      const response = await api.get("products/materials");
       setProducts(response.data);
     } catch (error) {
       console.error("Failed to fetch materials:", error);

@@ -20,7 +20,3 @@ OrderItem.belongsTo(Product, {
   foreignKey: "product_id",
   as: "product", // ✅ alias must match include in query
 });
-
-// OrderItem ↔ Product
-Product.hasMany(OrderItem, { foreignKey: "product_id", as: "order_items" });
-OrderItem.belongsTo(Product, { foreignKey: "product_id", as: "product" });

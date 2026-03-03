@@ -1,5 +1,9 @@
+// client/src/components/About.jsx
 import React from 'react';
-import { Spacing, Heart, Globe, Users, ScrollText } from 'lucide-react';
+import { FaHeart, FaGlobe, FaUsers, FaScroll } from 'react-icons/fa';
+import SI01 from "../assets/SI-01.jpg";
+import SI02 from "../assets/SI-02.jpg";
+
 
 const About = () => {
   return (
@@ -8,7 +12,7 @@ const About = () => {
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1528459105426-b923161e5981?q=80&w=2060&auto=format&fit=crop" 
+            src={SI01}
             className="w-full h-full object-cover opacity-80"
             alt="Handloom weaving"
           />
@@ -40,7 +44,7 @@ const About = () => {
           <div className="relative">
             <div className="aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=2070&auto=format&fit=crop" 
+                src={SI02} 
                 alt="Artisan hands" 
                 className="w-full h-full object-cover"
               />
@@ -60,21 +64,21 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
             <div className="text-center space-y-4">
-              <div className="flex justify-center text-amber-400"><Globe size={40} strokeWidth={1} /></div>
+              <div className="flex justify-center text-amber-400"><FaGlobe size={40} /></div>
               <h3 className="text-xl font-serif">Radical Transparency</h3>
               <p className="text-stone-400 text-sm font-light leading-relaxed">
                 Know exactly where your garment came from. Every piece comes with a digital certificate tracing it back to the specific cluster and weaver.
               </p>
             </div>
             <div className="text-center space-y-4">
-              <div className="flex justify-center text-amber-400"><Heart size={40} strokeWidth={1} /></div>
+              <div className="flex justify-center text-amber-400"><FaHeart size={40} /></div>
               <h3 className="text-xl font-serif">Community First</h3>
               <p className="text-stone-400 text-sm font-light leading-relaxed">
                 We reinvest in weaving clusters, providing healthcare and education for the children of the artisans who create our collections.
               </p>
             </div>
             <div className="text-center space-y-4">
-              <div className="flex justify-center text-amber-400"><ScrollText size={40} strokeWidth={1} /></div>
+              <div className="flex justify-center text-amber-400"><FaScroll size={40} /></div>
               <h3 className="text-xl font-serif">Honest Materials</h3>
               <p className="text-stone-400 text-sm font-light leading-relaxed">
                 No polyester, no synthetics. Only GOTS-certified organic cotton, AHIMSA (Cruelty-free) silk, and natural botanical dyes.

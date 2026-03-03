@@ -1,5 +1,4 @@
-import { OrderItem, Product, ProductImage, ProductCategory } from "../models/index.js";
-import { Sequelize } from "sequelize";
+import { Product, ProductImage, ProductCategory } from "../models/index.js";
 
 /** CREATE product with short unique slug */
 export const createProduct = async (req, res) => {
