@@ -7,7 +7,7 @@ export const authenticateUser = async (req, res, next) => {
 
   try {
     const decoded = verifyToken(token, "user"); // { user_id, iat, exp }
-    const user = await User.findByPk(decoded.user_id); // fetch full user record
+    const user = await User.findByPk(decoded.user_id); 
     if (!user) return res.status(401).json({ message: "User not found" });
 
     req.user = user; // attach full user object

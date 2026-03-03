@@ -1,5 +1,7 @@
 import React from 'react';
 import { Leaf, Users, ShieldCheck, ZapOff } from 'lucide-react';
+import SI01 from "../assets/SI-01.jpg";
+import SI02 from "../assets/SI-02.jpg";
 
 const BrandStory = () => {
   const pillars = [
@@ -29,7 +31,7 @@ const BrandStory = () => {
           <div className="relative w-full lg:w-1/2">
             <div className="relative z-10 w-4/5 aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=2070&auto=format&fit=crop" 
+                src={SI01}
                 alt="Artisan at work" 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
@@ -37,7 +39,7 @@ const BrandStory = () => {
             {/* Overlapping secondary image */}
             <div className="absolute -bottom-10 -right-4 z-20 w-1/2 aspect-square border-8 border-[#FCF9F6] overflow-hidden rounded-sm shadow-xl hidden md:block">
               <img 
-                src="https://images.unsplash.com/photo-1528459105426-b923161e5981?q=80&w=2060&auto=format&fit=crop" 
+                src={SI02} 
                 alt="Close up of fabric" 
                 className="w-full h-full object-cover"
               />

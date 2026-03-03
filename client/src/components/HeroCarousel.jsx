@@ -1,23 +1,33 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import HI from "../assets/HI-01.jpg";
+import HI2 from "../assets/HI-02.jpeg";
+import HI3 from "../assets/HI-03.jpeg";
+
+
 
 const HeroCarousel = () => {
   const slides = [
     {
+      url: HI,
+      title: "Exclusive Local Craft",
+      subtitle: "Featured Artisan Piece",
+    },
+    {
       url: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=2070&auto=format&fit=crop",
       title: "Hand-Woven Elegance",
-      subtitle: "The Summer Silk Collection"
+      subtitle: "The Summer Silk Collection",
     },
     {
-      url: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1974&auto=format&fit=crop",
+      url: HI2,
       title: "Sustainable Craft",
-      subtitle: "Organic Cotton Home Linens"
+      subtitle: "Organic Cotton Home Linens",
     },
     {
-      url: "https://images.unsplash.com/photo-1528459105426-b923161e5981?q=80&w=2060&auto=format&fit=crop",
+      url: HI3,
       title: "Artisan Traditions",
-      subtitle: "Directly from Village Looms"
-    }
+      subtitle: "Directly from Village Looms",
+    },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -49,12 +59,14 @@ const HeroCarousel = () => {
         <div
           key={index}
           className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-            index === currentIndex ? "opacity-100 scale-105" : "opacity-0 scale-100"
+            index === currentIndex
+              ? "opacity-100 scale-105"
+              : "opacity-0 scale-100"
           } transition-transform duration-[2000ms]`}
         >
           {/* Overlay for readability */}
           <div className="absolute inset-0 bg-black/30 z-10" />
-          
+
           <img
             src={slide.url}
             alt={slide.title}

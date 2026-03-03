@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingBag, User, Search, Menu, X, Heart } from "lucide-react";
 import Login from "./Login";
@@ -16,9 +16,16 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   // Ensure we know if user is logged in
-  React.useEffect(() => {
+  useEffect(() => {
     if (!user) fetchUser();
   }, [user, fetchUser]);
+
+  // Close auth modal automatically when user logs in
+  useEffect(() => {
+    if (user) {
+      setIsAuthOpen(false);
+    }
+  }, [user]);
 
   const handleUserClick = () => {
     if (user) {

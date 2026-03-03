@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../stores/authStore.js";
+import { toast } from "react-hot-toast"; // Import toast
 
 const Login = ({ switchToSignup }) => {
   const login = useAuthStore((state) => state.login);
@@ -12,9 +13,10 @@ const Login = ({ switchToSignup }) => {
     e.preventDefault();
     try {
       await login({ email, password });
-      alert("Login successful!");
+      toast.success("Login successful! 🎉"); // Replace alert with toast
     } catch (err) {
-      console.log(err);
+      console.error(err);
+      toast.error("Login failed. Please try again."); // Optional toast for errors
     }
   };
 
