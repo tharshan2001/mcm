@@ -4,37 +4,47 @@ import { ShoppingBag, User, Search, Menu, X, Heart } from "lucide-react";
 import Login from "./Login";
 import Signup from "./Signup";
 import { useAuthStore } from "../stores/authStore";
+import CartDrawer from "./CartDrawer"; 
+import { useCartStore } from "../stores/cartStore"; 
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
+  const [isCartOpen, setIsCartOpen] = useState(false); // <-- Track cart drawer
 
   const user = useAuthStore((state) => state.user);
   const fetchUser = useAuthStore((state) => state.fetchUser);
 
+  const { cart, fetchCart } = useCartStore(); // <-- Get cart state and fetch function
+
   const navigate = useNavigate();
 
-  // Ensure we know if user is logged in
+  // Fetch user on mount
   useEffect(() => {
     if (!user) fetchUser();
   }, [user, fetchUser]);
 
-  // Close auth modal automatically when user logs in
+  // Close auth modal if user is logged in
   useEffect(() => {
-    if (user) {
-      setIsAuthOpen(false);
-    }
+    if (user) setIsAuthOpen(false);
   }, [user]);
 
+  // Fetch cart whenever user logs in or page loads
+  useEffect(() => {
+    fetchCart(2); // Replace 2 with dynamic cart/user ID if needed
+  }, [fetchCart]);
+
   const handleUserClick = () => {
-    if (user) {
-      navigate("/account");
-    } else {
+    if (user) navigate("/account");
+    else {
       setIsAuthOpen(true);
       setShowLogin(true);
     }
   };
+
+  // Compute total quantity
+  const cartCount = cart?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
   return (
     <nav className="bg-[#FCF9F6] border-b border-stone-200 sticky top-0 z-50">
@@ -56,24 +66,9 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-stone-700 uppercase tracking-wider">
-            <Link
-              to="/shop-all"
-              className="hover:text-amber-800 transition-colors"
-            >
-              Shop All
-            </Link>
-            <Link
-              to="/material"
-              className="hover:text-amber-800 transition-colors"
-            >
-              Material
-            </Link>
-            <Link
-              to="/about"
-              className="hover:text-amber-800 transition-colors"
-            >
-              About us
-            </Link>
+            <Link to="/shop" className="hover:text-amber-800 transition-colors">Shop All</Link>
+            <Link to="/material" className="hover:text-amber-800 transition-colors">Material</Link>
+            <Link to="/about" className="hover:text-amber-800 transition-colors">About us</Link>
           </div>
 
           {/* Logo */}
@@ -88,37 +83,30 @@ const Navbar = () => {
 
           {/* Right Icons */}
           <div className="flex items-center space-x-3 md:space-x-6">
-            <Link
-              to="/search"
-              className="hidden sm:block text-stone-700 hover:text-amber-800"
-            >
+            <Link to="/search" className="hidden sm:block text-stone-700 hover:text-amber-800">
               <Search size={20} strokeWidth={1.5} />
             </Link>
 
-            {/* User Icon opens modal or navigates to account */}
-            <button
-              onClick={handleUserClick}
-              className="hidden sm:block text-stone-700 hover:text-amber-800"
-            >
+            <button onClick={handleUserClick} className="hidden sm:block text-stone-700 hover:text-amber-800">
               <User size={20} strokeWidth={1.5} />
             </button>
 
-            <Link
-              to="/wishlist"
-              className="text-stone-700 hover:text-amber-800"
-            >
+            <Link to="/wishlist" className="text-stone-700 hover:text-amber-800">
               <Heart size={20} strokeWidth={1.5} />
             </Link>
 
-            <Link
-              to="/cart"
+            {/* Cart Drawer Trigger */}
+            <button
+              onClick={() => setIsCartOpen(true)}
               className="text-stone-700 hover:text-amber-800 relative"
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
-              <span className="absolute -top-1 -right-2 bg-amber-700 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center">
-                0
-              </span>
-            </Link>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-2 bg-amber-700 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </div>
@@ -127,29 +115,14 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white border-b border-stone-200 animate-in slide-in-from-top duration-300">
           <div className="px-4 pt-2 pb-6 space-y-4 text-center">
-            <Link
-              to="/shop-all"
-              className="block text-lg font-medium text-stone-800 py-2 border-b"
-            >
-              Shop All
-            </Link>
-            <Link
-              to="/material"
-              className="block text-lg font-medium text-stone-800 py-2 border-b"
-            >
-              Material
-            </Link>
-            <Link
-              to="/interior"
-              className="block text-lg font-medium text-stone-800 py-2 border-b"
-            >
-              Interior
-            </Link>
+            <Link to="/shop" className="block text-lg font-medium text-stone-800 py-2 border-b">Shop All</Link>
+            <Link to="/material" className="block text-lg font-medium text-stone-800 py-2 border-b">Material</Link>
+            <Link to="/interior" className="block text-lg font-medium text-stone-800 py-2 border-b">Interior</Link>
           </div>
         </div>
       )}
 
-      {/* Centered Auth Modal */}
+      {/* Auth Modal */}
       {isAuthOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white rounded-2xl p-6 w-80 shadow-2xl relative animate-in fade-in duration-200">
@@ -168,6 +141,9 @@ const Navbar = () => {
           </div>
         </div>
       )}
+
+      {/* Cart Drawer */}
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </nav>
   );
 };

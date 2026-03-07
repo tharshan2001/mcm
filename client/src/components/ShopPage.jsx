@@ -55,11 +55,10 @@ const ShopPage = () => {
   const filteredProducts = products.filter((p) => {
     const materialMatch =
       selectedMaterials.length === 0 ||
-      selectedMaterials.includes(p.category?.category_name);
+      selectedMaterials.includes(p.categoryName);
 
     const regionMatch =
-      selectedRegions.length === 0 ||
-      selectedRegions.includes(p.category?.category_name);
+      selectedRegions.length === 0 || selectedRegions.includes(p.categoryName);
 
     const price = parseFloat(p.price);
     const priceMatch = price >= priceRange[0] && price <= priceRange[1];
@@ -93,7 +92,6 @@ const ShopPage = () => {
         <main className="flex-1 h-full overflow-y-auto py-8 pr-2">
           {/* Toolbar */}
           <div className="flex justify-end items-center mb-8  top-0  z-10 pb-4">
-            
             {/* Custom Sort Dropdown */}
             <div className="relative w-56 justify-left">
               <button
