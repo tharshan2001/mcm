@@ -1,55 +1,49 @@
-import React, { useEffect } from 'react';
-import { X, Minus, Plus, ShoppingBag, ArrowRight } from 'lucide-react';
-import { useCartStore } from '../stores/cartStore';
+// src/components/CartDrawer.jsx
+import React, { useEffect, useState } from "react";
+import { X, Minus, Plus, ShoppingBag, ArrowRight } from "lucide-react";
+import { useCartStore } from "../stores/cartStore";
+import CheckoutModal from "./CheckoutModal"; // import the modal component
 
 const CartDrawer = ({ isOpen, onClose }) => {
-  const {
-    cart,
-    fetchCart,
-    increaseItem,
-    decreaseItem,
-    checkout,
-    loading,
-  } = useCartStore();
+  const { cart, fetchCart, increaseItem, decreaseItem, loading } = useCartStore();
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
-  // Load cart on mount or when drawer opens
+  // Load cart on mount or drawer open
   useEffect(() => {
     if (isOpen) {
-      fetchCart(); // No cartId needed, backend uses logged-in user
-      document.body.style.overflow = 'hidden';
+      fetchCart();
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
+      setIsCheckoutOpen(false); // close checkout modal if drawer closes
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
-  const handleIncrease = (productId) => {
-    increaseItem(productId);
-  };
-
-  const handleDecrease = (productId) => {
-    decreaseItem(productId);
-  };
-
+  const handleIncrease = (productId) => increaseItem(productId);
+  const handleDecrease = (productId) => decreaseItem(productId);
   const handleRemove = (productId) => {
-    // Decrease to 0
     const item = cart.items.find((i) => i.product.id === productId);
-    if (item) decreaseItem(productId); // repeated calls remove completely
+    if (item) decreaseItem(productId);
   };
 
-  const subtotal = cart?.items?.reduce(
-    (acc, item) => acc + (item.price * item.quantity),
-    0
-  ) || 0;
+  const handleCheckoutClick = () => {
+    // Close drawer first
+    onClose();
+    // Open modal after drawer closes
+    setTimeout(() => setIsCheckoutOpen(true), 0);
+  };
+
+  const subtotal = cart?.items?.reduce((acc, item) => acc + item.price * item.quantity, 0) || 0;
 
   return (
     <>
       {/* Dark Overlay */}
       <div
         className={`fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 transition-opacity duration-500 ${
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
       />
@@ -57,7 +51,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
       {/* Right Drawer */}
       <div
         className={`fixed top-0 right-0 h-full w-full sm:w-[450px] bg-[#FCF9F6] shadow-2xl z-50 flex flex-col transform transition-transform duration-500 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Header */}
@@ -90,8 +84,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
             </div>
           ) : (
             cart.items.map((item) => {
-              // Use first image or fallback
-              const imageUrl = item.product.images?.[0] || 'https://via.placeholder.com/200';
+              const imageUrl = item.product.images?.[0] || "https://via.placeholder.com/200";
               return (
                 <div key={item.product.id} className="flex gap-4 group">
                   {/* Image */}
@@ -105,25 +98,22 @@ const CartDrawer = ({ isOpen, onClose }) => {
 
                   {/* Details */}
                   <div className="flex flex-col justify-between flex-1 py-1">
-                    <div>
-                      <div className="flex justify-between items-start">
-                        <h3 className="font-serif text-stone-800 text-lg leading-tight pr-4">
-                          {item.product.name}
-                        </h3>
-                        <button
-                          onClick={() => handleRemove(item.product.id)}
-                          className="text-stone-400 hover:text-red-700 transition-colors"
-                        >
-                          <X size={16} />
-                        </button>
-                      </div>
-                      <p className="text-[10px] uppercase tracking-widest text-stone-500 mt-1">
-                        {item.product.material || 'N/A'}
-                      </p>
+                    <div className="flex justify-between items-start">
+                      <h3 className="font-serif text-stone-800 text-lg leading-tight pr-4">
+                        {item.product.name}
+                      </h3>
+                      <button
+                        onClick={() => handleRemove(item.product.id)}
+                        className="text-stone-400 hover:text-red-700 transition-colors"
+                      >
+                        <X size={16} />
+                      </button>
                     </div>
+                    <p className="text-[10px] uppercase tracking-widest text-stone-500 mt-1">
+                      {item.product.material || "N/A"}
+                    </p>
 
                     <div className="flex justify-between items-end mt-4">
-                      {/* Quantity */}
                       <div className="flex items-center border border-stone-200 bg-white">
                         <button
                           onClick={() => handleDecrease(item.product.id)}
@@ -163,7 +153,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
               Taxes and shipping calculated at checkout.
             </p>
             <button
-              onClick={checkout}
+              onClick={handleCheckoutClick}
               className="w-full bg-[#5C4033] text-white py-4 text-xs font-bold uppercase tracking-widest hover:bg-amber-900 transition-all flex items-center justify-center gap-2 shadow-lg"
             >
               Proceed to Checkout <ArrowRight size={16} />
@@ -171,6 +161,13 @@ const CartDrawer = ({ isOpen, onClose }) => {
           </div>
         )}
       </div>
+
+      {/* Centered Checkout Modal */}
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        cart={cart}
+      />
     </>
   );
 };

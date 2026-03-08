@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import ProductUpdatePopover from "./ProductUpdatePopover";
+import ProductCreate from "./ProductCreate"; // import the create component
 import { Loader2, Plus, PackageOpen, AlertCircle } from "lucide-react";
 import { fetchProducts, deleteProduct, toggleArchive } from "../../service/product";
 
@@ -16,18 +16,17 @@ export default function ProductList() {
   const [hasMore, setHasMore] = useState(true);
 
   const [editingProduct, setEditingProduct] = useState(null);
+  const [showCreatePopover, setShowCreatePopover] = useState(false);
   const [closingModal, setClosingModal] = useState(false);
 
-  const navigate = useNavigate();
   const observer = useRef();
   const scrollContainerRef = useRef(null);
 
-  // load products
+  // Load products
   useEffect(() => {
     loadProducts();
   }, []);
 
-  // cleanup observer
   useEffect(() => {
     return () => {
       if (observer.current) observer.current.disconnect();
@@ -79,10 +78,7 @@ export default function ProductList() {
             loadProducts(nextCursor);
           }
         },
-        {
-          root: scrollContainerRef.current,
-          threshold: 0.1,
-        }
+        { root: scrollContainerRef.current, threshold: 0.1 }
       );
 
       if (node) observer.current.observe(node);
@@ -90,7 +86,6 @@ export default function ProductList() {
     [scrollLoading, hasMore, nextCursor]
   );
 
-  // delete product
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to remove this piece from the archive?")) return;
 
@@ -103,7 +98,6 @@ export default function ProductList() {
     }
   };
 
-  // archive product
   const handleArchive = async (id) => {
     const product = products.find((p) => p.id === id);
     if (!product) return;
@@ -119,59 +113,42 @@ export default function ProductList() {
     } catch (err) {
       console.error("Failed to archive product:", err);
       alert("Status update failed.");
-
       setProducts((prev) =>
         prev.map((p) => (p.id === id ? { ...p, archived: product.archived } : p))
       );
     }
   };
 
-  // open modal
   const handleEdit = (product) => {
     setEditingProduct(product);
   };
 
-  // smooth close modal
   const closeEditModal = () => {
     setClosingModal(true);
-
     setTimeout(() => {
       setEditingProduct(null);
       setClosingModal(false);
     }, 300);
   };
 
-  if (loading) {
-    return (
-      <div className="h-90 flex flex-col items-center justify-center bg-[#FCF9F6]">
-        <Loader2 className="animate-spin text-amber-800 mb-4" size={32} />
-        <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
-          Opening Archives...
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-[#FCF9F6] h-[700px] p-4 lg:p-12">
       <div className="max-w-7xl mx-auto">
-
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-4 pb-8">
           <div>
-            <h1 className="text-2xl font-serif text-[#5C4033]">
-              Inventory Manager
-            </h1>
+            <h1 className="text-2xl font-serif text-[#5C4033]">Inventory Manager</h1>
             <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-2 font-bold">
               {products.length} Curated Pieces in Collection
             </p>
           </div>
 
+          {/* New Product Button */}
           <button
-            onClick={() => navigate("/admin/products/create")}
+            onClick={() => setShowCreatePopover(true)}
             className="flex items-center gap-2 bg-[#5C4033] text-white px-8 py-4 text-[8px] font-bold uppercase tracking-[0.2em]"
           >
-            <Plus size={14} /> New product
+            <Plus size={14} /> New Product
           </button>
         </div>
 
@@ -182,17 +159,11 @@ export default function ProductList() {
         ) : products.length === 0 ? (
           <div className="text-center py-32 bg-white border border-dashed border-stone-200">
             <PackageOpen size={48} className="mx-auto text-stone-200 mb-4" />
-            <p className="font-serif italic text-stone-400">
-              The archive is currently empty.
-            </p>
+            <p className="font-serif italic text-stone-400">The archive is currently empty.</p>
           </div>
         ) : (
-          <div
-            ref={scrollContainerRef}
-            className="bg-white overflow-y-auto max-h-[500px]"
-          >
+          <div ref={scrollContainerRef} className="bg-white overflow-y-auto max-h-[500px]">
             <table className="w-full text-left border-collapse">
-
               <thead>
                 <tr className="sticky top-0 bg-[#FCF9F6] border-b border-stone-200">
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
@@ -215,7 +186,6 @@ export default function ProductList() {
                   </th>
                 </tr>
               </thead>
-
               <tbody className="divide-y divide-stone-100">
                 {products.map((product, index) => (
                   <ProductCard
@@ -228,7 +198,6 @@ export default function ProductList() {
                   />
                 ))}
               </tbody>
-
             </table>
 
             {scrollLoading && (
@@ -248,6 +217,21 @@ export default function ProductList() {
           onClose={closeEditModal}
           onUpdated={() => loadProducts()}
         />
+      )}
+
+      {/* Create Popover */}
+      {showCreatePopover && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+          <div className="bg-white w-full max-w-2xl p-6 rounded-lg shadow-lg relative">
+            <button
+              onClick={() => setShowCreatePopover(false)}
+              className="absolute top-2 right-2 text-stone-400 hover:text-stone-600"
+            >
+              ✕
+            </button>
+            <ProductCreate />
+          </div>
+        </div>
       )}
     </div>
   );

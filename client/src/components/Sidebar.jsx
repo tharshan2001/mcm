@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Menu, ConfigProvider } from 'antd';
+import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   PackageSearch, 
@@ -19,27 +20,36 @@ const getItem = (label, key, icon, children) => {
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
 
-  // Sidebar Menu Structure
+  // Sidebar Menu Structure with /admin/ prefix
   const items = [
-    getItem('Atelier Overview', 'dashboard', <LayoutDashboard size={18} />),
-    getItem('Products', 'products', <PackageSearch size={18} />, [
-      getItem('Active Looms', 'prod-active'),
-      getItem('Drafts', 'prod-drafts'),
-      getItem('Materials', 'prod-materials'),
-    ]),
-    getItem('Master Weavers', 'artisans', <Scissors size={18} />),
-    getItem('Customers', 'customers', <Users size={18} />),
-    getItem('Settings', 'settings', <Settings size={18} />),
+    getItem(
+      <Link to="/admin/dashboard">Atelier Overview</Link>,
+      'dashboard',
+      <LayoutDashboard size={18} />
+    ),
+    getItem(
+      <span>Products</span>, // parent menu without a link
+      'products',
+      <PackageSearch size={18} />,
+      [
+        getItem(<Link to="/admin/product-list">Active Looms</Link>, 'prod-active'),
+        getItem(<Link to="/admin/products/drafts">Drafts</Link>, 'prod-drafts'),
+        getItem(<Link to="/admin/products/materials">Materials</Link>, 'prod-materials'),
+      ]
+    ),
+    getItem(<Link to="/admin/artisans">Master Weavers</Link>, 'artisans', <Scissors size={18} />),
+    getItem(<Link to="/admin/customers">Customers</Link>, 'customers', <Users size={18} />),
+    getItem(<Link to="/admin/settings">Settings</Link>, 'settings', <Settings size={18} />),
   ];
 
   return (
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#5C4033', // Deep Brown for active states
-          colorBgContainer: '#FCF9F6', // Parchment background
-          colorText: '#57534e', // Tailwind stone-600
-          fontFamily: 'inherit', // Use Tailwind font
+          colorPrimary: '#5C4033', 
+          colorBgContainer: '#FCF9F6', 
+          colorText: '#57534e', 
+          fontFamily: 'inherit', 
         },
         components: {
           Menu: {
@@ -80,10 +90,13 @@ const Sidebar = () => {
 
         {/* Bottom Logout */}
         <div className="absolute bottom-16 w-full px-4">
-          <button className={`flex items-center gap-3 text-stone-500 hover:text-red-700 transition-colors w-full p-2 ${collapsed ? 'justify-center' : 'justify-start'}`}>
+          <Link 
+            to="/admin/logout"
+            className={`flex items-center gap-3 text-stone-500 hover:text-red-700 transition-colors w-full p-2 ${collapsed ? 'justify-center' : 'justify-start'}`}
+          >
             <LogOut size={18} />
             {!collapsed && <span className="text-sm font-medium">Exit Portal</span>}
-          </button>
+          </Link>
         </div>
       </Sider>
     </ConfigProvider>

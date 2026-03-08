@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@keyframes cart-fast {
+  0% { transform: translateX(-180px); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateX(180px); opacity: 0; }
+}
+
+.animate-cart-fast {
+  /* Faster speed: 1.8 seconds */
+  animation: cart-fast 2.3s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
+}
