@@ -1,0 +1,254 @@
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import ProductCard from "./ProductCard";
+import ProductUpdatePopover from "./ProductUpdatePopover";
+import { Loader2, Plus, PackageOpen, AlertCircle } from "lucide-react";
+import { fetchProducts, deleteProduct, toggleArchive } from "../../service/product";
+
+const PAGE_SIZE = 10;
+
+export default function ProductList() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [scrollLoading, setScrollLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [nextCursor, setNextCursor] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
+
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [closingModal, setClosingModal] = useState(false);
+
+  const navigate = useNavigate();
+  const observer = useRef();
+  const scrollContainerRef = useRef(null);
+
+  // load products
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  // cleanup observer
+  useEffect(() => {
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, []);
+
+  const loadProducts = async (cursor = null) => {
+    try {
+      if (cursor) setScrollLoading(true);
+      else setLoading(true);
+
+      const data = await fetchProducts(cursor);
+
+      if (cursor) {
+        setProducts((prev) => {
+          const existingIds = new Set(prev.map((p) => p.id));
+          const newProducts = data.filter((p) => !existingIds.has(p.id));
+          return [...prev, ...newProducts];
+        });
+      } else {
+        setProducts(data);
+      }
+
+      if (data.length > 0) {
+        setNextCursor(data[data.length - 1].id);
+        setHasMore(data.length === PAGE_SIZE);
+      } else {
+        setHasMore(false);
+      }
+    } catch (err) {
+      console.error("Failed to fetch products:", err);
+      setError("The archive could not be reached at this time.");
+      setHasMore(false);
+    } finally {
+      setLoading(false);
+      setScrollLoading(false);
+    }
+  };
+
+  const lastProductRef = useCallback(
+    (node) => {
+      if (scrollLoading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (entry.isIntersecting && hasMore && !scrollLoading) {
+            loadProducts(nextCursor);
+          }
+        },
+        {
+          root: scrollContainerRef.current,
+          threshold: 0.1,
+        }
+      );
+
+      if (node) observer.current.observe(node);
+    },
+    [scrollLoading, hasMore, nextCursor]
+  );
+
+  // delete product
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to remove this piece from the archive?")) return;
+
+    try {
+      await deleteProduct(id);
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+    } catch (err) {
+      console.error("Failed to delete product:", err);
+      alert("Action failed. Please try again.");
+    }
+  };
+
+  // archive product
+  const handleArchive = async (id) => {
+    const product = products.find((p) => p.id === id);
+    if (!product) return;
+
+    const newArchivedStatus = !product.archived;
+
+    setProducts((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, archived: newArchivedStatus } : p))
+    );
+
+    try {
+      await toggleArchive(id, newArchivedStatus);
+    } catch (err) {
+      console.error("Failed to archive product:", err);
+      alert("Status update failed.");
+
+      setProducts((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, archived: product.archived } : p))
+      );
+    }
+  };
+
+  // open modal
+  const handleEdit = (product) => {
+    setEditingProduct(product);
+  };
+
+  // smooth close modal
+  const closeEditModal = () => {
+    setClosingModal(true);
+
+    setTimeout(() => {
+      setEditingProduct(null);
+      setClosingModal(false);
+    }, 300);
+  };
+
+  if (loading) {
+    return (
+      <div className="h-90 flex flex-col items-center justify-center bg-[#FCF9F6]">
+        <Loader2 className="animate-spin text-amber-800 mb-4" size={32} />
+        <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
+          Opening Archives...
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-[#FCF9F6] h-[700px] p-4 lg:p-12">
+      <div className="max-w-7xl mx-auto">
+
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-4 pb-8">
+          <div>
+            <h1 className="text-2xl font-serif text-[#5C4033]">
+              Inventory Manager
+            </h1>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-2 font-bold">
+              {products.length} Curated Pieces in Collection
+            </p>
+          </div>
+
+          <button
+            onClick={() => navigate("/admin/products/create")}
+            className="flex items-center gap-2 bg-[#5C4033] text-white px-8 py-4 text-[8px] font-bold uppercase tracking-[0.2em]"
+          >
+            <Plus size={14} /> New product
+          </button>
+        </div>
+
+        {error ? (
+          <div className="bg-red-50 border-l-2 border-red-400 p-4 flex items-center gap-4 text-red-800 italic">
+            <AlertCircle size={20} /> {error}
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-32 bg-white border border-dashed border-stone-200">
+            <PackageOpen size={48} className="mx-auto text-stone-200 mb-4" />
+            <p className="font-serif italic text-stone-400">
+              The archive is currently empty.
+            </p>
+          </div>
+        ) : (
+          <div
+            ref={scrollContainerRef}
+            className="bg-white overflow-y-auto max-h-[500px]"
+          >
+            <table className="w-full text-left border-collapse">
+
+              <thead>
+                <tr className="sticky top-0 bg-[#FCF9F6] border-b border-stone-200">
+                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
+                    Product Details
+                  </th>
+                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
+                    Category
+                  </th>
+                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
+                    Price
+                  </th>
+                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
+                    Stock
+                  </th>
+                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
+                    Status
+                  </th>
+                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold text-right">
+                    Management
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody className="divide-y divide-stone-100">
+                {products.map((product, index) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onEdit={() => handleEdit(product)}
+                    onDelete={handleDelete}
+                    onToggleArchive={handleArchive}
+                    ref={index === products.length - 1 ? lastProductRef : null}
+                  />
+                ))}
+              </tbody>
+
+            </table>
+
+            {scrollLoading && (
+              <div className="flex justify-center py-4">
+                <Loader2 className="animate-spin text-amber-800" size={24} />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Update Popover */}
+      {editingProduct && (
+        <ProductUpdatePopover
+          productData={editingProduct}
+          closing={closingModal}
+          onClose={closeEditModal}
+          onUpdated={() => loadProducts()}
+        />
+      )}
+    </div>
+  );
+}

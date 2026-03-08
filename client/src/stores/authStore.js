@@ -12,26 +12,26 @@ const API = axios.create({
 export const useAuthStore = create((set) => ({
   user: null,
   loading: false,
+  hasFetchedUser: false, // track if fetchUser has completed
   error: null,
+
+  // AUTH MODAL STATE
+  isAuthOpen: false,
+  showLogin: true,
+
+  openLogin: () => set({ isAuthOpen: true, showLogin: true }),
+  openSignup: () => set({ isAuthOpen: true, showLogin: false }),
+  closeAuth: () => set({ isAuthOpen: false }),
 
   // REGISTER
   register: async (userData) => {
     set({ loading: true, error: null });
-
     try {
       const res = await API.post("/auth/register", userData);
-
-      set({
-        user: res.data,
-        loading: false,
-      });
-
+      set({ user: res.data, loading: false, isAuthOpen: false });
       return res.data;
     } catch (err) {
-      set({
-        error: err.response?.data?.message || err.message,
-        loading: false,
-      });
+      set({ error: err.response?.data?.message || err.message, loading: false });
       throw err;
     }
   },
@@ -39,21 +39,12 @@ export const useAuthStore = create((set) => ({
   // LOGIN
   login: async (credentials) => {
     set({ loading: true, error: null });
-
     try {
       const res = await API.post("/auth/login", credentials);
-
-      set({
-        user: res.data,
-        loading: false,
-      });
-
+      set({ user: res.data, loading: false, isAuthOpen: false });
       return res.data;
     } catch (err) {
-      set({
-        error: err.response?.data?.message || err.message,
-        loading: false,
-      });
+      set({ error: err.response?.data?.message || err.message, loading: false });
       throw err;
     }
   },
@@ -61,22 +52,12 @@ export const useAuthStore = create((set) => ({
   // FETCH CURRENT USER
   fetchUser: async () => {
     set({ loading: true });
-
     try {
       const res = await API.get("/auth/me");
-
-      set({
-        user: res.data,
-        loading: false,
-      });
-
+      set({ user: res.data, loading: false, hasFetchedUser: true });
       return res.data;
     } catch (err) {
-      set({
-        user: null,
-        loading: false,
-      });
-
+      set({ user: null, loading: false, hasFetchedUser: true });
       return null;
     }
   },
@@ -84,19 +65,11 @@ export const useAuthStore = create((set) => ({
   // LOGOUT
   logout: async () => {
     set({ loading: true });
-
     try {
       await API.post("/auth/logout");
-
-      set({
-        user: null,
-        loading: false,
-      });
+      set({ user: null, loading: false });
     } catch (err) {
-      set({
-        error: err.response?.data?.message || err.message,
-        loading: false,
-      });
+      set({ error: err.response?.data?.message || err.message, loading: false });
     }
   },
 

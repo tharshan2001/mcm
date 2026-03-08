@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
-import { useCartStore } from "../stores/cartStore"; // <-- Import cart store
+import { useCartStore } from "../stores/cartStore";
+import { useAuthStore } from "../stores/authStore";
 
 const Products = ({ products }) => {
   return (
@@ -13,15 +14,15 @@ const Products = ({ products }) => {
   );
 };
 
-// Separate component to handle hover image carousel and navigation
 const HoverProductCard = ({ product }) => {
   const [hovered, setHovered] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
+
   const navigate = useNavigate();
 
-  const { addItem } = useCartStore(); // <-- Access Zustand addItem function
+  const { addItem } = useCartStore();
+  const { user, openLogin } = useAuthStore();
 
-  // Cycle images every 700ms on hover
   React.useEffect(() => {
     if (!hovered || !product.images || product.images.length <= 1) return;
 
@@ -32,15 +33,19 @@ const HoverProductCard = ({ product }) => {
     return () => clearInterval(interval);
   }, [hovered, product.images]);
 
-  // Navigate to product detail page
   const handleNavigate = () => {
     navigate(`/shop/${product.slug}`);
   };
 
-  // Quick Add to cart
   const handleQuickAdd = async (e) => {
-    e.stopPropagation(); // Prevent navigating to product detail
-    await addItem(product.id, 1); // Add 1 quantity to cart
+    e.stopPropagation();
+
+    if (!user) {
+      openLogin();
+      return;
+    }
+
+    await addItem(product.id, 1);
   };
 
   return (
@@ -49,11 +54,10 @@ const HoverProductCard = ({ product }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
         setHovered(false);
-        setCurrentImage(0); // reset to first image
+        setCurrentImage(0);
       }}
-      onClick={handleNavigate} // navigate on click
+      onClick={handleNavigate}
     >
-      {/* Image */}
       <div className="relative aspect-[4/5] overflow-hidden bg-stone-100 mb-4 rounded-sm">
         <img
           src={
@@ -67,37 +71,28 @@ const HoverProductCard = ({ product }) => {
 
         <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <button
-            onClick={handleQuickAdd} // Connects to Zustand API
-            className="w-full bg-white/95 backdrop-blur-sm text-stone-900 py-3 text-xs font-bold uppercase tracking-widest shadow-xl flex items-center justify-center gap-2 hover:bg-[#5C4033] hover:text-white transition-colors"
+            onClick={handleQuickAdd}
+            className="w-full bg-white/95 text-stone-900 py-3 text-xs font-bold uppercase tracking-widest shadow-xl flex items-center justify-center gap-2 hover:bg-[#5C4033] hover:text-white"
           >
             <ShoppingBag size={14} /> Quick Add
           </button>
         </div>
       </div>
 
-      {/* Details */}
       <div className="flex-1 space-y-1">
-        <div className="flex justify-between items-start">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-amber-800 font-bold">
-            {product.categoryName || "Uncategorized"}
-          </p>
+        <p className="text-[10px] uppercase tracking-[0.2em] text-amber-800 font-bold">
+          {product.categoryName || "Uncategorized"}
+        </p>
 
-          {product.stockQuantity < 15 && (
-            <span className="text-[9px] text-red-600 font-medium bg-red-50 px-2 py-0.5 rounded-full uppercase">
-              Only {product.stockQuantity} left
-            </span>
-          )}
-        </div>
+        <h3 className="text-lg font-serif text-stone-800">{product.name}</h3>
 
-        <h3 className="text-lg font-serif text-stone-800 leading-tight group-hover:text-amber-900 transition-colors">
-          {product.name}
-        </h3>
-
-        <p className="text-stone-500 text-sm font-light line-clamp-1">
+        <p className="text-stone-500 text-sm line-clamp-1">
           {product.description}
         </p>
 
-        <p className="text-stone-900 font-medium pt-2 text-lg">${product.price}</p>
+        <p className="text-stone-900 font-medium pt-2 text-lg">
+          ${product.price}
+        </p>
       </div>
     </div>
   );
