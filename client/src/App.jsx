@@ -13,6 +13,8 @@ import ProductCreate from "./components/admin/ProductCreate";
 import { useAuthStore } from "./stores/authStore";
 import AdminRoute from "./routes/AdminRoute";
 import ProductList from "./components/admin/ProductList";
+import OrderDetail from "./components/order/OrderDetail";
+import OrderList from "./components/admin/OrderList";
 
 function App() {
   const location = useLocation();
@@ -56,13 +58,15 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/material" element={<MaterialsPage />} />
         <Route path="/about" element={<About />} />
+        <Route path="/orders/:id" element={<OrderDetail />} />
 
         {/* Admin Protected Routes */}
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<DashboardLayout />}>
             <Route path="product" element={<ProductCreate />} />
             <Route path="product-list" element={<ProductList />} />
-
+            <Route path="order-list" element={<OrderList />} />
+            
             {/* Add more admin routes here */}
           </Route>
         </Route>

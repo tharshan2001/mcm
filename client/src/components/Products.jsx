@@ -5,8 +5,12 @@ import { useCartStore } from "../stores/cartStore";
 import { useAuthStore } from "../stores/authStore";
 
 const Products = ({ products }) => {
+  if (!products || products.length === 0) {
+    return <p className="text-center text-stone-500">No products found.</p>;
+  }
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
       {products.map((product, idx) => (
         <HoverProductCard key={idx} product={product} />
       ))}
@@ -19,7 +23,6 @@ const HoverProductCard = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(0);
 
   const navigate = useNavigate();
-
   const { addItem } = useCartStore();
   const { user, openLogin } = useAuthStore();
 
@@ -39,12 +42,10 @@ const HoverProductCard = ({ product }) => {
 
   const handleQuickAdd = async (e) => {
     e.stopPropagation();
-
     if (!user) {
       openLogin();
       return;
     }
-
     await addItem(product.id, 1);
   };
 

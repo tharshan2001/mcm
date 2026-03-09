@@ -1,0 +1,10 @@
+// src/service/order.js
+import api from "./api";
+
+export const fetchOrdersForScroll = async (cursor = null) => {
+  const params = cursor ? { cursor } : {};
+  const res = await api.get("orders/scroll", { params });
+  console.log("[fetchOrdersForScroll] cursor:", cursor);
+  console.log("[fetchOrdersForScroll] response:", res.data);
+  return res.data;
+};

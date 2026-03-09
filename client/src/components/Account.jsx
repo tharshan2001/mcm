@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Package, Heart, Settings, MapPin, LogOut, ChevronRight, Clock, Award } from 'lucide-react';
-import { useAuthStore } from '../stores/authStore';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import {
+  Package,
+  Heart,
+  Settings,
+  MapPin,
+  LogOut,
+  ChevronRight,
+  Clock,
+  Award,
+} from "lucide-react";
+import { useAuthStore } from "../stores/authStore";
+import { useNavigate } from "react-router-dom";
+import OrdersList from "../components/order/OrdersList"; 
 
 // --- Reusable UI Pieces ---
 const NavItem = ({ item, active, onClick }) => (
@@ -13,7 +23,9 @@ const NavItem = ({ item, active, onClick }) => (
         : "bg-white text-stone-600 hover:bg-stone-50 border-stone-100"
     }`}
   >
-    <div className="flex items-center gap-3">{item.icon} {item.label}</div>
+    <div className="flex items-center gap-3">
+      {item.icon} {item.label}
+    </div>
     <ChevronRight
       size={14}
       className={active === item.id ? "opacity-100" : "opacity-0"}
@@ -21,35 +33,8 @@ const NavItem = ({ item, active, onClick }) => (
   </button>
 );
 
-const OrderRow = ({ order }) => (
-  <div className="bg-white p-5 border border-stone-200 flex justify-between items-center group hover:border-amber-200 transition-colors">
-    <div className="flex gap-4 items-center">
-      <div className="p-2 bg-stone-50 text-stone-400">
-        <Package size={20} />
-      </div>
-      <div>
-        <p className="font-medium text-stone-900 text-sm">{order.id}</p>
-        <p className="text-[10px] text-stone-500 uppercase">{order.date}</p>
-      </div>
-    </div>
-    <div className="flex items-center gap-6">
-      <span
-        className={`text-[10px] font-bold px-3 py-1 rounded-full ${
-          order.status === 'Delivered'
-            ? 'bg-green-50 text-green-700'
-            : 'bg-amber-50 text-amber-700'
-        }`}
-      >
-        {order.status}
-      </span>
-      <p className="font-serif font-bold text-stone-900">{order.total}</p>
-    </div>
-  </div>
-);
-
-// --- Main Component ---
 const Account = () => {
-  const [activeTab, setActiveTab] = useState('orders');
+  const [activeTab, setActiveTab] = useState("orders");
   const { user, fetchUser, logout } = useAuthStore();
   const navigate = useNavigate();
 
@@ -57,7 +42,7 @@ const Account = () => {
   useEffect(() => {
     const init = async () => {
       const u = await fetchUser();
-      if (!u) navigate('/'); // redirect if not logged in
+      if (!u) navigate("/"); // redirect if not logged in
     };
     init();
   }, [fetchUser, navigate]);
@@ -65,7 +50,7 @@ const Account = () => {
   // Logout handler
   const handleLogout = async () => {
     await logout();
-    navigate('/'); // redirect to homepage after logout
+    navigate("/"); // redirect to homepage after logout
   };
 
   if (!user)
@@ -76,10 +61,9 @@ const Account = () => {
     );
 
   const tabs = [
-    { id: 'orders', label: 'Orders', icon: <Package size={18} /> },
-    { id: 'wishlist', label: 'Wishlist', icon: <Heart size={18} /> },
-    { id: 'addresses', label: 'Addresses', icon: <MapPin size={18} /> },
-    { id: 'settings', label: 'Settings', icon: <Settings size={18} /> },
+    { id: "orders", label: "Orders", icon: <Package size={18} /> },
+    { id: "addresses", label: "Addresses", icon: <MapPin size={18} /> },
+    { id: "settings", label: "Settings", icon: <Settings size={18} /> },
   ];
 
   return (
@@ -92,7 +76,9 @@ const Account = () => {
               {user.fullName?.charAt(0)}
             </div>
             <div>
-              <h1 className="text-2xl font-serif text-[#5C4033]">{user.fullName}</h1>
+              <h1 className="text-2xl font-serif text-[#5C4033]">
+                {user.fullName}
+              </h1>
               <p className="text-stone-400 text-xs uppercase tracking-widest">
                 {user.email}
               </p>
@@ -118,9 +104,9 @@ const Account = () => {
       </div>
 
       {/* Content */}
-      <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-4 gap-10">
+      <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-4 gap-10 ">
         <nav className="space-y-1">
-          {tabs.map(tab => (
+          {tabs.map((tab) => (
             <NavItem
               key={tab.id}
               item={tab}
@@ -130,28 +116,14 @@ const Account = () => {
           ))}
         </nav>
 
-        <main className="lg:col-span-3">
-          {activeTab === 'orders' ? (
-            <div className="space-y-4">
-              <h3 className="text-lg font-serif text-[#5C4033] mb-4">Past Purchases</h3>
-              {/* TODO: Replace with real user orders */}
-              <OrderRow order={{ id: "#LC-9902", date: "Feb 12, 2026", status: "Delivered", total: "$280.00" }} />
-              <OrderRow order={{ id: "#LC-8841", date: "Jan 05, 2026", status: "In Transit", total: "$125.00" }} />
-
-              <div className="mt-10 p-10 border border-dashed border-stone-200 text-center bg-white/50">
-                <Clock size={24} className="mx-auto text-stone-300 mb-3" />
-                <p className="text-sm text-stone-500 italic">Ready for your next find?</p>
-                <button
-                  onClick={() => navigate('/shop')}
-                  className="mt-3 text-amber-800 text-xs font-bold uppercase tracking-widest border-b border-amber-800"
-                >
-                  Shop The Collection
-                </button>
-              </div>
-            </div>
+        <main className="lg:col-span-3 ">
+          {activeTab === "orders" ? (
+            <OrdersList />
           ) : (
             <div className="bg-white border border-stone-200 p-20 text-center">
-              <p className="text-stone-400 italic font-serif capitalize">{activeTab}</p>
+              <p className="text-stone-400 italic font-serif capitalize">
+                {activeTab}
+              </p>
             </div>
           )}
         </main>

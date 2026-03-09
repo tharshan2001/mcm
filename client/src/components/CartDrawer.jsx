@@ -1,11 +1,12 @@
 // src/components/CartDrawer.jsx
 import React, { useEffect, useState } from "react";
-import { X, Minus, Plus, ShoppingBag, ArrowRight } from "lucide-react";
+import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useCartStore } from "../stores/cartStore";
 import CheckoutModal from "./CheckoutModal"; // import the modal component
 
 const CartDrawer = ({ isOpen, onClose }) => {
-  const { cart, fetchCart, increaseItem, decreaseItem, loading } = useCartStore();
+  const { cart, fetchCart, increaseItem, decreaseItem, loading } =
+    useCartStore();
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   // Load cart on mount or drawer open
@@ -36,14 +37,18 @@ const CartDrawer = ({ isOpen, onClose }) => {
     setTimeout(() => setIsCheckoutOpen(true), 0);
   };
 
-  const subtotal = cart?.items?.reduce((acc, item) => acc + item.price * item.quantity, 0) || 0;
+  const subtotal =
+    cart?.items?.reduce((acc, item) => acc + item.price * item.quantity, 0) ||
+    0;
 
   return (
     <>
       {/* Dark Overlay */}
       <div
         className={`fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 transition-opacity duration-500 ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          isOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
       />
@@ -73,7 +78,11 @@ const CartDrawer = ({ isOpen, onClose }) => {
             <p className="text-center text-stone-500">Loading...</p>
           ) : !cart?.items?.length ? (
             <div className="h-full flex flex-col items-center justify-center text-stone-500 space-y-4">
-              <ShoppingBag size={48} strokeWidth={1} className="text-stone-300" />
+              <ShoppingBag
+                size={48}
+                strokeWidth={1}
+                className="text-stone-300"
+              />
               <p className="font-serif italic">Your tote is currently empty.</p>
               <button
                 onClick={onClose}
@@ -84,7 +93,8 @@ const CartDrawer = ({ isOpen, onClose }) => {
             </div>
           ) : (
             cart.items.map((item) => {
-              const imageUrl = item.product.images?.[0] || "https://via.placeholder.com/200";
+              const imageUrl =
+                item.product.images?.[0] || "https://via.placeholder.com/200";
               return (
                 <div key={item.product.id} className="flex gap-4 group">
                   {/* Image */}
@@ -109,8 +119,8 @@ const CartDrawer = ({ isOpen, onClose }) => {
                         <X size={16} />
                       </button>
                     </div>
-                    <p className="text-[10px] uppercase tracking-widest text-stone-500 mt-1">
-                      {item.product.material || "N/A"}
+                    <p className="text-[13px] uppercase tracking-widest text-stone-500">
+                      {item.product.price || "N/A"}
                     </p>
 
                     <div className="flex justify-between items-end mt-4">
@@ -147,16 +157,46 @@ const CartDrawer = ({ isOpen, onClose }) => {
           <div className="border-t border-stone-200 bg-white p-6 space-y-4">
             <div className="flex justify-between items-center text-stone-800">
               <span className="font-serif text-lg">Subtotal</span>
-              <span className="font-serif text-xl font-bold">${subtotal.toFixed(2)}</span>
+              <span className="font-serif text-xl font-bold">
+                ${subtotal.toFixed(2)}
+              </span>
             </div>
             <p className="text-xs text-stone-500 font-light italic">
               Taxes and shipping calculated at checkout.
             </p>
             <button
               onClick={handleCheckoutClick}
-              className="w-full bg-[#5C4033] text-white py-4 text-xs font-bold uppercase tracking-widest hover:bg-amber-900 transition-all flex items-center justify-center gap-2 shadow-lg"
+              className="group relative w-full bg-[#5C4033] py-5 px-8 flex items-center justify-center gap-3 transition-all duration-500 overflow-hidden active:scale-[0.98]"
             >
-              Proceed to Checkout <ArrowRight size={16} />
+              {/* Subtle Shine Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+
+              {/* Button Text */}
+              <span className="relative text-[10px] font-bold uppercase tracking-[0.4em] text-stone-100 group-hover:text-white transition-colors">
+                Proceed to Checkout
+              </span>
+
+              {/* --- THE ANIMATED ICON --- */}
+              <div className="relative flex items-center">
+                {/* The Expanding Dash (Thread) */}
+                <div className="w-0 h-[1px] bg-stone-400 group-hover:w-4 group-hover:bg-white transition-all duration-500 ease-out" />
+
+                {/* The Chevron (Needle/Arrow) */}
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-3 h-3 text-stone-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-500"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </div>
+
+              {/* Internal "Stitch" Border */}
+              <div className="absolute inset-1 border border-white/10 pointer-events-none" />
             </button>
           </div>
         )}

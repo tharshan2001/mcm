@@ -7,6 +7,7 @@ import {
   Scissors, 
   Users, 
   Settings, 
+  Package,
   LogOut 
 } from 'lucide-react';
 
@@ -33,11 +34,9 @@ const Sidebar = () => {
       <PackageSearch size={18} />,
       [
         getItem(<Link to="/admin/product-list">Active Looms</Link>, 'prod-active'),
-        getItem(<Link to="/admin/products/drafts">Drafts</Link>, 'prod-drafts'),
-        getItem(<Link to="/admin/products/materials">Materials</Link>, 'prod-materials'),
       ]
     ),
-    getItem(<Link to="/admin/artisans">Master Weavers</Link>, 'artisans', <Scissors size={18} />),
+    getItem(<Link to="/admin/order-list">Orders</Link>, 'artisans', <Package size={18} />),
     getItem(<Link to="/admin/customers">Customers</Link>, 'customers', <Users size={18} />),
     getItem(<Link to="/admin/settings">Settings</Link>, 'settings', <Settings size={18} />),
   ];

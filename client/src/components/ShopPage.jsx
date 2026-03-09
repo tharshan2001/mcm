@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Sliders } from "lucide-react"; // Sliders icon for filter
 import api from "../service/api";
 
 import Products from "./Products";
@@ -13,12 +13,10 @@ const ShopPage = () => {
   const [selectedRegions, setSelectedRegions] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1000]);
 
-  // Custom sort dropdown state
   const [sortOpen, setSortOpen] = useState(false);
   const [sortOption, setSortOption] = useState("Popularity");
   const sortOptions = ["Popularity", "New Arrivals", "Price Low-High"];
 
-  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -30,16 +28,14 @@ const ShopPage = () => {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
 
-  // Filters
   const toggleMaterial = (material) => {
     setSelectedMaterials((prev) =>
       prev.includes(material)
         ? prev.filter((m) => m !== material)
-        : [...prev, material],
+        : [...prev, material]
     );
   };
 
@@ -47,22 +43,18 @@ const ShopPage = () => {
     setSelectedRegions((prev) =>
       prev.includes(region)
         ? prev.filter((r) => r !== region)
-        : [...prev, region],
+        : [...prev, region]
     );
   };
 
-  // Filtering logic
   const filteredProducts = products.filter((p) => {
     const materialMatch =
       selectedMaterials.length === 0 ||
       selectedMaterials.includes(p.categoryName);
-
     const regionMatch =
       selectedRegions.length === 0 || selectedRegions.includes(p.categoryName);
-
     const price = parseFloat(p.price);
     const priceMatch = price >= priceRange[0] && price <= priceRange[1];
-
     return materialMatch && regionMatch && priceMatch;
   });
 
@@ -75,10 +67,10 @@ const ShopPage = () => {
   }
 
   return (
-    <div className="bg-[#FCF9F6] h-[740px] overflow-hidden">
-      {/* Main Layout */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 h-full flex gap-12">
-        {/* Sidebar (Sticky) */}
+    <div className="bg-[#FCF9F6] p-4 sm:p-5">
+
+      <div className="max-w-8xl mx-auto flex flex-col lg:flex-row gap-6 lg:gap-12 h-[700px] p-10 pb-0">
+        {/* Desktop Filter Sidebar */}
         <FilterPage
           selectedMaterials={selectedMaterials}
           selectedRegions={selectedRegions}
@@ -89,42 +81,74 @@ const ShopPage = () => {
         />
 
         {/* Products Area */}
-        <main className="flex-1 h-full overflow-y-auto py-8 pr-2">
+        <main className="flex-1 overflow-y-auto p-10">
           {/* Toolbar */}
-          <div className="flex justify-end items-center mb-8  top-0  z-10 pb-4">
-            {/* Custom Sort Dropdown */}
-            <div className="relative w-56 justify-left">
-              <button
-                onClick={() => setSortOpen(!sortOpen)}
-                className="w-full bg-white border border-stone-300 py-1.5 px-4 rounded-md text-sm flex justify-between items-center hover:border-stone-400 transition"
-              >
-                {sortOption}
-                <ChevronDown size={16} />
-              </button>
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex items-center gap-3">
+              {/* Sort Dropdown */}
+              <div className="relative group">
+                <button
+                  onClick={() => setSortOpen(!sortOpen)}
+                  className={`relative w-40 sm:w-48 lg:w-56 bg-white border ${
+                    sortOpen ? "border-[#5C4033]" : "border-stone-200"
+                  } py-1.5 px-4 flex justify-between items-center mt-3 mb-2
+                  text-[11px] uppercase tracking-widest font-medium text-stone-700
+                  transition-all duration-300
+                  hover:border-stone-400`}
+                >
+                  {sortOption}
+                  <div
+                    className={`transition-transform duration-300 ${
+                      sortOpen ? "rotate-180" : "rotate-0"
+                    }`}
+                  >
+                    <ChevronDown
+                      size={14}
+                      strokeWidth={1.5}
+                      className="text-stone-400"
+                    />
+                  </div>
+                </button>
 
-              {sortOpen && (
-                <div className="absolute right-0 mt-1 w-56 bg-white border border-stone-200 rounded-md shadow-lg z-50">
-                  {sortOptions.map((option) => (
+                {/* Dropdown Menu - Parchment Style */}
+                {sortOpen && (
+                  <>
+                    {/* Overlay to close when clicking outside */}
                     <div
-                      key={option}
-                      onClick={() => {
-                        setSortOption(option);
-                        setSortOpen(false);
-                      }}
-                      className="px-4 py-2 text-sm hover:bg-amber-50 hover:text-amber-900 cursor-pointer transition"
-                    >
-                      {option}
+                      className="fixed inset-0 z-40"
+                      onClick={() => setSortOpen(false)}
+                    />
+
+                    <div className="absolute top-full left-0 w-full mt-1 bg-white border border-stone-200 shadow-xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="py-1">
+                        {sortOptions.map((option) => (
+                          <button
+                            key={option}
+                            onClick={() => {
+                              setSortOption(option);
+                              setSortOpen(false);
+                            }}
+                            className={`
+                              w-full text-left px-4 py-2 text-[10px] uppercase tracking-widest transition-colors
+                              ${
+                                sortOption === option
+                                  ? "text-[#5C4033] bg-[#FCF9F6] font-bold"
+                                  : "text-stone-500 hover:bg-[#FCF9F6] hover:text-[#5C4033]"
+                              }
+                            `}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  ))}
-                </div>
-              )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Products Grid */}
-          <div className="mx-8">
-            <Products products={filteredProducts} />
-          </div>
+          <Products products={filteredProducts} />
         </main>
       </div>
     </div>
