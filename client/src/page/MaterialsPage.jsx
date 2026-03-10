@@ -1,7 +1,7 @@
 // src/pages/MaterialsPage.jsx
 import React, { useEffect, useState } from "react";
 import api from "../service/api";
-import ProductGrid from "../components/ProductGrid";
+import ProductGrid from "../components/product/ProductGrid";
 
 const MaterialsPage = () => {
   const [products, setProducts] = useState([]);

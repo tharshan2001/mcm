@@ -9,9 +9,9 @@ import {
   ShieldCheck,
   RefreshCw,
 } from "lucide-react";
-import api from "../service/api";
-import { useCartStore } from "../stores/cartStore";
-import { useAuthStore } from "../stores/authStore";
+import api from "../../service/api";
+import { useCartStore } from "../../stores/cartStore";
+import { useAuthStore } from "../../stores/authStore";
 
 const ProductDetail = () => {
   const { slug } = useParams();

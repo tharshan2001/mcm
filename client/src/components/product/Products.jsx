@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
-import { useCartStore } from "../stores/cartStore";
-import { useAuthStore } from "../stores/authStore";
+import { useCartStore } from "../../stores/cartStore";
+import { useAuthStore } from "../../stores/authStore";
 
 const Products = ({ products }) => {
   if (!products || products.length === 0) {

@@ -1,7 +1,7 @@
 // src/components/CartDrawer.jsx
 import React, { useEffect, useState } from "react";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
-import { useCartStore } from "../stores/cartStore";
+import { useCartStore } from "../../stores/cartStore";
 import CheckoutModal from "./CheckoutModal"; // import the modal component
 
 const CartDrawer = ({ isOpen, onClose }) => {

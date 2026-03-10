@@ -4,7 +4,7 @@ import { ShoppingBag, User, Menu, X } from "lucide-react";
 import Login from "./Login";
 import Signup from "./Signup";
 import { useAuthStore } from "../stores/authStore";
-import CartDrawer from "./CartDrawer";
+import CartDrawer from "../components/cart/CartDrawer";
 import { useCartStore } from "../stores/cartStore";
 
 const Navbar = () => {

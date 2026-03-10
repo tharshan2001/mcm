@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./page/HomePage";
-import ShopPage from "./components/ShopPage";
-import ProductDetail from "./components/ProductDetail";
+import ShopPage from "./components/product/ShopPage";
+import ProductDetail from "./components/product/ProductDetail";
 import Navbar from "./components/Navbar";
 import Account from "./components/Account";
 import { Toaster } from "react-hot-toast";

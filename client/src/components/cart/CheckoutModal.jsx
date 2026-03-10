@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { Loader2, CheckCircle2, ShieldCheck, X, ShoppingCart, Truck } from "lucide-react";
-import api from "../service/api";
+import api from "../../service/api";
 
 const stripePromise = loadStripe("pk_test_51SICd4GZ35ZW82pcF0GVf50ItTlBwkTZ014Ml7cS1ruWR8TDRUCgepT5CDAMK77Whxab6wzBdppHy2GpZknNLVgX00RAIfbqRJ"); 
 

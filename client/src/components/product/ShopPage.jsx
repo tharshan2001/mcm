@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, Sliders } from "lucide-react"; 
-import api from "../service/api";
+import api from "../../service/api";
 
 import Products from "./Products";
-import FilterPage from "./FilterPage";
+import FilterPage from "../FilterPage";
 
 const ShopPage = () => {
   const [products, setProducts] = useState([]);
