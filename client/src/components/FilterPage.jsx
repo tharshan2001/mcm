@@ -16,7 +16,7 @@ const FilterPage = ({
 
   // Desktop Sidebar
   const desktopSidebar = (
-    <aside className="hidden lg:block w-[100px] lg:w-40 shrink-0 sticky top-10 self-start h-[70vh] pr-2">
+    <aside className="hidden lg:block w-[100px] lg:w-40 shrink-0 sticky top-10 self-start h-[80vh] pr-2 ">
       <h3 className="text-xs font-bold uppercase tracking-widest text-stone-900 mb-4 flex items-center justify-between">
         Filter By <SlidersHorizontal size={14} />
       </h3>

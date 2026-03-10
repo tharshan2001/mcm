@@ -90,7 +90,7 @@ export default function ProductCreate() {
     "block text-[9px] uppercase tracking-widest text-stone-400 mb-1 font-bold";
 
   return (
-    <div className="h-[700px] bg-[#FCF9F6] py-6 px-4">
+    <div className="max-h-[80vh] overflow-y-auto bg-[#FCF9F6] py-6 px-4">
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}
@@ -194,16 +194,17 @@ export default function ProductCreate() {
               <label className={labelStyle}>Visual Archive</label>
 
               <div className="relative border-2 border-dashed border-stone-200 bg-stone-50 p-5 text-center hover:bg-stone-100 transition-colors">
+
                 <input
                   type="file"
                   multiple
                   accept="image/*"
                   onChange={handleFileChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
 
-                <Upload className="mx-auto text-stone-300 mb-1" size={20}/>
-                <p className="text-[9px] text-stone-500 uppercase font-medium">
+                <Upload className="mx-auto text-stone-300 mb-1 pointer-events-none" size={20}/>
+                <p className="text-[9px] text-stone-500 uppercase font-medium pointer-events-none">
                   Click or drag images
                 </p>
               </div>
@@ -222,6 +223,7 @@ export default function ProductCreate() {
                     />
 
                     <button
+                      type="button"
                       onClick={() => removeImage(index)}
                       className="absolute top-1 right-1 bg-white p-0.5 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
                     >

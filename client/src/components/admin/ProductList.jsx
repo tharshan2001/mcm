@@ -221,9 +221,10 @@ export default function ProductList() {
 
       {/* Create Popover */}
       {showCreatePopover && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
           <div className="bg-white w-full max-w-2xl p-6 rounded-lg shadow-lg relative">
             <button
+              type="button"
               onClick={() => setShowCreatePopover(false)}
               className="absolute top-2 right-2 text-stone-400 hover:text-stone-600"
             >

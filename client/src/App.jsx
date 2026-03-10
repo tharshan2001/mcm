@@ -64,9 +64,9 @@ function App() {
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<DashboardLayout />}>
             <Route path="product" element={<ProductCreate />} />
-            <Route path="product-list" element={<ProductList />} />
             <Route path="order-list" element={<OrderList />} />
-            
+            <Route path="product-list" element={<ProductList />} />
+
             {/* Add more admin routes here */}
           </Route>
         </Route>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import OrderRow from './OrderRow';
-import api from '../../service/api'; // your axios instance
+import api from '../../service/api'; 
 
 const OrdersList = () => {
   const navigate = useNavigate();

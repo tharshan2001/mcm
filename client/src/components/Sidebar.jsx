@@ -69,7 +69,7 @@ const Sidebar = () => {
         collapsed={collapsed} 
         onCollapse={(value) => setCollapsed(value)}
         width={260}
-        className="min-h-screen border-r border-stone-200 relative"
+        className="min-h-screen border-r border-stone-200 relative z-20" // added z-index
         theme="light"
       >
         {/* Brand Header */}

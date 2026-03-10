@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown, Sliders } from "lucide-react"; // Sliders icon for filter
+import { ChevronDown, Sliders } from "lucide-react"; 
 import api from "../service/api";
 
 import Products from "./Products";
@@ -67,9 +67,9 @@ const ShopPage = () => {
   }
 
   return (
-    <div className="bg-[#FCF9F6] p-4 sm:p-5">
+    <div className="p-4 sm:p-5">
 
-      <div className="max-w-8xl mx-auto flex flex-col lg:flex-row gap-6 lg:gap-12 h-[700px] p-10 pb-0">
+      <div className="max-w-8xl mx-auto flex flex-col lg:flex-row gap-6 lg:gap-12 h-[700px] lg:p-10 lg:pb-0">
         {/* Desktop Filter Sidebar */}
         <FilterPage
           selectedMaterials={selectedMaterials}
@@ -81,7 +81,7 @@ const ShopPage = () => {
         />
 
         {/* Products Area */}
-        <main className="flex-1 overflow-y-auto p-10">
+        <main className="flex-1 overflow-y-auto lg:p-10">
           {/* Toolbar */}
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center gap-3">
@@ -113,7 +113,6 @@ const ShopPage = () => {
                 {/* Dropdown Menu - Parchment Style */}
                 {sortOpen && (
                   <>
-                    {/* Overlay to close when clicking outside */}
                     <div
                       className="fixed inset-0 z-40"
                       onClick={() => setSortOpen(false)}
