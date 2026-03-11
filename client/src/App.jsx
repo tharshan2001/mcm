@@ -15,6 +15,9 @@ import AdminRoute from "./routes/AdminRoute";
 import ProductList from "./components/admin/ProductList";
 import OrderDetail from "./components/order/OrderDetail";
 import OrderList from "./components/admin/OrderList";
+import CustomerList from "./components/admin/CustomerList";
+import CategoryList from "./components/admin/CategoryList";
+import OrderDetailsPage from "./components/admin/OrderDetailsPage";
 
 function App() {
   const location = useLocation();
@@ -64,8 +67,12 @@ function App() {
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<DashboardLayout />}>
             <Route path="product" element={<ProductCreate />} />
+            <Route path="category" element={<CategoryList/>} />
             <Route path="order-list" element={<OrderList />} />
             <Route path="product-list" element={<ProductList />} />
+            <Route path="customers" element={<CustomerList />} />
+            <Route path="orders/:orderId" element={<OrderDetailsPage/>} />
+
 
             {/* Add more admin routes here */}
           </Route>

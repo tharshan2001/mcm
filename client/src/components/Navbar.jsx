@@ -46,7 +46,7 @@ const Navbar = () => {
   return (
     <nav className="bg-[#FCF9F6] border-b border-stone-200 sticky top-0 z-50">
       {/* Top banner */}
-      <div className="hidden bg-[#5C4033] text-stone-100 text-center py-2 text-[10px] sm:text-xs tracking-widest uppercase px-2">
+      <div className="lm:hidden bg-[#5C4033] text-stone-100 text-center py-2 text-[10px] sm:text-xs tracking-widest uppercase px-2">
         Authentic Hand-Woven Traditions • Free Shipping on Orders Over $150
       </div>
 

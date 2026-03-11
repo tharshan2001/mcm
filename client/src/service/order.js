@@ -8,3 +8,8 @@ export const fetchOrdersForScroll = async (cursor = null) => {
   console.log("[fetchOrdersForScroll] response:", res.data);
   return res.data;
 };
+
+export const getOrderById = async (orderId) => {
+  const response = await api.get(`/orders/${orderId}`);
+  return response.data;
+};
