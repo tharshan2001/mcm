@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./page/HomePage";
 import ShopPage from "./components/product/ShopPage";
-import ProductDetail from "./components/product/ProductDetail";
 import Navbar from "./components/Navbar";
 import Account from "./components/Account";
 import { Toaster } from "react-hot-toast";
@@ -18,6 +17,7 @@ import OrderList from "./components/admin/OrderList";
 import CustomerList from "./components/admin/CustomerList";
 import CategoryList from "./components/admin/CategoryList";
 import OrderDetailsPage from "./components/admin/OrderDetailsPage";
+import ProductPage from "./page/ProductPage";
 
 function App() {
   const location = useLocation();
@@ -57,7 +57,7 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
-        <Route path="/shop/:slug" element={<ProductDetail />} />
+        <Route path="/shop/:slug" element={<ProductPage/>} />
         <Route path="/account" element={<Account />} />
         <Route path="/material" element={<MaterialsPage />} />
         <Route path="/about" element={<About />} />

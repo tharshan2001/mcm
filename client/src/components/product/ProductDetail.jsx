@@ -60,7 +60,6 @@ const ProductDetail = () => {
     <div className="bg-[#FCF9F6] h-[700px] pt-15 mt-10 lg:flex lg:items-center lg:justify-center p-0 md:p-4 lg:p-8">
       {/* Main Card Container */}
       <div className="w-full max-w-6xl bg-white lg:h-[700px] lg:max-h-[660px] shadow-2xl lg:rounded-2xl overflow-hidden flex flex-col lg:flex-row relative">
-        
         {/* BACK TO GALLERY BUTTON FIXED TOP-LEFT */}
         <div className="absolute top-1 left-4 z-30">
           <button
