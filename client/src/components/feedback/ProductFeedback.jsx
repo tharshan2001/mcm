@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Star } from "lucide-react";
 import { submitFeedback } from "../../service/feedbackService";
+import api from "../../service/api";
 
-const ProductFeedback = ({ productId, onSubmitFeedback }) => {
+const ProductFeedback = ({ onSubmitFeedback }) => {
+  const { slug } = useParams(); // get slug from URL
+  const [productId, setProductId] = useState(null);
+
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [comments, setComments] = useState("");
@@ -10,24 +15,36 @@ const ProductFeedback = ({ productId, onSubmitFeedback }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Fetch product by slug to get its ID
+  useEffect(() => {
+    const fetchProductId = async () => {
+      try {
+        const response = await api.get(`products/${slug}`);
+        const data = response.data;
+        const id = Array.isArray(data) ? data[0]?.id : data?.id;
+        setProductId(id);
+      } catch (err) {
+        console.error("Failed to fetch product ID:", err);
+      }
+    };
+    if (slug) fetchProductId();
+  }, [slug]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (rating === 0 || !comments.trim()) return;
+    if (rating === 0 || !comments.trim() || !productId) return;
 
     setLoading(true);
     setErrorMessage("");
     setSuccessMessage("");
 
     try {
-      // Call the feedback service
       const response = await submitFeedback({ productId, rating, comments });
       setSuccessMessage("Thank you for your feedback!");
       setRating(0);
       setComments("");
 
-      if (onSubmitFeedback) {
-        onSubmitFeedback(response); // pass backend response if needed
-      }
+      if (onSubmitFeedback) onSubmitFeedback(response);
     } catch (error) {
       setErrorMessage("Failed to submit feedback. Please try again.");
       console.error(error);
@@ -82,13 +99,13 @@ const ProductFeedback = ({ productId, onSubmitFeedback }) => {
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={rating === 0 || !comments.trim() || loading}
+          disabled={rating === 0 || !comments.trim() || loading || !productId}
           className="w-full bg-[#5C4033] text-white py-4 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-stone-800 transition-colors duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {loading ? "Submitting..." : "Submit"}
         </button>
 
-        {/* Success / Error Messages */}
+        {/* Messages */}
         {successMessage && (
           <p className="text-green-600 text-center mt-2">{successMessage}</p>
         )}
