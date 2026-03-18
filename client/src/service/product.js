@@ -79,3 +79,25 @@ export const updateProduct = async (id, productData, files) => {
 
   return response.data;
 };
+
+// Fetch related products for a specific product
+export const fetchRelatedProducts = async (productId) => {
+  const response = await api.get(`/products/${productId}/related`);
+
+  const data = Array.isArray(response.data)
+    ? response.data
+    : response.data.products || [];
+
+  return data;
+};
+
+
+// Fetch product by slug
+export const fetchProductBySlug = async (slug) => {
+  console.log("[fetchProductBySlug] slug:", slug);
+  if (!slug) throw new Error("Invalid slug");
+  const response = await api.get(`/products/${slug}`);
+  console.log("[fetchProductBySlug] response:", response.data);
+  return response.data;
+};
+
