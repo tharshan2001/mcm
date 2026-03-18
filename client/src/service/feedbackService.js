@@ -22,3 +22,19 @@ export const submitFeedback = async ({ productId, rating, comments }) => {
     throw error;
   }
 };
+
+
+/**
+ * Fetch feedback for a specific product by ID
+ * @param {number|string} productId - ID of the product
+ * @returns {Promise<Array>} - Array of feedback objects
+ */
+export const getFeedbackByProduct = async (productId) => {
+  try {
+    const response = await api.get(`feedback/product/${productId}`);
+    return response.data || [];
+  } catch (error) {
+    console.error("Failed to fetch feedback:", error);
+    throw error;
+  }
+};

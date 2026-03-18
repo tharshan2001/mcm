@@ -1,100 +1,83 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Star, Loader2 } from "lucide-react";
+import { useParams } from "react-router-dom";
+import { getFeedbackByProduct } from "../../service/feedbackService";
+import api from "../../service/api";
 
-const FeedbackList = ({ 
-  feedbackItems = [], // Default to empty array to prevent .length errors
-  loading = false, 
-  hasMore = false, 
-  onLoadMore 
-}) => {
-  
-  // Safe check for the count
+const FeedbackList = ({ refreshKey }) => {
+  const { slug } = useParams();
+  const [productId, setProductId] = useState(null);
+  const [feedbackItems, setFeedbackItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchId = async () => {
+      try {
+        const { data } = await api.get(`products/${slug}`);
+        setProductId(Array.isArray(data) ? data[0]?.id : data?.id);
+      } catch (err) { console.error(err); }
+    };
+    if (slug) fetchId();
+  }, [slug]);
+
+  useEffect(() => {
+    if (!productId) return;
+    const fetchFeedback = async () => {
+      setLoading(true);
+      try {
+        const feedback = await getFeedbackByProduct(productId);
+        setFeedbackItems(feedback);
+      } catch (err) { console.error(err); }
+      finally { setLoading(false); }
+    };
+    fetchFeedback();
+  }, [productId, refreshKey]); // Re-runs when refreshKey changes
+
   const reviewCount = feedbackItems?.length || 0;
 
   return (
-    <div className="max-w-2xl mx-auto py-12 px-4 bg-transparent">
-      {/* Header Section */}
-      <div className="flex items-center justify-between mb-10 border-b border-stone-100 pb-4">
-        <h3 className="text-xl font-serif text-[#5C4033]">Client Reflections</h3>
-        <span className="text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
-          {reviewCount} {reviewCount === 1 ? 'Review' : 'Reviews'}
+    <div className="max-w-3xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 border-b border-stone-200 pb-6 gap-4">
+        <div>
+          <h3 className="text-2xl font-serif text-[#5C4033]">Client Reflections</h3>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 font-bold mt-1">Verified Experiences</p>
+        </div>
+        <span className="text-[10px] uppercase tracking-[0.2em] text-stone-500 font-bold">
+          {reviewCount} {reviewCount === 1 ? "Archive" : "Archives"}
         </span>
       </div>
 
-      {/* Feedback Items List */}
-      <div className="space-y-12">
+      <div className="space-y-16">
         {feedbackItems.length > 0 ? (
-          feedbackItems.map((item, index) => (
-            <div 
-              key={item.id || index} 
-              className="animate-in fade-in slide-in-from-bottom-4 duration-500"
-            >
-              {/* Star Rating & Meta Info */}
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={10}
-                      strokeWidth={1.5}
-                      className={i < item.rating ? "fill-[#5C4033] text-[#5C4033]" : "text-stone-200"}
-                    />
-                  ))}
-                </div>
-                <span className="text-[9px] uppercase tracking-widest text-stone-400 font-medium">
-                  {item.createdAt 
-                    ? new Date(item.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-                    : "Recent Guest"}
+          feedbackItems.map((item) => (
+            <div key={item.id} className="group animate-in fade-in slide-in-from-bottom-2 duration-700">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                {/* Username as a Brand Signature */}
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#5C4033]">
+                  {item.username}
                 </span>
+                
+                <div className="flex items-center gap-4">
+                  <div className="flex gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={10} className={i < item.rating ? "fill-[#5C4033] text-[#5C4033]" : "text-stone-200"} />
+                    ))}
+                  </div>
+                  <span className="text-[9px] text-stone-400 uppercase tracking-widest">
+                    {new Date(item.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                  </span>
+                </div>
               </div>
 
-              {/* Comment Content */}
-              <p className="text-stone-700 text-sm leading-relaxed italic font-light">
+              <p className="text-stone-600 text-sm sm:text-base leading-relaxed font-light italic pl-4 border-l border-stone-100">
                 "{item.comments}"
               </p>
-              
-              {/* Bottom Divider (Artisan dash) */}
-              <div className="mt-8 w-6 h-px bg-stone-100" />
             </div>
           ))
         ) : !loading && (
-          /* Empty State */
-          <div className="text-center py-10">
-            <p className="text-stone-400 font-serif italic text-sm">No reflections shared yet.</p>
-          </div>
+          <p className="text-center text-stone-400 font-serif italic py-10">The ledger is currently empty.</p>
         )}
       </div>
-
-      {/* Load More Interaction */}
-      {hasMore && (
-        <div className="mt-16 flex flex-col items-center">
-          <button
-            onClick={onLoadMore}
-            disabled={loading}
-            className="group flex flex-col items-center gap-2 transition-all disabled:opacity-50"
-          >
-            {loading ? (
-              <Loader2 size={18} className="animate-spin text-stone-300" />
-            ) : (
-              <>
-                <span className="text-[10px] uppercase tracking-[0.4em] text-stone-400 group-hover:text-[#5C4033] transition-colors">
-                  View More
-                </span>
-                <div className="h-px w-12 bg-stone-200 group-hover:w-20 group-hover:bg-[#5C4033] transition-all duration-500" />
-              </>
-            )}
-          </button>
-        </div>
-      )}
-
-      {/* End of List Message */}
-      {!hasMore && feedbackItems.length > 0 && (
-        <div className="mt-16 text-center">
-          <p className="text-[9px] uppercase tracking-[0.2em] text-stone-300 font-bold">
-            All reviews synchronized
-          </p>
-        </div>
-      )}
     </div>
   );
 };

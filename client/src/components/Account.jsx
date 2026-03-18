@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import { useAuthStore } from "../stores/authStore";
 import { useNavigate } from "react-router-dom";
-import OrdersList from "../components/order/OrdersList"; 
+import OrdersList from "../components/order/OrdersList";
+import AddressSettings from "../components/address/AddressSettings"; // ✅ Added
 
 // --- Reusable UI Pieces ---
 const NavItem = ({ item, active, onClick }) => (
@@ -119,6 +120,8 @@ const Account = () => {
         <main className="lg:col-span-3 ">
           {activeTab === "orders" ? (
             <OrdersList />
+          ) : activeTab === "addresses" ? (
+            <AddressSettings /> // ✅ Integrated here
           ) : (
             <div className="bg-white border border-stone-200 p-20 text-center">
               <p className="text-stone-400 italic font-serif capitalize">
