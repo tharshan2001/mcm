@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Package } from 'lucide-react';
-import api from '../../service/api'; // your axios instance
+import { Package, Tag, ArrowLeft } from 'lucide-react';
+import api from '../../service/api';
 
 const OrderDetail = () => {
   const { id } = useParams();
@@ -48,8 +48,9 @@ const OrderDetail = () => {
     <div className="p-10 space-y-6">
       <button
         onClick={() => navigate(-1)}
-        className="text-amber-800 text-xs font-bold uppercase tracking-widest border-b border-amber-800"
+        className="flex items-center gap-2 text-amber-800 text-xs font-bold uppercase tracking-widest border-b border-amber-800 hover:opacity-70 transition-opacity"
       >
+        <ArrowLeft size={14} />
         Back to Orders
       </button>
 
@@ -78,6 +79,25 @@ const OrderDetail = () => {
         </span>
       </div>
 
+      {order.couponCode && (
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
+          <div className="p-2 bg-green-100 rounded-full">
+            <Tag size={16} className="text-green-600" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-green-800">
+              Coupon Applied: {order.couponCode}
+            </p>
+            {order.couponDescription && (
+              <p className="text-xs text-green-600">{order.couponDescription}</p>
+            )}
+            <p className="text-sm font-bold text-green-700">
+              You saved ${order.discountAmount?.toFixed(2)}!
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="space-y-4 mt-4">
         {order.items.map((item, index) => (
           <div
@@ -99,8 +119,21 @@ const OrderDetail = () => {
         ))}
       </div>
 
-      <div className="text-right mt-4 font-serif font-bold text-stone-900 text-lg">
-        Total: ${order.totalPrice.toFixed(2)}
+      <div className="bg-white border border-stone-200 rounded-lg p-4 space-y-2">
+        <div className="flex justify-between text-sm">
+          <span className="text-stone-500">Subtotal</span>
+          <span className="text-stone-900">${(order.totalPrice + order.discountAmount).toFixed(2)}</span>
+        </div>
+        {order.discountAmount > 0 && (
+          <div className="flex justify-between text-sm">
+            <span className="text-green-600">Discount</span>
+            <span className="text-green-600">-${order.discountAmount.toFixed(2)}</span>
+          </div>
+        )}
+        <div className="flex justify-between text-lg font-serif font-bold pt-2 border-t border-stone-200">
+          <span className="text-stone-900">Total</span>
+          <span className="text-[#5C4033]">${order.totalPrice.toFixed(2)}</span>
+        </div>
       </div>
     </div>
   );

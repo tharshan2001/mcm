@@ -16,20 +16,15 @@ export default function OrderList() {
   const observer = useRef();
   const scrollContainerRef = useRef(null);
 
-  // Initial load
   useEffect(() => {
-    console.log("[OrderList] Initial load");
     loadOrders();
   }, []);
 
   const loadOrders = async (cursor = null) => {
     try {
-      console.log("[loadOrders] cursor:", cursor);
-
       cursor ? setScrollLoading(true) : setLoading(true);
 
       const data = await fetchOrdersForScroll(cursor);
-      console.log("[loadOrders] fetched data length:", data.length);
 
       if (cursor) {
         setOrders((prev) => {
@@ -47,8 +42,7 @@ export default function OrderList() {
       } else {
         setHasMore(false);
       }
-    } catch (err) {
-      console.error("[loadOrders] failed:", err);
+    } catch (_err) {
       setError("Cannot load orders at this time.");
       setHasMore(false);
     } finally {
@@ -57,7 +51,6 @@ export default function OrderList() {
     }
   };
 
-  // Infinite scroll observer
   const lastOrderRef = useCallback(
     (node) => {
       if (scrollLoading) return;
@@ -67,7 +60,6 @@ export default function OrderList() {
         (entries) => {
           const entry = entries[0];
           if (entry.isIntersecting && hasMore && !scrollLoading) {
-            console.log("[InfiniteScroll] Load next page, cursor:", nextCursor);
             loadOrders(nextCursor);
           }
         },
@@ -103,11 +95,11 @@ export default function OrderList() {
                 <tr className="sticky top-0 bg-[#FCF9F6] border-b border-stone-200">
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Order ID</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Customer</th>
-                  {/* <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Shipping Address</th> */}
+                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Coupon</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Total Price</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Status</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Payment</th>
-                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold text-right">Items</th>
+                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100">

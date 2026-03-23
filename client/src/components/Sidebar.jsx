@@ -9,6 +9,7 @@ import {
   Settings,
   Package,
   LogOut,
+  Tag,
 } from "lucide-react";
 
 const { Sider } = Layout;
@@ -49,6 +50,11 @@ const Sidebar = () => {
       <Link to="/admin/customers">Customers</Link>,
       "customers",
       <Users size={18} />,
+    ),
+    getItem(
+      <Link to="/admin/coupons">Coupons</Link>,
+      "coupons",
+      <Tag size={18} />,
     ),
     getItem(
       <Link to="/admin/settings">Settings</Link>,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { Loader2, CheckCircle2, X, ShoppingCart } from "lucide-react";
+import { Loader2, CheckCircle2, X, ShoppingCart, Tag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import api from "../../service/api";
 import { useAddressStore } from "../../stores/addressStore";
@@ -29,6 +29,8 @@ function CheckoutForm({ cart, onClose }) {
 
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+
+  const [couponCode, setCouponCode] = useState("");
 
   const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState(null);
@@ -60,9 +62,11 @@ function CheckoutForm({ cart, onClose }) {
     setStatus('processing');
     setErrorMsg(null);
 
+    const couponCodeToUse = couponCode.trim() || null;
+
     try {
-      const { data } = await api.post("/orders/pay", null, { 
-        params: { amount: cart.totalPrice } 
+      const { data } = await api.post("/orders/pay", null, {
+        params: { couponCode: couponCodeToUse }
       });
 
       const { clientSecret, paymentId } = data;
@@ -79,8 +83,9 @@ function CheckoutForm({ cart, onClose }) {
       } else if (result.paymentIntent.status === "succeeded") {
         await api.post("/orders/checkout", null, { 
           params: { 
-            addressId: selectedAddress.id, // dynamic
-            paymentIntentId: paymentId 
+            addressId: selectedAddress.id,
+            paymentIntentId: paymentId,
+            couponCode: couponCodeToUse
           } 
         });
 
@@ -151,6 +156,23 @@ function CheckoutForm({ cart, onClose }) {
 
         {/* Payment */}
         <div className="space-y-4">
+          {/* Coupon Input */}
+          <div className="space-y-2">
+            <span className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">
+              Promo Code
+            </span>
+            <div className="relative">
+              <Tag size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+              <input
+                type="text"
+                placeholder="Enter code"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                className="w-full border border-stone-200 pl-9 p-2 text-sm"
+              />
+            </div>
+          </div>
+
           <div className="flex justify-between items-end border-b border-stone-200 pb-2">
             <span className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">
               Total Amount

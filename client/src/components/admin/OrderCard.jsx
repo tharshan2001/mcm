@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Package, Eye } from "lucide-react";
+import { Package, Eye, Tag, ExternalLink } from "lucide-react";
 
 const OrderCard = React.forwardRef(({ order }, ref) => {
   const navigate = useNavigate();
@@ -9,9 +9,9 @@ const OrderCard = React.forwardRef(({ order }, ref) => {
     navigate(`/admin/orders/${order.orderId}`);
   };
 
-  const handleView = (e) => {
+  const handleViewCustomer = (e) => {
     e.stopPropagation();
-    navigate(`/orders/${order.orderId}`);
+    navigate(`/admin/orders/${order.orderId}`);
   };
 
   return (
@@ -37,9 +37,30 @@ const OrderCard = React.forwardRef(({ order }, ref) => {
         {order.username}
       </td>
 
+      {/* Coupon */}
+      <td className="px-4 py-4">
+        {order.couponCode ? (
+          <div className="flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded w-fit">
+            <Tag size={12} />
+            <span>{order.couponCode}</span>
+          </div>
+        ) : (
+          <span className="text-xs text-stone-300">—</span>
+        )}
+      </td>
+
       {/* Total */}
       <td className="px-4 py-4 font-mono text-sm">
-        ${order.totalPrice?.toFixed(2)}
+        <div>
+          {order.discountAmount > 0 && (
+            <span className="text-xs text-stone-400 line-through mr-2">
+              ${(order.totalPrice + order.discountAmount).toFixed(2)}
+            </span>
+          )}
+          <span className={order.discountAmount > 0 ? "text-green-600 font-semibold" : ""}>
+            ${order.totalPrice?.toFixed(2)}
+          </span>
+        </div>
       </td>
 
       {/* Order Status */}
@@ -53,21 +74,14 @@ const OrderCard = React.forwardRef(({ order }, ref) => {
       </td>
 
       {/* Actions */}
-      <td className="py-4 pl-4 pr-6 text-right">
-        <div className="flex justify-end items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-
-          <button
-            onClick={handleView}
-            className="flex flex-col items-center p-2 text-stone-400 hover:text-[#5C4033] hover:bg-white rounded-full transition-all"
-            title="View Order"
-          >
-            <Eye size={16} strokeWidth={1.5} />
-            <span className="text-[8px] mt-1 font-mono uppercase tracking-widest">
-              View
-            </span>
-          </button>
-
-        </div>
+      <td className="py-4 pl-4 pr-6">
+        <button
+          onClick={handleViewCustomer}
+          className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-stone-500 bg-stone-50 hover:bg-[#5C4033] hover:text-white rounded-md transition-all border border-stone-200 hover:border-[#5C4033]"
+        >
+          <ExternalLink size={14} />
+          View
+        </button>
       </td>
     </tr>
   );

@@ -18,6 +18,7 @@ import CustomerList from "./components/admin/CustomerList";
 import CategoryList from "./components/admin/CategoryList";
 import OrderDetailsPage from "./components/admin/OrderDetailsPage";
 import ProductPage from "./page/ProductPage";
+import CouponList from "./components/admin/CouponList";
 
 function App() {
   const location = useLocation();
@@ -70,6 +71,7 @@ function App() {
             <Route path="category" element={<CategoryList/>} />
             <Route path="order-list" element={<OrderList />} />
             <Route path="product-list" element={<ProductList />} />
+            <Route path="coupons" element={<CouponList />} />
             <Route path="customers" element={<CustomerList />} />
             <Route path="orders/:orderId" element={<OrderDetailsPage/>} />
 

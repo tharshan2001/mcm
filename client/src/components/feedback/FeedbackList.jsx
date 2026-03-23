@@ -31,53 +31,92 @@ const FeedbackList = ({ refreshKey }) => {
       finally { setLoading(false); }
     };
     fetchFeedback();
-  }, [productId, refreshKey]); // Re-runs when refreshKey changes
+  }, [productId, refreshKey]);
 
   const reviewCount = feedbackItems?.length || 0;
+  const averageRating = reviewCount > 0 
+    ? (feedbackItems.reduce((sum, item) => sum + item.rating, 0) / reviewCount).toFixed(1)
+    : 0;
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 border-b border-stone-200 pb-6 gap-4">
-        <div>
-          <h3 className="text-2xl font-serif text-[#5C4033]">Client Reflections</h3>
-          <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 font-bold mt-1">Verified Experiences</p>
+      <div className="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden mb-8">
+        <div className="p-6 flex items-center justify-between border-b border-stone-100">
+          <div>
+            <h3 className="text-xl font-serif text-[#5C4033]">Customer Reviews</h3>
+            <p className="text-sm text-stone-500 mt-1">See what our customers say</p>
+          </div>
+          <div className="text-right">
+            <div className="flex items-center gap-2">
+              <span className="text-3xl font-bold text-[#5C4033]">{averageRating}</span>
+              <div className="flex flex-col items-start">
+                <div className="flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Star 
+                      key={i} 
+                      size={14} 
+                      className={i <= Math.round(averageRating) ? "fill-amber-400 text-amber-400" : "text-stone-200"} 
+                    />
+                  ))}
+                </div>
+                <span className="text-xs text-stone-400">{reviewCount} reviews</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <span className="text-[10px] uppercase tracking-[0.2em] text-stone-500 font-bold">
-          {reviewCount} {reviewCount === 1 ? "Archive" : "Archives"}
-        </span>
       </div>
 
-      <div className="space-y-16">
-        {feedbackItems.length > 0 ? (
-          feedbackItems.map((item) => (
-            <div key={item.id} className="group animate-in fade-in slide-in-from-bottom-2 duration-700">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
-                {/* Username as a Brand Signature */}
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#5C4033]">
-                  {item.username}
-                </span>
-                
-                <div className="flex items-center gap-4">
-                  <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={10} className={i < item.rating ? "fill-[#5C4033] text-[#5C4033]" : "text-stone-200"} />
-                    ))}
+      {loading ? (
+        <div className="flex justify-center py-12">
+          <Loader2 size={32} className="animate-spin text-stone-300" />
+        </div>
+      ) : feedbackItems.length > 0 ? (
+        <div className="space-y-4">
+          {feedbackItems.map((item, index) => (
+            <div 
+              key={item.id} 
+              className="bg-white rounded-xl p-6 shadow-sm border border-stone-100 hover:shadow-md transition-shadow"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#5C4033]/10 flex items-center justify-center">
+                    <span className="text-sm font-semibold text-[#5C4033]">
+                      {item.username ? item.username.charAt(0).toUpperCase() : "?"}
+                    </span>
                   </div>
-                  <span className="text-[9px] text-stone-400 uppercase tracking-widest">
-                    {new Date(item.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-stone-800">
+                      {item.username || "Anonymous"}
+                    </p>
+                    <p className="text-xs text-stone-400">
+                      {new Date(item.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Star 
+                      key={i} 
+                      size={14} 
+                      className={i <= item.rating ? "fill-amber-400 text-amber-400" : "text-stone-200"} 
+                    />
+                  ))}
                 </div>
               </div>
-
-              <p className="text-stone-600 text-sm sm:text-base leading-relaxed font-light italic pl-4 border-l border-stone-100">
-                "{item.comments}"
-              </p>
+              <p className="text-stone-600 leading-relaxed">{item.comments}</p>
             </div>
-          ))
-        ) : !loading && (
-          <p className="text-center text-stone-400 font-serif italic py-10">The ledger is currently empty.</p>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="bg-white rounded-2xl p-12 text-center border border-dashed border-stone-200">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-stone-50 flex items-center justify-center">
+            <Star size={24} className="text-stone-200" />
+          </div>
+          <p className="text-stone-500 font-medium">No reviews yet</p>
+          <p className="text-sm text-stone-400 mt-1">Be the first to share your experience</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -17,14 +17,19 @@ const OrdersList = () => {
 
         // Pass raw API status to OrderRow, let OrderRow handle the mapping
         const formattedOrders = data.map(order => ({
-          rawId: order.orderId, // for navigation
+          rawId: order.orderId,
           id: `#LC-${order.orderId}`,
           date: new Date(order.orderDate).toLocaleDateString('en-US', {
             month: 'short',
             day: '2-digit',
             year: 'numeric',
           }),
-          status: order.orderStatus, // keep raw status
+          status: order.orderStatus,
+          couponCode: order.couponCode || null,
+          discountAmount: order.discountAmount || 0,
+          originalTotal: order.discountAmount > 0 
+            ? `$${(order.totalPrice + order.discountAmount).toFixed(2)}`
+            : null,
           total: `$${order.totalPrice.toFixed(2)}`,
         }));
 

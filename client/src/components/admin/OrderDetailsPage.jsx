@@ -9,7 +9,9 @@ import {
   Calendar, 
   User, 
   ChevronLeft, 
-  Loader2 
+  Loader2,
+  Tag,
+  DollarSign
 } from "lucide-react";
 
 const OrderDetailsPage = () => {
@@ -95,7 +97,7 @@ const OrderDetailsPage = () => {
         </div>
 
         {/* Order Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* Customer Block */}
           <div className="bg-white p-6 rounded-xl border border-stone-100 shadow-sm flex items-start gap-4">
@@ -122,8 +124,27 @@ const OrderDetailsPage = () => {
             </div>
           </div>
 
+          {/* Coupon Block */}
+          {order.couponCode && (
+            <div className="bg-green-50 p-6 rounded-xl border border-green-200 shadow-sm flex items-start gap-4">
+              <div className="p-3 bg-green-100 rounded-full text-green-600 shrink-0">
+                <Tag size={20} strokeWidth={1.5} />
+              </div>
+              <div>
+                <span className="text-[10px] text-green-600 uppercase tracking-widest font-bold mb-1 block">Coupon Applied</span>
+                <p className="text-base font-semibold text-green-800">{order.couponCode}</p>
+                {order.couponDescription && (
+                  <p className="text-xs text-green-600 mt-1">{order.couponDescription}</p>
+                )}
+                <p className="text-sm font-bold text-green-700 mt-1">
+                  -${order.discountAmount?.toFixed(2)} saved
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Shipping Block */}
-          <div className="bg-white p-6 rounded-xl border border-stone-100 shadow-sm flex items-start gap-4 lg:col-span-1 md:col-span-2">
+          <div className={`bg-white p-6 rounded-xl border border-stone-100 shadow-sm flex items-start gap-4 ${!order.couponCode ? 'lg:col-span-1 md:col-span-2' : ''}`}>
             <div className="p-3 bg-stone-50 rounded-full text-amber-800 shrink-0">
               <MapPin size={20} strokeWidth={1.5} />
             </div>

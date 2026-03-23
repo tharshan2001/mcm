@@ -13,13 +13,5 @@ const api = axios.create({
   withCredentials: true, // automatically send cookies/credentials
 });
 
-// Optional: Add a response interceptor to handle errors globally
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.error('API Error:', error.response || error.message);
-    return Promise.reject(error);
-  }
-);
 
 export default api;

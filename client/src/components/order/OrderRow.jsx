@@ -1,8 +1,7 @@
 import React from 'react';
-import { Package } from 'lucide-react';
+import { Package, Tag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-// Map raw API status to friendly label and Tailwind color
 const statusMap = {
   PLACED: { label: 'PLACED', color: 'amber' },
   SHIPPED: { label: 'Shipped', color: 'blue' },
@@ -32,10 +31,21 @@ const OrderRow = ({ order }) => {
         </div>
       </div>
       <div className="flex items-center gap-6">
+        {order.couponCode && (
+          <div className="flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded">
+            <Tag size={12} />
+            <span>{order.couponCode}</span>
+          </div>
+        )}
         <span className={`text-[10px] font-bold px-3 py-1 rounded-full ${bgColor} ${textColor}`}>
           {statusInfo.label}
         </span>
-        <p className="font-serif font-bold text-stone-900">{order.total}</p>
+        <div className="text-right">
+          {order.discountAmount > 0 && (
+            <p className="text-[10px] text-stone-400 line-through">{order.originalTotal}</p>
+          )}
+          <p className="font-serif font-bold text-stone-900">{order.total}</p>
+        </div>
       </div>
     </div>
   );
