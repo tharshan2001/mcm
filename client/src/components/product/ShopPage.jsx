@@ -11,7 +11,7 @@ const ShopPage = () => {
 
   const [selectedMaterials, setSelectedMaterials] = useState([]);
   const [selectedRegions, setSelectedRegions] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState([0, 10000]); // ✅ Increased default max
 
   const [sortOpen, setSortOpen] = useState(false);
   const [sortOption, setSortOption] = useState("Popularity");
@@ -47,15 +47,18 @@ const ShopPage = () => {
     );
   };
 
+  // ✅ Fixed filter logic - show all products by default
   const filteredProducts = products.filter((p) => {
     const materialMatch =
       selectedMaterials.length === 0 ||
       selectedMaterials.includes(p.categoryName);
-    const regionMatch =
-      selectedRegions.length === 0 || selectedRegions.includes(p.categoryName);
+      
+    // ✅ Region filter removed since products don't have region field
+    
     const price = parseFloat(p.price);
     const priceMatch = price >= priceRange[0] && price <= priceRange[1];
-    return materialMatch && regionMatch && priceMatch;
+    
+    return materialMatch && priceMatch;
   });
 
   if (loading) {
@@ -68,7 +71,6 @@ const ShopPage = () => {
 
   return (
     <div className="p-4 sm:p-5">
-
       <div className="max-w-8xl mx-auto flex flex-col lg:flex-row gap-6 lg:gap-12 h-[700px] lg:p-10 lg:pb-0">
         {/* Desktop Filter Sidebar */}
         <FilterPage
@@ -110,7 +112,7 @@ const ShopPage = () => {
                   </div>
                 </button>
 
-                {/* Dropdown Menu - Parchment Style */}
+                {/* Dropdown Menu */}
                 {sortOpen && (
                   <>
                     <div

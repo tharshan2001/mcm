@@ -47,18 +47,18 @@ const OrderDetailsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4 text-stone-500 bg-[#FCF9F6]">
-        <Loader2 className="animate-spin text-amber-800" size={32} strokeWidth={1.5} />
-        <p className="text-xs uppercase tracking-widest font-bold">Retrieving Details...</p>
+      <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4 text-stone-500 bg-stone-50">
+        <Loader2 className="animate-spin text-stone-400" size={32} strokeWidth={1.5} />
+        <p className="text-sm text-stone-500">Loading...</p>
       </div>
     );
   }
 
   if (!order) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center p-6 bg-[#FCF9F6]">
-        <p className="font-serif italic text-stone-500 mb-4">Order details could not be found.</p>
-        <button onClick={() => navigate(-1)} className="text-xs font-bold uppercase tracking-widest border-b border-stone-800 pb-1 hover:text-amber-800 hover:border-amber-800 transition-colors">
+      <div className="min-h-[60vh] flex flex-col items-center justify-center p-6 bg-stone-50">
+        <p className="text-stone-500 mb-4">Order not found</p>
+        <button onClick={() => navigate(-1)} className="text-sm text-stone-600 hover:text-stone-800 transition-colors">
           Go Back
         </button>
       </div>
@@ -66,92 +66,89 @@ const OrderDetailsPage = () => {
   }
 
   return (
-    <div className="bg-[#FCF9F6] h-[700px] p-4 md:p-8 lg:p-12 text-stone-800">
-      <div className="max-w-5xl mx-auto space-y-8">
+    <div className="bg-stone-50 min-h-[700px] p-4 md:p-8 text-stone-800">
+      <div className="max-w-5xl mx-auto space-y-6">
         
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-200 pb-4">
           <div className="flex items-center gap-4">
             <button 
               onClick={() => navigate(-1)} 
-              className="p-2 -ml-2 text-stone-400 hover:text-amber-800 transition-colors"
+              className="p-2 -ml-2 text-stone-400 hover:text-stone-600 transition-colors"
             >
               <ChevronLeft size={24} strokeWidth={1.5} />
             </button>
             <div>
               <div className="flex items-center gap-3">
-                <Package size={24} className="text-amber-800" strokeWidth={1.5} />
-                <h1 className="text-3xl font-serif text-[#5C4033]">
+                <Package size={24} className="text-stone-600" strokeWidth={1.5} />
+                <h1 className="text-2xl font-serif text-stone-800">
                   Order #{order.orderId}
                 </h1>
               </div>
-              <p className="text-sm text-stone-500 mt-1 ml-9">
+              <p className="text-sm text-stone-500 mt-1">
                 Placed on {new Date(order.orderDate).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
             </div>
           </div>
 
-          <div className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest flex items-center justify-center ${getStatusColor(order.orderStatus)}`}>
+          <div className={`px-4 py-1.5 rounded-full text-xs font-medium flex items-center justify-center ${getStatusColor(order.orderStatus)}`}>
             {order.orderStatus}
           </div>
         </div>
 
         {/* Order Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           
           {/* Customer Block */}
-          <div className="bg-white p-6 rounded-xl border border-stone-100 shadow-sm flex items-start gap-4">
-            <div className="p-3 bg-stone-50 rounded-full text-amber-800 shrink-0">
-              <User size={20} strokeWidth={1.5} />
+          <div className="bg-white p-4 rounded-lg border border-stone-200 flex items-start gap-3">
+            <div className="p-2 bg-stone-100 rounded-lg text-stone-600 shrink-0">
+              <User size={18} strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-[10px] text-stone-400 uppercase tracking-widest font-bold mb-1 block">Customer</span>
-              <p className="text-base font-serif text-stone-900">{order.username}</p>
+              <span className="text-xs text-stone-400 uppercase tracking-wider block mb-1">Customer</span>
+              <p className="text-sm font-medium text-stone-800">{order.username}</p>
             </div>
           </div>
 
           {/* Payment Block */}
-          <div className="bg-white p-6 rounded-xl border border-stone-100 shadow-sm flex items-start gap-4">
-            <div className="p-3 bg-stone-50 rounded-full text-amber-800 shrink-0">
-              <CreditCard size={20} strokeWidth={1.5} />
+          <div className="bg-white p-4 rounded-lg border border-stone-200 flex items-start gap-3">
+            <div className="p-2 bg-stone-100 rounded-lg text-stone-600 shrink-0">
+              <CreditCard size={18} strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-[10px] text-stone-400 uppercase tracking-widest font-bold mb-1 block">Payment</span>
-              <p className="text-base font-medium text-stone-900 capitalize">{order.paymentStatus}</p>
-              <p className="text-xl font-serif text-[#5C4033] mt-1">
-                ${Number(order.totalPrice).toFixed(2)}
+              <span className="text-xs text-stone-400 uppercase tracking-wider block mb-1">Payment</span>
+              <p className="text-sm font-medium text-stone-800 capitalize">{order.paymentStatus}</p>
+              <p className="text-lg font-semibold text-stone-800 mt-1">
+                LKR {Number(order.totalPrice).toFixed(2)}
               </p>
             </div>
           </div>
 
           {/* Coupon Block */}
           {order.couponCode && (
-            <div className="bg-green-50 p-6 rounded-xl border border-green-200 shadow-sm flex items-start gap-4">
-              <div className="p-3 bg-green-100 rounded-full text-green-600 shrink-0">
-                <Tag size={20} strokeWidth={1.5} />
+            <div className="bg-green-50 p-4 rounded-lg border border-green-200 flex items-start gap-3">
+              <div className="p-2 bg-green-100 rounded-lg text-green-600 shrink-0">
+                <Tag size={18} strokeWidth={1.5} />
               </div>
               <div>
-                <span className="text-[10px] text-green-600 uppercase tracking-widest font-bold mb-1 block">Coupon Applied</span>
-                <p className="text-base font-semibold text-green-800">{order.couponCode}</p>
-                {order.couponDescription && (
-                  <p className="text-xs text-green-600 mt-1">{order.couponDescription}</p>
-                )}
-                <p className="text-sm font-bold text-green-700 mt-1">
-                  -${order.discountAmount?.toFixed(2)} saved
+                <span className="text-xs text-green-600 uppercase tracking-wider block mb-1">Coupon</span>
+                <p className="text-sm font-semibold text-green-800">{order.couponCode}</p>
+                <p className="text-xs font-medium text-green-600 mt-1">
+                  -LKR {order.discountAmount?.toFixed(2)} saved
                 </p>
               </div>
             </div>
           )}
 
           {/* Shipping Block */}
-          <div className={`bg-white p-6 rounded-xl border border-stone-100 shadow-sm flex items-start gap-4 ${!order.couponCode ? 'lg:col-span-1 md:col-span-2' : ''}`}>
-            <div className="p-3 bg-stone-50 rounded-full text-amber-800 shrink-0">
-              <MapPin size={20} strokeWidth={1.5} />
+          <div className={`bg-white p-4 rounded-lg border border-stone-200 flex items-start gap-3 ${!order.couponCode ? 'lg:col-span-1 md:col-span-2' : ''}`}>
+            <div className="p-2 bg-stone-100 rounded-lg text-stone-600 shrink-0">
+              <MapPin size={18} strokeWidth={1.5} />
             </div>
             <div>
-              <span className="text-[10px] text-stone-400 uppercase tracking-widest font-bold mb-1 block">Delivery Address</span>
+              <span className="text-xs text-stone-400 uppercase tracking-wider block mb-1">Delivery</span>
               <p className="text-sm text-stone-600 leading-relaxed">
-                {order.shippingAddress || "No address provided."}
+                {order.shippingAddress || "No address"}
               </p>
             </div>
           </div>
@@ -159,9 +156,9 @@ const OrderDetailsPage = () => {
         </div>
 
         {/* Order Items Section */}
-        <div className="bg-white rounded-xl border border-stone-100 shadow-sm overflow-hidden mt-8 overflow-y-auto">
-          <div className="px-6 py-4 border-b border-stone-100 bg-stone-50/50">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-stone-500">
+        <div className="bg-white rounded-lg border border-stone-200 overflow-hidden">
+          <div className="px-4 py-3 border-b border-stone-100 bg-stone-50">
+            <h2 className="text-sm font-medium text-stone-600">
               Purchased Items ({order.items?.length || 0})
             </h2>
           </div>

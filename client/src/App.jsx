@@ -19,6 +19,7 @@ import CategoryList from "./components/admin/CategoryList";
 import OrderDetailsPage from "./components/admin/OrderDetailsPage";
 import ProductPage from "./page/ProductPage";
 import CouponList from "./components/admin/CouponList";
+import Dashboard from "./components/admin/Dashboard";
 
 function App() {
   const location = useLocation();
@@ -67,6 +68,7 @@ function App() {
         {/* Admin Protected Routes */}
         <Route element={<AdminRoute />}>
           <Route path="/admin" element={<DashboardLayout />}>
+            <Route index element={<Dashboard />} />
             <Route path="product" element={<ProductCreate />} />
             <Route path="category" element={<CategoryList/>} />
             <Route path="order-list" element={<OrderList />} />

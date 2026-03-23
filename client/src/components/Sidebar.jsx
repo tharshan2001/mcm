@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Layout, Menu, ConfigProvider } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   PackageSearch,
@@ -11,6 +11,7 @@ import {
   LogOut,
   Tag,
 } from "lucide-react";
+import { useAuthStore } from "../stores/authStore";
 
 const { Sider } = Layout;
 
@@ -21,11 +22,18 @@ const getItem = (label, key, icon, children) => {
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useAuthStore();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
 
   // Sidebar Menu Structure with /admin/ prefix
   const items = [
     getItem(
-      <Link to="/admin/dashboard">Atelier Overview</Link>,
+      <Link to="/admin">Atelier Overview</Link>,
       "dashboard",
       <LayoutDashboard size={18} />,
     ),
@@ -68,20 +76,20 @@ const Sidebar = () => {
       theme={{
         token: {
           colorPrimary: "#5C4033",
-          colorBgContainer: "#FCF9F6",
+          colorBgContainer: "#fafaf9",
           colorText: "#57534e",
           fontFamily: "inherit",
         },
         components: {
           Menu: {
             itemBg: "transparent",
-            itemSelectedBg: "#f3e8ff",
+            itemSelectedBg: "#e7e5e4",
             itemSelectedColor: "#5C4033",
             itemHoverBg: "#f5f5f4",
             itemActiveBg: "#f5f5f4",
           },
           Layout: {
-            siderBg: "#FCF9F6",
+            siderBg: "#fafaf9",
           },
         },
       }}
@@ -113,15 +121,15 @@ const Sidebar = () => {
 
         {/* Bottom Logout */}
         <div className="absolute bottom-16 w-full px-4">
-          <Link
-            to="/admin/logout"
+          <button
+            onClick={handleLogout}
             className={`flex items-center gap-3 text-stone-500 hover:text-red-700 transition-colors w-full p-2 ${collapsed ? "justify-center" : "justify-start"}`}
           >
             <LogOut size={18} />
             {!collapsed && (
               <span className="text-sm font-medium">Exit Portal</span>
             )}
-          </Link>
+          </button>
         </div>
       </Sider>
     </ConfigProvider>

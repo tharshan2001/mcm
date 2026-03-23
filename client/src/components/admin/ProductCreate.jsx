@@ -90,16 +90,16 @@ export default function ProductCreate() {
     "block text-[9px] uppercase tracking-widest text-stone-400 mb-1 font-bold";
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto bg-[#FCF9F6] py-6 px-4">
+    <div className="max-h-[80vh] overflow-y-auto bg-stone-50 py-6 px-4">
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}
         <div className="mb-6 text-center lg:text-left">
-          <h1 className="text-2xl font-serif text-[#5C4033] flex items-center justify-center lg:justify-start gap-2">
-            <PackagePlus strokeWidth={1} size={22}/> New Archive Entry
+          <h1 className="text-2xl font-serif text-stone-800 flex items-center justify-center lg:justify-start gap-2">
+            <PackagePlus strokeWidth={1} size={22}/> New Product
           </h1>
-          <p className="text-stone-400 text-[10px] mt-1 uppercase tracking-widest">
-            Add a handcrafted piece to the collection
+          <p className="text-stone-500 text-sm mt-1">
+            Add a new product to the collection
           </p>
         </div>
 

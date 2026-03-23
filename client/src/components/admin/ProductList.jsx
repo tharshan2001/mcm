@@ -132,13 +132,13 @@ export default function ProductList() {
   };
 
   return (
-    <div className="bg-[#FCF9F6] h-[700px] p-4 lg:p-12">
+    <div className="bg-stone-50 min-h-[700px] p-4 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-4 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
           <div>
-            <h1 className="text-2xl font-serif text-[#5C4033]">Inventory Manager</h1>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-2 font-bold">
+            <h1 className="text-2xl font-serif text-stone-800">Inventory Manager</h1>
+            <p className="text-sm text-stone-500 mt-2">
               {products.length} Curated Pieces in Collection
             </p>
           </div>
@@ -146,7 +146,7 @@ export default function ProductList() {
           {/* New Product Button */}
           <button
             onClick={() => setShowCreatePopover(true)}
-            className="flex items-center gap-2 bg-[#5C4033] text-white px-8 py-4 text-[8px] font-bold uppercase tracking-[0.2em]"
+            className="flex items-center gap-2 bg-[#5C4033] text-white px-6 py-3 text-sm font-medium rounded-lg hover:bg-[#4A332A] transition-colors"
           >
             <Plus size={14} /> New Product
           </button>

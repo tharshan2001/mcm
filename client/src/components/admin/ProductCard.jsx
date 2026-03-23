@@ -49,7 +49,7 @@ const ProductCard = React.forwardRef(({ product, onEdit, onDelete, onToggleArchi
       {/* 3. Price */}
       <td className="px-4 py-4">
         <span className="text-sm font-medium text-stone-700 font-serif">
-          ${formattedPrice}
+          LKR {formattedPrice}
         </span>
       </td>
 

@@ -28,9 +28,9 @@ const OrdersList = () => {
           couponCode: order.couponCode || null,
           discountAmount: order.discountAmount || 0,
           originalTotal: order.discountAmount > 0 
-            ? `$${(order.totalPrice + order.discountAmount).toFixed(2)}`
+            ? `LKR ${(order.totalPrice + order.discountAmount).toFixed(2)}`
             : null,
-          total: `$${order.totalPrice.toFixed(2)}`,
+          total: `LKR ${order.totalPrice.toFixed(2)}`,
         }));
 
         setOrders(formattedOrders);

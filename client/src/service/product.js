@@ -28,6 +28,13 @@ export const toggleArchive = async (id, archived) => {
   return response.data;
 };
 
+export const fetchRelatedProducts = async (categorySlug, limit = 6) => {
+  const response = await api.get(`/products/category/${categorySlug}/related`, {
+    params: { limit },
+  });
+  return response.data;
+};
+
 // Existing product creation
 export const createProduct = async (productData, files) => {
   const formData = new FormData();
@@ -80,8 +87,8 @@ export const updateProduct = async (id, productData, files) => {
   return response.data;
 };
 
-// Fetch related products for a specific product
-export const fetchRelatedProducts = async (productId) => {
+// Legacy: Fetch related products for a specific product
+export const fetchRelatedProductsById = async (productId) => {
   const response = await api.get(`/products/${productId}/related`);
 
   const data = Array.isArray(response.data)

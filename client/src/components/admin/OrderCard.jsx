@@ -53,12 +53,12 @@ const OrderCard = React.forwardRef(({ order }, ref) => {
       <td className="px-4 py-4 font-mono text-sm">
         <div>
           {order.discountAmount > 0 && (
-            <span className="text-xs text-stone-400 line-through mr-2">
-              ${(order.totalPrice + order.discountAmount).toFixed(2)}
+              <span className="text-xs text-stone-400 line-through mr-2">
+              LKR {(order.totalPrice + order.discountAmount).toFixed(2)}
             </span>
           )}
           <span className={order.discountAmount > 0 ? "text-green-600 font-semibold" : ""}>
-            ${order.totalPrice?.toFixed(2)}
+            LKR {order.totalPrice?.toFixed(2)}
           </span>
         </div>
       </td>

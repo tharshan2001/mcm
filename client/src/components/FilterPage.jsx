@@ -11,12 +11,12 @@ const FilterPage = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const materials = ["Pure Silk", "Organic Cotton", "Linen Blend", "Khadi"];
+  const materials = ["Silk", "Cotton", "Linen", "Khadi"]; // ✅ Updated to match API
   const regions = ["Banaras", "Chanderi", "Kanchipuram", "Maheshwar"];
 
   // Desktop Sidebar
   const desktopSidebar = (
-    <aside className="hidden lg:block w-[100px] lg:w-40 shrink-0 sticky top-10 self-start h-[80vh] pr-2 ">
+    <aside className="hidden lg:block w-[100px] lg:w-40 shrink-0 sticky top-10 self-start h-[70vh] pr-2 ">
       <h3 className="text-xs font-bold uppercase tracking-widest text-stone-900 mb-4 flex items-center justify-between">
         Filter By <SlidersHorizontal size={14} />
       </h3>
@@ -43,27 +43,6 @@ const FilterPage = ({
           ))}
         </div>
 
-        {/* Region */}
-        <div>
-          <label className="text-sm font-medium text-stone-800 block mb-3 underline decoration-amber-200 underline-offset-4">
-            Region
-          </label>
-          {regions.map((item) => (
-            <label
-              key={item}
-              className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-amber-800"
-            >
-              <input
-                type="checkbox"
-                className="mr-3"
-                checked={selectedRegions.includes(item)}
-                onChange={() => toggleRegion(item)}
-              />
-              {item}
-              </label>
-          ))}
-        </div>
-
         {/* Price */}
         <div>
           <label className="text-sm font-medium text-stone-800 block mb-3 underline decoration-amber-200 underline-offset-4">
@@ -73,7 +52,7 @@ const FilterPage = ({
             type="range"
             className="w-full accent-amber-800"
             min="0"
-            max="1000"
+            max="10000" // ✅ Increased to 10000
             value={priceRange[1]}
             onChange={(e) => setPriceRange([0, parseInt(e.target.value, 10)])}
           />
@@ -143,27 +122,6 @@ const FilterPage = ({
             ))}
           </div>
 
-          {/* Region */}
-          <div>
-            <label className="text-sm font-medium text-stone-800 block mb-3 underline decoration-amber-200 underline-offset-4">
-              Region
-            </label>
-            {regions.map((item) => (
-              <label
-                key={item}
-                className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-amber-800"
-              >
-                <input
-                  type="checkbox"
-                  className="mr-3"
-                  checked={selectedRegions.includes(item)}
-                  onChange={() => toggleRegion(item)}
-                />
-                {item}
-              </label>
-            ))}
-          </div>
-
           {/* Price */}
           <div>
             <label className="text-sm font-medium text-stone-800 block mb-3 underline decoration-amber-200 underline-offset-4">
@@ -173,7 +131,7 @@ const FilterPage = ({
               type="range"
               className="w-full accent-amber-800"
               min="0"
-              max="1000"
+              max="10000" // ✅ Increased to 10000
               value={priceRange[1]}
               onChange={(e) =>
                 setPriceRange([0, parseInt(e.target.value, 10)])

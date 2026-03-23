@@ -30,7 +30,7 @@ const RelatedCard = ({ product, onClick }) => {
       </h3>
 
       {/* Product price */}
-      <p className="text-stone-900 font-medium">${product.price}</p>
+      <p className="text-stone-900 font-medium">LKR {product.price}</p>
     </div>
   );
 };

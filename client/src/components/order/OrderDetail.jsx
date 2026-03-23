@@ -92,7 +92,7 @@ const OrderDetail = () => {
               <p className="text-xs text-green-600">{order.couponDescription}</p>
             )}
             <p className="text-sm font-bold text-green-700">
-              You saved ${order.discountAmount?.toFixed(2)}!
+              You saved LKR {order.discountAmount?.toFixed(2)}!
             </p>
           </div>
         </div>
@@ -112,9 +112,9 @@ const OrderDetail = () => {
             <div className="flex-1">
               <p className="font-medium text-stone-900">{item.product.name}</p>
               <p className="text-[10px] text-stone-500">Qty: {item.quantity}</p>
-              <p className="text-[10px] text-stone-500">Price: ${item.price.toFixed(2)}</p>
+              <p className="text-[10px] text-stone-500">Price: LKR {item.price.toFixed(2)}</p>
             </div>
-            <div className="font-bold text-stone-900">${item.subTotal.toFixed(2)}</div>
+            <div className="font-bold text-stone-900">LKR {item.subTotal.toFixed(2)}</div>
           </div>
         ))}
       </div>
@@ -122,17 +122,17 @@ const OrderDetail = () => {
       <div className="bg-white border border-stone-200 rounded-lg p-4 space-y-2">
         <div className="flex justify-between text-sm">
           <span className="text-stone-500">Subtotal</span>
-          <span className="text-stone-900">${(order.totalPrice + order.discountAmount).toFixed(2)}</span>
+          <span className="text-stone-900">LKR {(order.totalPrice + order.discountAmount).toFixed(2)}</span>
         </div>
         {order.discountAmount > 0 && (
           <div className="flex justify-between text-sm">
             <span className="text-green-600">Discount</span>
-            <span className="text-green-600">-${order.discountAmount.toFixed(2)}</span>
+            <span className="text-green-600">-LKR {order.discountAmount.toFixed(2)}</span>
           </div>
         )}
         <div className="flex justify-between text-lg font-serif font-bold pt-2 border-t border-stone-200">
           <span className="text-stone-900">Total</span>
-          <span className="text-[#5C4033]">${order.totalPrice.toFixed(2)}</span>
+          <span className="text-[#5C4033]">LKR {order.totalPrice.toFixed(2)}</span>
         </div>
       </div>
     </div>

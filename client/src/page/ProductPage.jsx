@@ -6,22 +6,35 @@ import RelatedProductsCarousel from "../components/product/RelatedProductsCarous
 
 const ProductPage = () => {
   const [refreshKey, setRefreshKey] = useState(0);
+  const [categorySlug, setCategorySlug] = useState(null);
 
   const handleFeedbackSubmitted = () => {
-    // Incrementing the key forces the FeedbackList to re-run its useEffect
-    setRefreshKey(prev => prev + 1);
+    setRefreshKey((prev) => prev + 1);
+  };
+
+  const handleProductLoaded = (product) => {
+    if (product?.categoryName) {
+      setCategorySlug(product.categoryName);
+    }
   };
 
   return (
     <div className="min-h-screen">
-      <ProductDetail />
-      
+      <ProductDetail onProductLoaded={handleProductLoaded} />
+
       {/* Editorial Layout: Feedback sections separated by clear space */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+        {categorySlug && (
+          <div>
+            <h2 className="text-xl font-serif text-stone-800 mb-4">
+              Related Products
+            </h2>
+            <RelatedProductsCarousel categorySlug={categorySlug} limit={6} />
+          </div>
+        )}
+
         <FeedbackList refreshKey={refreshKey} />
-        
-        <RelatedProductsCarousel/>
-        
+
         <div className="border-t border-stone-200 pt-16">
           <ProductFeedback onFeedbackSubmitted={handleFeedbackSubmitted} />
         </div>

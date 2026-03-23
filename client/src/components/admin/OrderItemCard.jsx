@@ -30,7 +30,7 @@ const OrderItemCard = ({ item }) => {
           SKU: {product.slug}
         </p>
         <p className="text-xs text-stone-500 mt-1">
-          ${item.price.toFixed(2)} each
+          LKR {item.price.toFixed(2)} each
         </p>
       </div>
 
@@ -47,8 +47,8 @@ const OrderItemCard = ({ item }) => {
         <span className="text-[10px] text-stone-400 uppercase tracking-wider block">
           Total
         </span>
-        <span className="text-base font-semibold text-[#5C4033]">
-          ${item.subTotal.toFixed(2)}
+        <span className="text-base font-semibold text-stone-800">
+          LKR {item.subTotal.toFixed(2)}
         </span>
       </div>
     </div>

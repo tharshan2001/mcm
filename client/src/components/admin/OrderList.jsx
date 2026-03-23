@@ -72,9 +72,9 @@ export default function OrderList() {
   );
 
   return (
-    <div className="bg-[#FCF9F6] h-[700px] p-4 lg:p-12">
+    <div className="bg-stone-50 min-h-[700px] p-4 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl font-serif text-[#5C4033] mb-4">Order Manager</h1>
+        <h1 className="text-2xl font-serif text-stone-800 mb-6">Order Manager</h1>
 
         {error ? (
           <div className="bg-red-50 border-l-2 border-red-400 p-4 flex items-center gap-4 text-red-800 italic">

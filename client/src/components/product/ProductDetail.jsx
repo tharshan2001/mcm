@@ -13,7 +13,7 @@ import api from "../../service/api";
 import { useCartStore } from "../../stores/cartStore";
 import { useAuthStore } from "../../stores/authStore";
 
-const ProductDetail = () => {
+const ProductDetail = ({ onProductLoaded }) => {
   const { slug } = useParams();
   const navigate = useNavigate();
 
@@ -31,7 +31,11 @@ const ProductDetail = () => {
       try {
         const response = await api.get(`products/${slug}`);
         const data = response.data;
-        setProduct(Array.isArray(data) ? data[0] : data);
+        const productData = Array.isArray(data) ? data[0] : data;
+        setProduct(productData);
+        if (onProductLoaded) {
+          onProductLoaded(productData);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -114,7 +118,7 @@ const ProductDetail = () => {
                 {product?.name}
               </h1>
               <p className="text-2xl font-serif text-stone-900">
-                ${Number(product?.price).toFixed(2)}
+                LKR {Number(product?.price).toFixed(2)}
               </p>
             </div>
 

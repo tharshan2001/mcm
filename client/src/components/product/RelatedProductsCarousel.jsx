@@ -1,36 +1,31 @@
 import React, { useEffect, useState, useRef } from "react";
-import { fetchProductBySlug, fetchRelatedProducts } from "../../service/product";
+import { useNavigate } from "react-router-dom";
+import { fetchRelatedProducts } from "../../service/product";
 import RelatedCard from "./RelatedCard";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-const RelatedProductsCarousel = ({ productSlug, onProductClick }) => {
+const RelatedProductsCarousel = ({ categorySlug, limit = 6 }) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const scrollRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadRelated = async () => {
-      if (!productSlug) return;
+      if (!categorySlug) return;
 
       try {
-        console.log("[RelatedProductsCarousel] Fetching product details for slug:", productSlug);
-
-        // 1️⃣ Fetch main product details
-        const product = await fetchProductBySlug(productSlug);
-        console.log("[RelatedProductsCarousel] Main product:", product);
-
-        if (!product?.id) return;
-
-        // 2️⃣ Fetch related products using product ID
-        const related = await fetchRelatedProducts(product.id);
-        console.log("[RelatedProductsCarousel] Related products:", related);
+        const related = await fetchRelatedProducts(categorySlug, limit);
         setRelatedProducts(related);
       } catch (error) {
-        console.error("[RelatedProductsCarousel] Error fetching related products:", error);
+        console.error("Error fetching related products:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     loadRelated();
-  }, [productSlug]);
+  }, [categorySlug, limit]);
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -41,12 +36,28 @@ const RelatedProductsCarousel = ({ productSlug, onProductClick }) => {
     });
   };
 
+  const handleProductClick = (product) => {
+    navigate(`/shop/${product.slug}`);
+  };
+
+  if (loading) {
+    return (
+      <div className="py-8 text-center">
+        <div className="animate-pulse flex gap-4 justify-center">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="w-40 h-56 bg-stone-100 rounded-lg" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (!relatedProducts || relatedProducts.length === 0) {
-    return <p className="text-center text-stone-500">No related products found.</p>;
+    return null;
   }
 
   return (
-    <div className="relative my-6">
+    <div className="relative">
       <button
         onClick={() => scroll("left")}
         className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 p-2 rounded-full shadow hover:bg-white"
@@ -63,10 +74,7 @@ const RelatedProductsCarousel = ({ productSlug, onProductClick }) => {
       <div ref={scrollRef} className="flex overflow-x-auto gap-4 scroll-smooth px-4">
         {relatedProducts.map((product) => (
           <div key={product.id} className="flex-shrink-0 w-40">
-            <RelatedCard
-              product={product}
-              onClick={() => onProductClick(product)}
-            />
+            <RelatedCard product={product} onClick={() => handleProductClick(product)} />
           </div>
         ))}
       </div>

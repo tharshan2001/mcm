@@ -11,7 +11,7 @@ const CouponCard = React.forwardRef(({ coupon, onEdit, onDelete }, ref) => {
     if (coupon.discountType === "PERCENTAGE") {
       return `${coupon.discountValue}%`;
     }
-    return `$${coupon.discountValue}`;
+    return `LKR ${coupon.discountValue}`;
   };
 
   return (
@@ -29,7 +29,7 @@ const CouponCard = React.forwardRef(({ coupon, onEdit, onDelete }, ref) => {
       </td>
 
       <td className="p-4 font-mono text-sm">
-        ${coupon.minOrderAmount || 0}
+        LKR {coupon.minOrderAmount || 0}
       </td>
 
       <td className="p-4 font-mono text-sm">

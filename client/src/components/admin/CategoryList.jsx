@@ -111,18 +111,17 @@ export default function CategoryList() {
   };
 
   return (
-    <div className="bg-[#FCF9F6] h-[700px] p-4 lg:p-12">
+    <div className="bg-stone-50 min-h-[700px] p-4 lg:p-8">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="flex justify-between mb-4 pb-8">
+        <div className="flex justify-between mb-6">
 
           <div>
-            <h1 className="text-2xl font-serif text-[#5C4033]">
+            <h1 className="text-2xl font-serif text-stone-800">
               Category Manager
             </h1>
-
-            <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-2 font-bold">
+            <p className="text-sm text-stone-500 mt-2">
               {categories.length} Categories
             </p>
           </div>

@@ -142,7 +142,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
                         </button>
                       </div>
                       <p className="font-medium text-stone-900">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        LKR {(item.price * item.quantity).toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -158,7 +158,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
             <div className="flex justify-between items-center text-stone-800">
               <span className="font-serif text-lg">Subtotal</span>
               <span className="font-serif text-xl font-bold">
-                ${subtotal.toFixed(2)}
+                LKR {subtotal.toFixed(2)}
               </span>
             </div>
             <p className="text-xs text-stone-500 font-light italic">
