@@ -91,8 +91,8 @@ const HoverProductCard = ({ product }) => {
           {product.description}
         </p>
 
-        <p className="text-stone-900 font-medium pt-2 text-lg">
-          ${product.price}
+        <p className="text-yellow-600 font-medium pt-2 text-lg">
+          LKR {product.price}
         </p>
       </div>
     </div>

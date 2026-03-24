@@ -5,7 +5,7 @@ import ShopPage from "./components/product/ShopPage";
 import Navbar from "./components/Navbar";
 import Account from "./components/Account";
 import { Toaster } from "react-hot-toast";
-import MaterialsPage from "./page/MaterialsPage";
+import BlogPage from "./page/BlogPage";
 import About from "./components/About";
 import DashboardLayout from "./layout/DashboardLayout";
 import ProductCreate from "./components/admin/ProductCreate";
@@ -61,7 +61,7 @@ function App() {
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/:slug" element={<ProductPage/>} />
         <Route path="/account" element={<Account />} />
-        <Route path="/material" element={<MaterialsPage />} />
+        <Route path="/blog" element={<BlogPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/orders/:id" element={<OrderDetail />} />
 

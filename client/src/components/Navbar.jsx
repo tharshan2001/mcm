@@ -34,8 +34,15 @@ const Navbar = () => {
   }, [user, fetchCart]);
 
   const handleUserClick = () => {
-    if (user) navigate("/account");
-    else openLogin();
+    if (user) {
+      if (user.roles?.includes("ADMIN")) {
+        window.open("/admin", "_blank");
+      } else {
+        navigate("/account");
+      }
+    } else {
+      openLogin();
+    }
   };
 
   const cartCount =
@@ -91,8 +98,8 @@ const Navbar = () => {
               Shop All
             </Link>
 
-            <Link to="/material" className="hover:text-[#5C4033]">
-              Material
+            <Link to="/blog" className="hover:text-[#5C4033]">
+              Blog
             </Link>
 
             <Link to="/about" className="hover:text-[#5C4033]">
@@ -138,8 +145,8 @@ const Navbar = () => {
               Shop All
             </Link>
 
-            <Link to="/material" onClick={closeMenu} className="hover:text-[#5C4033]">
-              Material
+            <Link to="/blog" onClick={closeMenu} className="hover:text-[#5C4033]">
+              Blog
             </Link>
 
             <Link to="/about" onClick={closeMenu} className="hover:text-[#5C4033]">

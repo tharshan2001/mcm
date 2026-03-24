@@ -108,3 +108,11 @@ export const fetchProductBySlug = async (slug) => {
   return response.data;
 };
 
+// Fetch trending products
+export const fetchTrendingProducts = async (limit = 6) => {
+  const response = await api.get("/products/trending", {
+    params: { limit },
+  });
+  return response.data;
+};
+

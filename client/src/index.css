@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.no-scrollbar-mobile {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar-mobile::-webkit-scrollbar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .no-scrollbar-mobile {
+    -ms-overflow-style: auto;
+    scrollbar-width: auto;
+  }
+  .no-scrollbar-mobile::-webkit-scrollbar {
+    display: block;
+  }
+}
+
 @keyframes cart-fast {
   0% { transform: translateX(-180px); opacity: 0; }
   20% { opacity: 1; }
@@ -10,4 +38,20 @@
 .animate-cart-fast {
   /* Faster speed: 1.8 seconds */
   animation: cart-fast 2.3s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
+}
+
+
+
+/* Hide scrollbars only on mobile (max-width 768px) */
+@media (max-width: 768px) {
+  /* Firefox */
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  /* Chrome, Safari, Edge */
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }

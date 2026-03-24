@@ -5,9 +5,6 @@ import {
   Heart,
   ChevronLeft,
   Loader2,
-  Truck,
-  ShieldCheck,
-  RefreshCw,
 } from "lucide-react";
 import api from "../../service/api";
 import { useCartStore } from "../../stores/cartStore";
@@ -47,7 +44,7 @@ const ProductDetail = ({ onProductLoaded }) => {
 
   if (loading)
     return (
-      <div className="h-screen flex items-center justify-center bg-[#FCF9F6]">
+      <div className="min-h-screen flex items-center justify-center bg-[#FCF9F6]">
         <Loader2 className="animate-spin text-amber-800" size={32} />
       </div>
     );
@@ -61,93 +58,113 @@ const ProductDetail = ({ onProductLoaded }) => {
   };
 
   return (
-    <div className="bg-[#FCF9F6] h-[700px] pt-15 mt-10 lg:flex lg:items-center lg:justify-center p-0 md:p-4 lg:p-8">
+    <div className="min-h-screen bg-[#FCF9F6] p-3 md:p-4">
       {/* Main Card Container */}
-      <div className="w-full max-w-6xl bg-white lg:h-[700px] lg:max-h-[660px] shadow-2xl lg:rounded-2xl overflow-hidden flex flex-col lg:flex-row relative">
-        {/* BACK TO GALLERY BUTTON FIXED TOP-LEFT */}
-        <div className="absolute top-1 left-4 z-30">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-stone-700 hover:text-amber-800  p-2 "
-          >
-            <ChevronLeft size={16} />
-          </button>
-        </div>
+      <div className="w-full bg-white shadow-lg md:shadow-xl md:max-w-6xl md:mx-auto md:rounded-2xl overflow-hidden flex flex-col md:flex-row relative">
+        
+        {/* Back Button - Stylish */}
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute top-4 left-4 z-30 flex items-center justify-center w-9 h-9 text-[#5C4033] hover:text-[#8B5A3C] hover:scale-110 transition-all"
+        >
+          <ChevronLeft size={24} strokeWidth={2.5} />
+        </button>
 
-        {/* LEFT SIDE: Media Gallery (Fixed on Desktop) */}
-        <div className="w-full lg:w-1/2 h-[50vh] lg:h-full bg-stone-100 flex flex-col">
-          <div className="flex-1 relative overflow-hidden">
+        {/* LEFT SIDE: Media Gallery */}
+        <div className="w-full md:w-1/2 h-[45vh] md:h-[80vh] lg:h-[70vh] bg-stone-100 flex flex-col rounded-t-2xl md:rounded-none overflow-hidden relative">
+          {/* Main Image */}
+          <div className="flex-1 relative overflow-hidden p-4">
             <img
               src={product?.images?.[selectedImage]}
               alt={product?.name}
-              className="w-full h-full object-contain bg-stone-100"
+              className="w-full h-full object-contain rounded-2xl"
             />
           </div>
 
-          {/* Thumbnails (Horizontal) */}
-          <div className="p-4 bg-white/50 backdrop-blur-sm flex gap-3 overflow-x-auto no-scrollbar snap-x">
-            {product?.images?.map((img, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSelectedImage(idx)}
-                className={`w-16 h-20 shrink-0 rounded-md overflow-hidden border-2 transition-all snap-start ${
-                  selectedImage === idx
-                    ? "border-amber-800"
-                    : "border-transparent opacity-60"
-                }`}
-              >
-                <img
-                  src={img}
-                  className="w-full h-full object-cover"
-                  alt="thumb"
-                />
-              </button>
-            ))}
-          </div>
+          {/* Thumbnails */}
+          {product?.images?.length > 1 && (
+            <div className="p-3 bg-white flex gap-2 overflow-x-auto md:overflow-x-hidden no-scrollbar-mobile">
+              {product?.images?.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedImage(idx)}
+                  className={`w-14 h-16 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
+                    selectedImage === idx
+                      ? "border-amber-800"
+                      : "border-transparent opacity-50 hover:opacity-80"
+                  }`}
+                >
+                  <img
+                    src={img}
+                    className="w-full h-full object-cover"
+                    alt="thumb"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* RIGHT SIDE: Content (Scrollable on Desktop) */}
-        <div className="w-full lg:w-1/2 flex flex-col h-auto lg:h-full">
-          {/* Scrollable Content Area */}
-          <div className="flex-1  p-6 md:p-10 lg:p-12 space-y-5 no-scrollbar">
-            <div className="space-y-3">
-              <span className="text-amber-800 text-[10px] uppercase tracking-[0.3em] font-bold">
-                {product?.categoryName}
-              </span>
-              <h1 className="text-3xl md:text-4xl font-serif text-[#5C4033] leading-tight">
-                {product?.name}
-              </h1>
-              <p className="text-2xl font-serif text-stone-900">
-                LKR {Number(product?.price).toFixed(2)}
-              </p>
-            </div>
+        {/* RIGHT SIDE: Content */}
+        <div className="w-full md:w-1/2 flex flex-col">
+          {/* Scrollable Content */}
+          <div className="flex-1 p-5 md:p-8 space-y-4 overflow-y-auto">
+            {/* Category */}
+            <span className="inline-block text-amber-700 text-xs uppercase tracking-wider font-semibold">
+              {product?.categoryName}
+            </span>
+            
+            {/* Name */}
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif text-[#5C4033] leading-tight">
+              {product?.name}
+            </h1>
+            
+            {/* Price */}
+            <p className="text-xl md:text-2xl font-semibold text-stone-800">
+              LKR {Number(product?.price).toFixed(2)}
+            </p>
 
-            <div className="space-y-4">
-              <p className=" font-light text-[15px] text-lg border-stone-100 text-[10px]  tracking-wide font-bold text-stone-400">
+            {/* Description */}
+            <div className="pt-2">
+              <p className="text-sm md:text-base text-stone-600 leading-relaxed">
                 {product?.description}
               </p>
             </div>
+
+            {/* Stock Info */}
+            <div className="pt-2">
+              {product?.stockQuantity > 0 ? (
+                <p className="text-xs text-green-600 font-medium">
+                  ✓ In Stock ({product?.stockQuantity} available)
+                </p>
+              ) : (
+                <p className="text-xs text-red-500 font-medium">
+                  ✗ Out of Stock
+                </p>
+              )}
+            </div>
           </div>
 
-          {/* Fixed Bottom CTA Section */}
-          <div className="p-6 bg-stone-50/50 border-t border-stone-100">
-            <div className="flex gap-4">
+          {/* Bottom CTA */}
+          <div className="p-5 md:p-6 bg-stone-50 border-t border-stone-100">
+            <div className="flex gap-3">
               <button
                 onClick={handleAddToCart}
                 disabled={product?.stockQuantity === 0}
-                className="flex-1 bg-[#5C4033] text-white py-4 lg:py-5 uppercase text-[10px] tracking-[0.2em] font-bold hover:bg-amber-900 transition-all flex items-center justify-center gap-3 shadow-lg"
+                className="flex-1 bg-[#5C4033] text-white py-3 md:py-4 px-4 text-xs md:text-sm uppercase tracking-wide font-semibold hover:bg-[#4A332A] transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <ShoppingBag size={18} />
-                {product?.stockQuantity === 0 ? "Sold Out" : "Add to Tote"}
+                {product?.stockQuantity === 0 ? "Sold Out" : "Add to Cart"}
               </button>
-              <button className="p-4 border border-stone-200 hover:bg-white transition-colors rounded-sm">
-                <Heart size={20} className="text-stone-800" />
+              <button className="p-3 md:p-4 border border-stone-200 hover:bg-white hover:border-amber-200 transition-colors rounded-lg">
+                <Heart size={20} className="text-stone-600" />
               </button>
             </div>
-            <p className="text-[9px] text-center text-stone-400 mt-4 uppercase tracking-[0.2em]">
-              {product?.stockQuantity > 0
-                ? `Only ${product?.stockQuantity} available for dispatch`
-                : "Crafting more soon"}
+            
+            <p className="text-[10px] text-center text-stone-400 mt-3">
+              {product?.stockQuantity > 0 && product?.stockQuantity <= 5
+                ? `Only ${product?.stockQuantity} left in stock`
+                : "Free shipping on orders above LKR 5000"}
             </p>
           </div>
         </div>

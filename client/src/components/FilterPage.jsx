@@ -52,13 +52,13 @@ const FilterPage = ({
             type="range"
             className="w-full accent-amber-800"
             min="0"
-            max="10000" // ✅ Increased to 10000
+            max="25000" // ✅ Increased to 10000
             value={priceRange[1]}
             onChange={(e) => setPriceRange([0, parseInt(e.target.value, 10)])}
           />
           <div className="flex justify-between text-xs text-stone-500 mt-2">
-            <span>$0</span>
-            <span>${priceRange[1]}+</span>
+            <span>LKR 0</span>
+            <span>LKR {priceRange[1]}</span>
           </div>
         </div>
       </div>

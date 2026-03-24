@@ -1,5 +1,10 @@
 import api from "../service/api";
 
+export const fetchPublicCoupons = async () => {
+  const response = await api.get("/coupons/public");
+  return response.data;
+};
+
 export const fetchCoupons = async () => {
   const response = await api.get("/coupons");
   return response.data;
