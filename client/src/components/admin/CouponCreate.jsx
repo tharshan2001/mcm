@@ -126,7 +126,7 @@ export default function CouponCreate({ onCreated }) {
         <label className="block text-xs uppercase tracking-wider mb-1">Description</label>
         <textarea
           name="description"
-          placeholder="20% off orders above $100"
+          placeholder="20% off orders above LKR 10000"
           value={formData.description}
           onChange={handleChange}
           className="w-full border p-2"

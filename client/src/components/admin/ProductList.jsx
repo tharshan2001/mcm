@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import ProductCard from "./ProductCard";
 import ProductUpdatePopover from "./ProductUpdatePopover";
-import ProductCreate from "./ProductCreate"; // import the create component
+import ProductCreate from "./ProductCreate";
 import { Loader2, Plus, PackageOpen, AlertCircle } from "lucide-react";
 import { fetchProducts, deleteProduct, toggleArchive } from "../../service/product";
+import sweetAlert from "../../utils/sweetAlert";
 
 const PAGE_SIZE = 10;
 
@@ -22,7 +23,6 @@ export default function ProductList() {
   const observer = useRef();
   const scrollContainerRef = useRef(null);
 
-  // Load products
   useEffect(() => {
     loadProducts();
   }, []);
@@ -86,15 +86,17 @@ export default function ProductList() {
     [scrollLoading, hasMore, nextCursor]
   );
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to remove this piece from the archive?")) return;
+  const handleDelete = async (id, name) => {
+    const result = await sweetAlert.deleteConfirm(name || "this product");
+    if (!result.isConfirmed) return;
 
     try {
       await deleteProduct(id);
       setProducts((prev) => prev.filter((p) => p.id !== id));
+      sweetAlert.toast("Product deleted successfully!");
     } catch (err) {
       console.error("Failed to delete product:", err);
-      alert("Action failed. Please try again.");
+      sweetAlert.error("Action failed. Please try again.");
     }
   };
 
@@ -110,9 +112,10 @@ export default function ProductList() {
 
     try {
       await toggleArchive(id, newArchivedStatus);
+      sweetAlert.toast(newArchivedStatus ? "Product archived!" : "Product restored!");
     } catch (err) {
       console.error("Failed to archive product:", err);
-      alert("Status update failed.");
+      sweetAlert.error("Status update failed.");
       setProducts((prev) =>
         prev.map((p) => (p.id === id ? { ...p, archived: product.archived } : p))
       );

@@ -63,12 +63,7 @@ const Sidebar = () => {
       <Link to="/admin/coupons">Coupons</Link>,
       "coupons",
       <Tag size={18} />,
-    ),
-    getItem(
-      <Link to="/admin/settings">Settings</Link>,
-      "settings",
-      <Settings size={18} />,
-    ),
+    )
   ];
 
   return (
@@ -107,7 +102,7 @@ const Sidebar = () => {
           <span
             className={`font-serif text-[#5C4033] font-bold tracking-tighter transition-all ${collapsed ? "text-xl" : "text-2xl"}`}
           >
-            {collapsed ? "L&C" : "LOOM & CRAFT"}
+            {collapsed ? "MCM" : "MCM Handlooms"}
           </span>
         </div>
 

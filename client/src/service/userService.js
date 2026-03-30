@@ -32,3 +32,42 @@ export async function fetchAllCustomers() {
     throw error;
   }
 }
+
+/**
+ * Get customer by ID
+ */
+export async function getCustomerById(id) {
+  try {
+    const response = await api.get(`/users/customers/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('[getCustomerById] API error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Update customer
+ */
+export async function updateCustomer(id, customerData) {
+  try {
+    const response = await api.put(`/users/customers/${id}`, customerData);
+    return response.data;
+  } catch (error) {
+    console.error('[updateCustomer] API error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Delete customer
+ */
+export async function deleteCustomer(id) {
+  try {
+    const response = await api.delete(`/users/customers/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('[deleteCustomer] API error:', error);
+    throw error;
+  }
+}

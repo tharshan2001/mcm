@@ -1,7 +1,7 @@
 import React from "react";
-import { User, Mail, MapPin, Phone } from "lucide-react";
+import { User, Mail, MapPin, Phone, Edit2, Trash2 } from "lucide-react";
 
-const CustomerCard = React.forwardRef(({ customer }, ref) => {
+const CustomerCard = React.forwardRef(({ customer, onEdit, onDelete }, ref) => {
   const defaultAddress = customer.addresses?.find(a => a.isDefault) || customer.addresses?.[0];
 
   return (
@@ -43,6 +43,24 @@ const CustomerCard = React.forwardRef(({ customer }, ref) => {
         ) : (
           <span className="text-sm text-stone-300">No address</span>
         )}
+      </td>
+      <td className="p-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => onEdit(customer)}
+            className="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors"
+            title="Edit"
+          >
+            <Edit2 size={16} />
+          </button>
+          <button
+            onClick={() => onDelete(customer)}
+            className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            title="Delete"
+          >
+            <Trash2 size={16} />
+          </button>
+        </div>
       </td>
     </tr>
   );

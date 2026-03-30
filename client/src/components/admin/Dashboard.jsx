@@ -109,50 +109,50 @@ export default function Dashboard() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+          <div className="bg-white p-4 rounded-lg border border-stone-200 hover:border-stone-300 hover:shadow-md transition-all">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-blue-600 uppercase tracking-wider">Customers</p>
-                <p className="text-2xl font-bold text-blue-900 mt-1">{stats?.totalCustomers || 0}</p>
+                <p className="text-xs text-stone-500 uppercase tracking-wider">Customers</p>
+                <p className="text-2xl font-bold text-stone-800 mt-1">{stats?.totalCustomers || 0}</p>
               </div>
-              <div className="p-2 bg-white rounded-lg shadow-sm">
-                <Users size={20} className="text-blue-600" />
+              <div className="p-3 bg-stone-100 rounded-lg">
+                <Users size={22} className="text-[#5C4033]" />
               </div>
             </div>
           </div>
 
-          <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
+          <div className="bg-white p-4 rounded-lg border border-stone-200 hover:border-stone-300 hover:shadow-md transition-all">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-purple-600 uppercase tracking-wider">Products</p>
-                <p className="text-2xl font-bold text-purple-900 mt-1">{stats?.totalProducts || 0}</p>
+                <p className="text-xs text-stone-500 uppercase tracking-wider">Products</p>
+                <p className="text-2xl font-bold text-stone-800 mt-1">{stats?.totalProducts || 0}</p>
               </div>
-              <div className="p-2 bg-white rounded-lg shadow-sm">
-                <Package size={20} className="text-purple-600" />
+              <div className="p-3 bg-stone-100 rounded-lg">
+                <Package size={22} className="text-[#5C4033]" />
               </div>
             </div>
           </div>
 
-          <div className="bg-amber-50 p-4 rounded-lg border border-amber-100">
+          <div className="bg-white p-4 rounded-lg border border-stone-200 hover:border-stone-300 hover:shadow-md transition-all">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-amber-600 uppercase tracking-wider">Orders</p>
-                <p className="text-2xl font-bold text-amber-900 mt-1">{stats?.totalOrders || 0}</p>
+                <p className="text-xs text-stone-500 uppercase tracking-wider">Orders</p>
+                <p className="text-2xl font-bold text-stone-800 mt-1">{stats?.totalOrders || 0}</p>
               </div>
-              <div className="p-2 bg-white rounded-lg shadow-sm">
-                <ShoppingCart size={20} className="text-amber-600" />
+              <div className="p-3 bg-stone-100 rounded-lg">
+                <ShoppingCart size={22} className="text-[#5C4033]" />
               </div>
             </div>
           </div>
 
-          <div className="bg-green-50 p-4 rounded-lg border border-green-100">
+          <div className="bg-[#5C4033] p-4 rounded-lg border border-[#4A332A]">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-green-600 uppercase tracking-wider">Revenue</p>
-                <p className="text-2xl font-bold text-green-900 mt-1">{formatCurrency(stats?.totalRevenue)}</p>
+                <p className="text-xs text-stone-300 uppercase tracking-wider">Revenue</p>
+                <p className="text-2xl font-bold text-white mt-1">{formatCurrency(stats?.totalRevenue)}</p>
               </div>
-              <div className="p-2 bg-white rounded-lg shadow-sm">
-                <DollarSign size={20} className="text-green-600" />
+              <div className="p-3 bg-white/10 rounded-lg">
+                <DollarSign size={22} className="text-white" />
               </div>
             </div>
           </div>

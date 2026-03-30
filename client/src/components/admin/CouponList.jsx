@@ -4,6 +4,7 @@ import CouponUpdatePopover from "./CouponUpdatePopover";
 import CouponCreate from "./CouponCreate";
 import { Loader2, Plus, PackageOpen, AlertCircle } from "lucide-react";
 import { fetchCoupons, deleteCoupon } from "../../service/couponService";
+import sweetAlert from "../../utils/sweetAlert";
 
 export default function CouponList() {
   const [coupons, setCoupons] = useState([]);
@@ -36,13 +37,14 @@ export default function CouponList() {
   };
 
   const handleDelete = async (coupon) => {
-    if (window.confirm(`Are you sure you want to delete coupon "${coupon.code}"?`)) {
-      try {
-        await deleteCoupon(coupon.id);
-        loadCoupons();
-      } catch (err) {
-        console.error(err);
-      }
+    const result = await sweetAlert.deleteConfirm(coupon.code);
+    if (!result.isConfirmed) return;
+    try {
+      await deleteCoupon(coupon.id);
+      loadCoupons();
+      sweetAlert.toast("Coupon deleted successfully!");
+    } catch (err) {
+      sweetAlert.error("Failed to delete coupon");
     }
   };
 

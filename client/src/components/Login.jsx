@@ -1,59 +1,134 @@
 import React, { useState } from "react";
+import { Eye, EyeOff, Loader2, Mail, Lock } from "lucide-react";
 import { useAuthStore } from "../stores/authStore.js";
-import { toast } from "react-hot-toast"; // Import toast
+import { toast } from "react-hot-toast";
 
 const Login = ({ switchToSignup }) => {
   const login = useAuthStore((state) => state.login);
   const loading = useAuthStore((state) => state.loading);
-  const error = useAuthStore((state) => state.error);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+    if (!password) {
+      newErrors.password = "Password is required";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
+
     try {
       await login({ email, password });
-      toast.success("Login successful! 🎉"); // Replace alert with toast
+      toast.success("Welcome back!");
     } catch (err) {
-      console.error(err);
-      toast.error("Login failed. Please try again."); // Optional toast for errors
+      const errorMsg = err.response?.data?.message 
+        || err.response?.data?.error 
+        || err.response?.data 
+        || "Login failed. Please check your credentials.";
+      toast.error(errorMsg);
     }
   };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-stone-800">Welcome Back</h2>
-      {error && <p className="text-red-600 text-sm">{error}</p>}
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-700"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-amber-700"
-        />
+    <div className="space-y-5">
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-serif text-stone-800">Welcome Back</h2>
+        <p className="text-stone-500 text-sm mt-1">Sign in to continue</p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Email */}
+        <div>
+          <label className="block text-xs font-medium text-stone-600 mb-1.5">
+            Email Address
+          </label>
+          <div className="relative">
+            <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (errors.email) setErrors({ ...errors, email: "" });
+              }}
+              className={`w-full pl-10 pr-4 py-2.5 border rounded-lg text-sm focus:outline-none transition-colors ${
+                errors.email
+                  ? "border-red-400 focus:border-red-500"
+                  : "border-stone-300 focus:border-amber-700"
+              }`}
+            />
+          </div>
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+          )}
+        </div>
+
+        {/* Password */}
+        <div>
+          <label className="block text-xs font-medium text-stone-600 mb-1.5">
+            Password
+          </label>
+          <div className="relative">
+            <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (errors.password) setErrors({ ...errors, password: "" });
+              }}
+              className={`w-full pl-10 pr-10 py-2.5 border rounded-lg text-sm focus:outline-none transition-colors ${
+                errors.password
+                  ? "border-red-400 focus:border-red-500"
+                  : "border-stone-300 focus:border-amber-700"
+              }`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
+          {errors.password && (
+            <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+          )}
+        </div>
+
+        {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-[#5C4033] text-white py-2 rounded-lg text-sm tracking-wide hover:bg-amber-800 transition-colors"
           disabled={loading}
+          className="w-full bg-[#5C4033] text-white py-2.5 rounded-lg text-sm font-medium tracking-wide hover:bg-[#4a352a] transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading && <Loader2 size={16} className="animate-spin" />}
+          {loading ? "Signing in..." : "Sign In"}
         </button>
       </form>
-      <div className="text-center text-sm text-stone-600">
-        Don't have an account?{" "}
+
+      <div className="text-center pt-2">
+        <span className="text-stone-500 text-sm">Don't have an account?</span>{" "}
         <button
           onClick={switchToSignup}
-          className="ml-1 text-amber-800 font-medium hover:underline"
+          className="text-amber-700 font-medium hover:underline text-sm"
         >
-          Register
+          Create one
         </button>
       </div>
     </div>

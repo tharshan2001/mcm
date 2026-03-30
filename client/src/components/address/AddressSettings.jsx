@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Plus, Loader2 } from "lucide-react";
 import { useAddressStore } from "../../stores/addressStore";
-import AddressFormModal from "./AddressFormModal"; // ✅ added
+import AddressFormModal from "./AddressFormModal";
+import sweetAlert from "../../utils/sweetAlert";
 
 const AddressSettings = () => {
   const { 
@@ -20,9 +21,10 @@ const AddressSettings = () => {
   }, [fetchAddresses]);
 
   const handleDelete = async (id) => {
-    if (window.confirm("Remove this destination?")) {
-      await deleteAddress(id);
-    }
+    const result = await sweetAlert.deleteConfirm("this address");
+    if (!result.isConfirmed) return;
+    await deleteAddress(id);
+    sweetAlert.toast("Address removed!");
   };
 
   return (

@@ -38,3 +38,36 @@ export const getFeedbackByProduct = async (productId) => {
     throw error;
   }
 };
+
+/**
+ * Update own feedback
+ * @param {number} id - Feedback ID
+ * @param {Object} feedbackData - Updated feedback data
+ * @param {number} feedbackData.rating - Rating (1-5)
+ * @param {string} feedbackData.comments - User comments
+ * @returns {Promise<Object>} API response
+ */
+export const updateFeedback = async (id, { rating, comments }) => {
+  try {
+    const response = await api.put(`/feedback/${id}`, { rating, comments });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to update feedback:", error);
+    throw error;
+  }
+};
+
+/**
+ * Delete own feedback
+ * @param {number} id - Feedback ID
+ * @returns {Promise<Object>} API response
+ */
+export const deleteFeedback = async (id) => {
+  try {
+    const response = await api.delete(`/feedback/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to delete feedback:", error);
+    throw error;
+  }
+};

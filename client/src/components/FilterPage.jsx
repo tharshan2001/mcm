@@ -138,8 +138,8 @@ const FilterPage = ({
               }
             />
             <div className="flex justify-between text-xs text-stone-500 mt-2">
-              <span>$0</span>
-              <span>${priceRange[1]}+</span>
+              <span>LKR 0</span>
+              <span>LKR {priceRange[1]}</span>
             </div>
           </div>
         </div>

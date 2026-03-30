@@ -62,7 +62,7 @@ const ProductGrid = ({ products }) => {
                 {product.category?.category_name || 'Handloom'}
               </p>
               <p className="text-sm font-serif text-stone-900 font-bold">
-                ${product.price}
+                LKR {product.price}
               </p>
             </div>
             

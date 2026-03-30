@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Loader2, AlertCircle } from "lucide-react";
-import { fetchCustomersForScroll } from "../../service/userService"; // API call to backend
+import { fetchCustomersForScroll, deleteCustomer } from "../../service/userService";
 import CustomerCard from "./CustomerCard";
+import CustomerUpdateModal from "./CustomerUpdateModal";
+import sweetAlert from "../../utils/sweetAlert";
 
 const PAGE_SIZE = 10;
 
@@ -12,11 +14,11 @@ export default function CustomerList() {
   const [error, setError] = useState(null);
   const [nextCursor, setNextCursor] = useState(null);
   const [hasMore, setHasMore] = useState(true);
+  const [editModal, setEditModal] = useState({ isOpen: false, customerId: null });
 
   const observer = useRef();
   const scrollContainerRef = useRef(null);
 
-  // Initial load
   useEffect(() => {
     loadCustomers();
   }, []);
@@ -52,7 +54,26 @@ export default function CustomerList() {
     }
   };
 
-  // Infinite scroll observer
+  const handleEdit = (customer) => {
+    setEditModal({ isOpen: true, customerId: customer.id });
+  };
+
+  const handleDelete = async (customer) => {
+    const result = await sweetAlert.deleteConfirm(customer.fullName);
+    if (!result.isConfirmed) return;
+    try {
+      await deleteCustomer(customer.id);
+      setCustomers((prev) => prev.filter((c) => c.id !== customer.id));
+      sweetAlert.toast("Customer deleted successfully!");
+    } catch (error) {
+      sweetAlert.error(error.response?.data?.message || "Failed to delete customer");
+    }
+  };
+
+  const handleUpdateSuccess = () => {
+    loadCustomers();
+  };
+
   const lastCustomerRef = useCallback(
     (node) => {
       if (scrollLoading) return;
@@ -98,6 +119,7 @@ export default function CustomerList() {
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Name</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Email</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Address</th>
+                  <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100">
@@ -105,6 +127,8 @@ export default function CustomerList() {
                   <CustomerCard
                     key={customer.id}
                     customer={customer}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
                     ref={index === customers.length - 1 ? lastCustomerRef : null}
                   />
                 ))}
@@ -119,6 +143,13 @@ export default function CustomerList() {
           </div>
         )}
       </div>
+
+      <CustomerUpdateModal
+        isOpen={editModal.isOpen}
+        onClose={() => setEditModal({ isOpen: false, customerId: null })}
+        customerId={editModal.customerId}
+        onSuccess={handleUpdateSuccess}
+      />
     </div>
   );
 }

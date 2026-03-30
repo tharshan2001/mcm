@@ -74,4 +74,38 @@ export const useAuthStore = create((set) => ({
   },
 
   clearError: () => set({ error: null }),
+
+  // SEND OTP (Step 1 - sends full registration data for OTP generation)
+  sendOtp: async (email, fullName, password) => {
+    set({ loading: true, error: null });
+    try {
+      await API.post("/auth/register/send-otp", { 
+        fullName, 
+        email, 
+        password,
+        roleId: 2 
+      });
+      set({ loading: false });
+      return true;
+    } catch (err) {
+      set({ error: err.response?.data?.message || err.message, loading: false });
+      throw err;
+    }
+  },
+
+  // VERIFY OTP & REGISTER (Step 2 - creates user after OTP verification)
+  verifyOtp: async (email, otpCode) => {
+    set({ loading: true, error: null });
+    try {
+      const res = await API.post("/auth/register/verify", { 
+        email, 
+        otpCode 
+      });
+      set({ user: res.data, loading: false, isAuthOpen: false });
+      return res.data;
+    } catch (err) {
+      set({ error: err.response?.data?.message || err.message, loading: false });
+      throw err;
+    }
+  },
 }));
