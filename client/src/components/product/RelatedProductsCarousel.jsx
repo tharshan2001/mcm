@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { fetchRelatedProducts } from "../../service/product";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const RelatedCard = ({ product, onClick }) => {
+const RelatedCard = ({ product, onClick, isVisible, index }) => {
   return (
     <div
-      className="flex flex-col cursor-pointer bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-stone-100 overflow-hidden group"
+      className={`flex flex-col cursor-pointer bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-stone-100 overflow-hidden group
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      style={{ transitionDelay: `${index * 100}ms` }}
       onClick={onClick}
     >
       {/* Product image */}
@@ -20,6 +22,7 @@ const RelatedCard = ({ product, onClick }) => {
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Product info */}
@@ -41,7 +44,9 @@ const RelatedProductsCarousel = ({ categorySlug, limit = 6 }) => {
   const [loading, setLoading] = useState(true);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [visibleCards, setVisibleCards] = useState(new Set());
   const scrollRef = useRef(null);
+  const containerRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,6 +65,28 @@ const RelatedProductsCarousel = ({ categorySlug, limit = 6 }) => {
 
     loadRelated();
   }, [categorySlug, limit]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = parseInt(entry.target.dataset.index, 10);
+          if (entry.isIntersecting) {
+            setVisibleCards((prev) => new Set([...prev, index]));
+          }
+        });
+      },
+      { root: null, rootMargin: "0px", threshold: 0.2 }
+    );
+
+    const cards = container.querySelectorAll(".related-card");
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, [relatedProducts]);
 
   const checkScrollButtons = () => {
     if (!scrollRef.current) return;
@@ -118,15 +145,24 @@ const RelatedProductsCarousel = ({ categorySlug, limit = 6 }) => {
 
       {/* Products scroll container */}
       <div 
-        ref={scrollRef}
+        ref={(el) => {
+          scrollRef.current = el;
+          containerRef.current = el;
+        }}
         onScroll={checkScrollButtons}
         className="flex overflow-x-auto gap-4 py-4 px-4 md:px-8 scroll-smooth [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
-        {relatedProducts.map((product) => (
-          <div key={product.id} className="flex-shrink-0 w-40 sm:w-48 md:w-56 lg:w-64">
+        {relatedProducts.map((product, index) => (
+          <div 
+            key={product.id} 
+            className="flex-shrink-0 w-40 sm:w-48 md:w-56 lg:w-64 related-card"
+            data-index={index}
+          >
             <RelatedCard 
               product={product} 
-              onClick={() => handleProductClick(product)} 
+              onClick={() => handleProductClick(product)}
+              isVisible={visibleCards.has(index)}
+              index={index}
             />
           </div>
         ))}

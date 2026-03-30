@@ -11,7 +11,6 @@ const ShopPage = () => {
   const [loading, setLoading] = useState(true);
 
   const [selectedMaterials, setSelectedMaterials] = useState([]);
-  const [selectedRegions, setSelectedRegions] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 10000]);
 
   const [sortOpen, setSortOpen] = useState(false);
@@ -83,14 +82,6 @@ const ShopPage = () => {
     );
   };
 
-  const toggleRegion = (region) => {
-    setSelectedRegions((prev) =>
-      prev.includes(region)
-        ? prev.filter((r) => r !== region)
-        : [...prev, region],
-    );
-  };
-
   // Use search results if available, otherwise use filtered products
   const displayProducts = searchResults !== null ? searchResults : products;
 
@@ -122,10 +113,8 @@ const ShopPage = () => {
         {/* Desktop Filter Sidebar */}
         <FilterPage
           selectedMaterials={selectedMaterials}
-          selectedRegions={selectedRegions}
           priceRange={priceRange}
           toggleMaterial={toggleMaterial}
-          toggleRegion={toggleRegion}
           setPriceRange={setPriceRange}
         />
 

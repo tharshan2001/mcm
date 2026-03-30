@@ -161,30 +161,30 @@ export default function Dashboard() {
         {/* Sales Overview */}
         {sales && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white p-4 rounded-lg border border-stone-200">
+            <div className="bg-white p-4 rounded-lg border border-stone-200 hover:shadow-sm transition-shadow">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-stone-500">Today</span>
-                <TrendingUp size={16} className="text-green-600" />
+                <span className="text-xs text-stone-500 uppercase tracking-wider">Today</span>
+                <TrendingUp size={16} className="text-amber-700" />
               </div>
-              <p className="text-xl font-bold text-stone-800">{formatCurrency(sales.today?.totalRevenue)}</p>
+              <p className="text-lg font-bold text-stone-800">{formatCurrency(sales.today?.totalRevenue)}</p>
               <p className="text-xs text-stone-400 mt-1">{sales.today?.totalOrders || 0} orders</p>
             </div>
 
-            <div className="bg-white p-4 rounded-lg border border-stone-200">
+            <div className="bg-white p-4 rounded-lg border border-stone-200 hover:shadow-sm transition-shadow">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-stone-500">This Week</span>
-                <TrendingUp size={16} className="text-green-600" />
+                <span className="text-xs text-stone-500 uppercase tracking-wider">This Week</span>
+                <TrendingUp size={16} className="text-amber-700" />
               </div>
-              <p className="text-xl font-bold text-stone-800">{formatCurrency(sales.week?.totalRevenue)}</p>
+              <p className="text-lg font-bold text-stone-800">{formatCurrency(sales.week?.totalRevenue)}</p>
               <p className="text-xs text-stone-400 mt-1">{sales.week?.totalOrders || 0} orders</p>
             </div>
 
-            <div className="bg-white p-4 rounded-lg border border-stone-200">
+            <div className="bg-white p-4 rounded-lg border border-stone-200 hover:shadow-sm transition-shadow">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-stone-500">This Month</span>
-                <TrendingUp size={16} className="text-green-600" />
+                <span className="text-xs text-stone-500 uppercase tracking-wider">This Month</span>
+                <TrendingUp size={16} className="text-amber-700" />
               </div>
-              <p className="text-xl font-bold text-stone-800">{formatCurrency(sales.month?.totalRevenue)}</p>
+              <p className="text-lg font-bold text-stone-800">{formatCurrency(sales.month?.totalRevenue)}</p>
               <p className="text-xs text-stone-400 mt-1">{sales.month?.totalOrders || 0} orders</p>
             </div>
           </div>

@@ -1,18 +1,30 @@
-import React, { useState } from "react";
-import { SlidersHorizontal, X } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { SlidersHorizontal, X, Loader2 } from "lucide-react";
+import { fetchCategories } from "../service/categoryService";
 
 const FilterPage = ({
   selectedMaterials,
-  selectedRegions,
   priceRange,
   toggleMaterial,
-  toggleRegion,
   setPriceRange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
 
-  const materials = ["Silk", "Cotton", "Linen", "Khadi"]; // ✅ Updated to match API
-  const regions = ["Banaras", "Chanderi", "Kanchipuram", "Maheshwar"];
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await fetchCategories();
+        setCategories(data || []);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+    loadCategories();
+  }, []);
 
   // Desktop Sidebar
   const desktopSidebar = (
@@ -22,25 +34,34 @@ const FilterPage = ({
       </h3>
 
       <div className="space-y-6">
-        {/* Material */}
+        {/* Category Filter */}
         <div>
           <label className="text-sm font-medium text-stone-800 block mb-3 underline decoration-amber-200 underline-offset-4">
-            Material
+            Category
           </label>
-          {materials.map((item) => (
-            <label
-              key={item}
-              className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-amber-800"
-            >
-              <input
-                type="checkbox"
-                className="mr-3"
-                checked={selectedMaterials.includes(item)}
-                onChange={() => toggleMaterial(item)}
-              />
-              {item}
-            </label>
-          ))}
+          {categoriesLoading ? (
+            <div className="flex items-center gap-2 text-xs text-stone-400">
+              <Loader2 size={12} className="animate-spin" />
+              Loading...
+            </div>
+          ) : categories.length > 0 ? (
+            categories.map((cat) => (
+              <label
+                key={cat.id}
+                className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-amber-800 py-0.5"
+              >
+                <input
+                  type="checkbox"
+                  className="mr-3"
+                  checked={selectedMaterials.includes(cat.name)}
+                  onChange={() => toggleMaterial(cat.name)}
+                />
+                {cat.name}
+              </label>
+            ))
+          ) : (
+            <p className="text-xs text-stone-400">No categories available</p>
+          )}
         </div>
 
         {/* Price */}
@@ -101,25 +122,34 @@ const FilterPage = ({
         </div>
 
         <div className="p-4 space-y-6 overflow-y-auto h-[calc(100%-56px)]">
-          {/* Material */}
+          {/* Category Filter */}
           <div>
             <label className="text-sm font-medium text-stone-800 block mb-3 underline decoration-amber-200 underline-offset-4">
-              Material
+              Category
             </label>
-            {materials.map((item) => (
-              <label
-                key={item}
-                className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-amber-800"
-              >
-                <input
-                  type="checkbox"
-                  className="mr-3"
-                  checked={selectedMaterials.includes(item)}
-                  onChange={() => toggleMaterial(item)}
-                />
-                {item}
-              </label>
-            ))}
+            {categoriesLoading ? (
+              <div className="flex items-center gap-2 text-xs text-stone-400">
+                <Loader2 size={12} className="animate-spin" />
+                Loading...
+              </div>
+            ) : categories.length > 0 ? (
+              categories.map((cat) => (
+                <label
+                  key={cat.id}
+                  className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-amber-800 py-0.5"
+                >
+                  <input
+                    type="checkbox"
+                    className="mr-3"
+                    checked={selectedMaterials.includes(cat.name)}
+                    onChange={() => toggleMaterial(cat.name)}
+                  />
+                  {cat.name}
+                </label>
+              ))
+            ) : (
+              <p className="text-xs text-stone-400">No categories available</p>
+            )}
           </div>
 
           {/* Price */}
