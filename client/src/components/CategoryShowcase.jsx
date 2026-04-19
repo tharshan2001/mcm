@@ -62,10 +62,10 @@ const CategoryShowcase = () => {
         <div className={`text-center mb-16 transition-all duration-700 ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <span className="text-amber-700 text-xs font-bold uppercase tracking-[0.25em] mb-4 block">
+          <span className="text-[#ffa110]700 text-xs font-bold uppercase tracking-[0.25em] mb-4 block">
             Curated Collections
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#5C4033] mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#FFC107] mb-4">
             Shop by <span className="italic">Category</span>
           </h2>
           <p className="text-stone-500 max-w-xl mx-auto font-light">
@@ -97,14 +97,14 @@ const CategoryShowcase = () => {
 
               {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6">
-                <h3 className="text-white text-lg md:text-xl font-serif mb-1 group-hover:text-amber-300 transition-colors">
+                <h3 className="text-white text-lg md:text-xl font-serif mb-1 group-hover:text-[#ffa110]300 transition-colors">
                   {category.name}
                 </h3>
                 <p className="text-white/70 text-xs md:text-sm font-light">
                   {category.description}
                 </p>
                 <div className="mt-3 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                  <span className="text-amber-300 text-xs uppercase tracking-widest border-b border-amber-300 pb-1">
+                  <span className="text-[#ffa110]300 text-xs uppercase tracking-widest border-b border-amber-300 pb-1">
                     Explore
                   </span>
                 </div>

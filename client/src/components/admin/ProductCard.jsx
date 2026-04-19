@@ -10,7 +10,7 @@ const ProductCard = React.forwardRef(({ product, onEdit, onDelete, onToggleArchi
     : parseFloat(product.price || 0).toFixed(2);
 
   return (
-    <tr ref={ref} className={`group border-b border-stone-100 transition-colors hover:bg-[#FCF9F6] ${product.archived ? 'bg-stone-50/50' : 'bg-white'}`}>
+    <tr ref={ref} className={`group border-b border-stone-100 transition-colors hover:bg-[#fffaeb] ${product.archived ? 'bg-stone-50/50' : 'bg-white'}`}>
       
       {/* 1. Image & Primary Info */}
       <td className="py-4 pl-6 pr-4">
@@ -29,7 +29,7 @@ const ProductCard = React.forwardRef(({ product, onEdit, onDelete, onToggleArchi
             )}
           </div>
           <div>
-            <h4 className={`text-sm font-serif ${product.archived ? 'text-stone-400' : 'text-[#5C4033]'} font-medium`}>
+            <h4 className={`text-sm font-serif ${product.archived ? 'text-stone-400' : 'text-[#FFC107]'} font-medium`}>
               {product.name}
             </h4>
             <p className="text-[10px] text-stone-400 font-mono mt-0.5 uppercase tracking-tighter">
@@ -41,7 +41,7 @@ const ProductCard = React.forwardRef(({ product, onEdit, onDelete, onToggleArchi
 
       {/* 2. Category */}
       <td className="px-4 py-4">
-        <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-amber-800 bg-amber-50 px-2 py-1 rounded-sm">
+        <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#ffa110]800 bg-amber-50 px-2 py-1 rounded-sm">
           {product.categoryName || 'General'}
         </span>
       </td>
@@ -90,7 +90,7 @@ const ProductCard = React.forwardRef(({ product, onEdit, onDelete, onToggleArchi
           {/* Edit */}
           <button 
             onClick={() => onEdit(product.slug)} 
-            className="flex flex-col items-center p-2 text-stone-400 hover:text-[#5C4033] hover:bg-white rounded-full transition-all" 
+            className="flex flex-col items-center p-2 text-stone-400 hover:text-[#FFC107] hover:bg-white rounded-full transition-all" 
             title="Edit"
           >
             <Edit2 size={16} strokeWidth={1.5} />
@@ -100,7 +100,7 @@ const ProductCard = React.forwardRef(({ product, onEdit, onDelete, onToggleArchi
           {/* Archive / Restore */}
           <button 
             onClick={() => onToggleArchive(product.id)} 
-            className="flex flex-col items-center p-2 text-stone-400 hover:text-amber-700 hover:bg-white rounded-full transition-all" 
+            className="flex flex-col items-center p-2 text-stone-400 hover:text-[#ffa110]700 hover:bg-white rounded-full transition-all" 
             title={product.archived ? "Restore" : "Archive"}
           >
             {product.archived ? <ArchiveRestore size={16} strokeWidth={1.5} /> : <Archive size={16} strokeWidth={1.5} />}

@@ -3,7 +3,7 @@ import { Pencil } from "lucide-react";
 
 const CategoryCard = React.forwardRef(({ category, onEdit }, ref) => {
   return (
-    <tr ref={ref} className="hover:bg-[#FCF9F6] transition-colors">
+    <tr ref={ref} className="hover:bg-[#fffaeb] transition-colors">
       <td className="p-4 font-mono text-sm">
         {category.id}
       </td>

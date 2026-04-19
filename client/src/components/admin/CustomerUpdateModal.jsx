@@ -74,7 +74,7 @@ export default function CustomerUpdateModal({ isOpen, onClose, customerId, onSuc
 
           {fetching ? (
             <div className="flex justify-center py-8">
-              <Loader2 className="animate-spin text-amber-700" size={32} />
+              <Loader2 className="animate-spin text-[#ffa110]700" size={32} />
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -88,7 +88,7 @@ export default function CustomerUpdateModal({ isOpen, onClose, customerId, onSuc
                   value={formData.fullName}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-[#5C4033]"
+                  className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-[#FFC107]"
                 />
               </div>
 
@@ -102,7 +102,7 @@ export default function CustomerUpdateModal({ isOpen, onClose, customerId, onSuc
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-[#5C4033]"
+                  className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-[#FFC107]"
                 />
               </div>
 
@@ -115,7 +115,7 @@ export default function CustomerUpdateModal({ isOpen, onClose, customerId, onSuc
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-[#5C4033]"
+                  className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-[#FFC107]"
                 />
               </div>
 
@@ -130,7 +130,7 @@ export default function CustomerUpdateModal({ isOpen, onClose, customerId, onSuc
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 px-4 py-2 bg-[#5C4033] text-white rounded-lg hover:bg-[#4a352a] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 bg-[#1f1f1f] text-white rounded-lg hover:bg-[#1f1f1f] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {loading && <Loader2 size={16} className="animate-spin" />}
                   Save Changes

@@ -62,12 +62,12 @@ const CouponCarousel = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="bg-gradient-to-r from-[#5C4033]/60 to-[#5C4033]/70 rounded-xl mx-2 sm:mx-4 w-full max-w-xl">
+      <div className="bg-gradient-to-r from-[#FFC107]/60 to-[#FFC107]/70 rounded-xl mx-2 sm:mx-4 w-full max-w-xl">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3">
           {/* Top Row - Label */}
           <div className="flex items-center justify-center gap-2 mb-2">
-            <Gift size={12} className="text-amber-300" />
-            <span className="text-[10px] uppercase tracking-widest text-amber-200/80">
+            <Gift size={12} className="text-[#ffa110]300" />
+            <span className="text-[10px] uppercase tracking-widest text-[#ffa110]200/80">
               Collect Your Coupons
             </span>
           </div>
@@ -78,7 +78,7 @@ const CouponCarousel = () => {
             {coupons.length > 1 && (
               <button
                 onClick={prevSlide}
-                className="p-1 text-amber-200/60 hover:text-white transition-colors hidden sm:flex"
+                className="p-1 text-[#ffa110]200/60 hover:text-white transition-colors hidden sm:flex"
               >
                 <ChevronLeft size={16} />
               </button>
@@ -119,7 +119,7 @@ const CouponCarousel = () => {
                       </>
                     ) : (
                       <>
-                        <Tag size={11} className="text-amber-300" />
+                        <Tag size={11} className="text-[#ffa110]300" />
                         <code className="text-xs font-semibold text-white font-mono">
                           {currentCoupon.code}
                         </code>
@@ -134,7 +134,7 @@ const CouponCarousel = () => {
             {coupons.length > 1 && (
               <button
                 onClick={nextSlide}
-                className="p-1 text-amber-200/60 hover:text-white transition-colors hidden sm:flex"
+                className="p-1 text-[#ffa110]200/60 hover:text-white transition-colors hidden sm:flex"
               >
                 <ChevronRight size={16} />
               </button>
@@ -158,7 +158,7 @@ const CouponCarousel = () => {
                 ))}
               </div>
             )}
-            <p className="text-[10px] text-amber-200/60">
+            <p className="text-[10px] text-[#ffa110]200/60">
               Min. order LKR {currentCoupon.minOrderAmount} •{" "}
               {new Date(currentCoupon.expiryDate).toLocaleDateString("en-US", {
                 day: "numeric",

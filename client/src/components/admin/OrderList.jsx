@@ -92,7 +92,7 @@ export default function OrderList() {
           >
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="sticky top-0 bg-[#FCF9F6] border-b border-stone-200">
+                <tr className="sticky top-0 bg-[#fffaeb] border-b border-stone-200">
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Order ID</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Customer</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Coupon</th>
@@ -115,7 +115,7 @@ export default function OrderList() {
 
             {(loading || scrollLoading) && (
               <div className="flex justify-center py-4">
-                <Loader2 className="animate-spin text-amber-800" size={24} />
+                <Loader2 className="animate-spin text-[#ffa110]800" size={24} />
               </div>
             )}
           </div>

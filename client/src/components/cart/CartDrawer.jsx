@@ -55,18 +55,18 @@ const CartDrawer = ({ isOpen, onClose }) => {
 
       {/* Right Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-[450px] bg-[#FCF9F6] shadow-2xl z-[60] flex flex-col transform transition-transform duration-500 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-[450px] bg-[#fffaeb] shadow-2xl z-[60] flex flex-col transform transition-transform duration-500 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-6 border-b border-stone-200 bg-white">
-          <h2 className="text-2xl font-serif text-[#5C4033] flex items-center gap-3">
+          <h2 className="text-2xl font-serif text-[#FFC107] flex items-center gap-3">
             <ShoppingBag strokeWidth={1.5} /> My tote
           </h2>
           <button
             onClick={onClose}
-            className="p-2 text-stone-400 hover:text-amber-800 hover:bg-amber-50 rounded-full transition-colors"
+            className="p-2 text-stone-400 hover:text-[#ffa110]800 hover:bg-amber-50 rounded-full transition-colors"
           >
             <X size={24} strokeWidth={1.5} />
           </button>
@@ -86,7 +86,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
               <p className="font-serif italic">Your tote is currently empty.</p>
               <button
                 onClick={onClose}
-                className="text-xs font-bold uppercase tracking-widest text-amber-800 border-b border-amber-800 pb-1"
+                className="text-xs font-bold uppercase tracking-widest text-[#ffa110]800 border-b border-amber-800 pb-1"
               >
                 Continue Shopping
               </button>
@@ -127,7 +127,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
                       <div className="flex items-center border border-stone-200 bg-white">
                         <button
                           onClick={() => handleDecrease(item.product.id)}
-                          className="p-2 text-stone-500 hover:text-amber-800 transition-colors"
+                          className="p-2 text-stone-500 hover:text-[#ffa110]800 transition-colors"
                         >
                           <Minus size={14} />
                         </button>
@@ -136,7 +136,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
                         </span>
                         <button
                           onClick={() => handleIncrease(item.product.id)}
-                          className="p-2 text-stone-500 hover:text-amber-800 transition-colors"
+                          className="p-2 text-stone-500 hover:text-[#ffa110]800 transition-colors"
                         >
                           <Plus size={14} />
                         </button>
@@ -166,7 +166,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
             </p>
             <button
               onClick={handleCheckoutClick}
-              className="group relative w-full bg-[#5C4033] py-5 px-8 flex items-center justify-center gap-3 transition-all duration-500 overflow-hidden active:scale-[0.98]"
+              className="group relative w-full bg-[#FFC107] py-5 px-8 flex items-center justify-center gap-3 transition-all duration-500 overflow-hidden active:scale-[0.98]"
             >
               {/* Subtle Shine Overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />

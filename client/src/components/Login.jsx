@@ -115,7 +115,7 @@ const Login = ({ switchToSignup }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[#5C4033] text-white py-2.5 rounded-lg text-sm font-medium tracking-wide hover:bg-[#4a352a] transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
+          className="w-full bg-[#1f1f1f] text-white py-2.5 rounded-lg text-sm font-medium tracking-wide hover:bg-[#1f1f1f] transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
         >
           {loading && <Loader2 size={16} className="animate-spin" />}
           {loading ? "Signing in..." : "Sign In"}
@@ -126,7 +126,7 @@ const Login = ({ switchToSignup }) => {
         <span className="text-stone-500 text-sm">Don't have an account?</span>{" "}
         <button
           onClick={switchToSignup}
-          className="text-amber-700 font-medium hover:underline text-sm"
+          className="text-[#ffa110]700 font-medium hover:underline text-sm"
         >
           Create one
         </button>

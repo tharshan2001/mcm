@@ -32,7 +32,7 @@ const AddressSettings = () => {
       {/* Header: Zero borders, pure typography */}
       <div className="flex justify-between items-end mb-16">
         <div>
-          <h2 className="text-2xl font-serif text-[#5C4033]">Shipping Directory</h2>
+          <h2 className="text-2xl font-serif text-[#FFC107]">Shipping Directory</h2>
           <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-2">Saved Locations</p>
         </div>
         
@@ -61,7 +61,7 @@ const AddressSettings = () => {
                 {/* Information Block */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-4">
-                    <h3 className="font-serif text-lg text-[#5C4033] font-medium">
+                    <h3 className="font-serif text-lg text-[#FFC107] font-medium">
                       {address.fullName}
                     </h3>
                     {address.isDefault && (
@@ -85,7 +85,7 @@ const AddressSettings = () => {
                   {!address.isDefault && (
                     <button 
                       onClick={() => setDefaultAddress(address.id)}
-                      className="text-[10px] uppercase tracking-widest font-bold text-[#5C4033] hover:underline underline-offset-8"
+                      className="text-[10px] uppercase tracking-widest font-bold text-[#FFC107] hover:underline underline-offset-8"
                     >
                       Set Default
                     </button>

@@ -32,7 +32,7 @@ const AddressSelectModal = ({ isOpen, onClose, selectedId, onSelect }) => {
 
         {/* Header */}
         <div className="mb-6 text-center">
-          <h3 className="text-xl font-serif text-[#5C4033]">
+          <h3 className="text-xl font-serif text-[#FFC107]">
             Select Address
           </h3>
           <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 mt-1">
@@ -48,7 +48,7 @@ const AddressSelectModal = ({ isOpen, onClose, selectedId, onSelect }) => {
               onClick={() => onSelect(addr)}
               className={`p-4 border cursor-pointer transition-all ${
                 selectedId === addr.id
-                  ? "border-[#5C4033] bg-stone-50"
+                  ? "border-[#FFC107] bg-stone-50"
                   : "border-stone-200 hover:border-stone-300"
               }`}
             >
@@ -63,7 +63,7 @@ const AddressSelectModal = ({ isOpen, onClose, selectedId, onSelect }) => {
                 </div>
 
                 {selectedId === addr.id && (
-                  <CheckCircle2 size={16} className="text-[#5C4033]" />
+                  <CheckCircle2 size={16} className="text-[#FFC107]" />
                 )}
               </div>
 

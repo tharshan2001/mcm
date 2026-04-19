@@ -79,8 +79,8 @@ const FeedbackList = ({ refreshKey }) => {
           return (
             <div key={item.id} className="bg-stone-50 rounded-lg p-4 group">
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-7 h-7 rounded-full bg-[#5C4033]/10 flex items-center justify-center">
-                  <span className="text-[10px] font-semibold text-[#5C4033]">
+                <div className="w-7 h-7 rounded-full bg-[#FFC107]/10 flex items-center justify-center">
+                  <span className="text-[10px] font-semibold text-[#FFC107]">
                     {item.username ? item.username.charAt(0).toUpperCase() : "?"}
                   </span>
                 </div>
@@ -93,7 +93,7 @@ const FeedbackList = ({ refreshKey }) => {
                   <div className="flex items-center gap-1 ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                       onClick={() => handleEdit(item)}
-                      className="p-1 text-stone-400 hover:text-amber-700 transition-colors"
+                      className="p-1 text-stone-400 hover:text-[#ffa110]700 transition-colors"
                       title="Edit"
                     >
                       <Edit2 size={14} />
@@ -111,7 +111,7 @@ const FeedbackList = ({ refreshKey }) => {
               
               <div className="flex gap-0.5 mb-2">
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} size={12} className={i <= item.rating ? "fill-amber-400 text-amber-400" : "text-stone-200"} />
+                  <Star key={i} size={12} className={i <= item.rating ? "fill-amber-400 text-[#ffa110]400" : "text-stone-200"} />
                 ))}
               </div>
               

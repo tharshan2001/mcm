@@ -142,7 +142,7 @@ function CheckoutForm({ cart, onClose }) {
           <button
             type="button"
             onClick={() => navigate("/account")}
-            className="text-xs text-[#5C4033] hover:underline"
+            className="text-xs text-[#FFC107] hover:underline"
           >
             + Add new address
           </button>
@@ -161,7 +161,7 @@ function CheckoutForm({ cart, onClose }) {
                 placeholder="Enter coupon code"
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                className="w-full border border-stone-200 rounded-lg pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:border-[#5C4033] transition-colors"
+                className="w-full border border-stone-200 rounded-lg pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:border-[#FFC107] transition-colors"
               />
             </div>
           </div>
@@ -179,7 +179,7 @@ function CheckoutForm({ cart, onClose }) {
           </div>
           <div className="border-t border-stone-200 pt-2 flex justify-between">
             <span className="font-medium text-stone-700">Total</span>
-            <span className="font-semibold text-lg text-[#5C4033]">LKR {cart.totalPrice.toFixed(2)}</span>
+            <span className="font-semibold text-lg text-[#FFC107]">LKR {cart.totalPrice.toFixed(2)}</span>
           </div>
         </div>
 
@@ -189,7 +189,7 @@ function CheckoutForm({ cart, onClose }) {
             <CreditCard size={14} />
             Card Details
           </label>
-          <div className="p-3 bg-white border border-stone-200 rounded-lg focus-within:border-[#5C4033] transition-colors">
+          <div className="p-3 bg-white border border-stone-200 rounded-lg focus-within:border-[#FFC107] transition-colors">
             <CardElement options={CARD_OPTIONS} />
           </div>
         </div>
@@ -203,7 +203,7 @@ function CheckoutForm({ cart, onClose }) {
         <button
           type="submit"
           disabled={!stripe || status === 'processing' || !selectedAddress}
-          className="w-full py-3 bg-[#5C4033] text-white font-medium rounded-lg hover:bg-[#4A332A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full py-3 bg-[#1f1f1f] text-white font-medium rounded-lg hover:bg-[#1f1f1f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {status === 'processing' ? (
             <>
@@ -242,7 +242,7 @@ export default function CheckoutModal({ isOpen, onClose, cart }) {
       
       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl z-10 overflow-hidden max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="bg-[#5C4033] px-6 py-4">
+        <div className="bg-[#FFC107] px-6 py-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-white">Checkout</h2>
             <button onClick={onClose} className="text-white/70 hover:text-white p-1">

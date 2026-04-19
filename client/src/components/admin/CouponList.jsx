@@ -71,7 +71,7 @@ export default function CouponList() {
 
           <button
             onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-2 bg-[#5C4033] text-white px-8 py-4 text-[8px] font-bold uppercase tracking-[0.2em]"
+            className="flex items-center gap-2 bg-[#1f1f1f] text-white px-8 py-4 text-[8px] font-bold uppercase tracking-[0.2em]"
           >
             <Plus size={14} /> New Coupon
           </button>
@@ -92,7 +92,7 @@ export default function CouponList() {
           <div className="bg-white overflow-y-auto max-h-[500px]">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="sticky top-0 bg-[#FCF9F6] border-b border-stone-200">
+                <tr className="sticky top-0 bg-[#fffaeb] border-b border-stone-200">
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">ID</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Code</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Discount</th>
@@ -119,7 +119,7 @@ export default function CouponList() {
 
         {loading && (
           <div className="flex justify-center py-4">
-            <Loader2 className="animate-spin text-amber-800" size={24}/>
+            <Loader2 className="animate-spin text-[#ffa110]800" size={24}/>
           </div>
         )}
       </div>

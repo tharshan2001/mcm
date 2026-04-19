@@ -114,7 +114,7 @@ export default function ProductUpdatePopover({ productData, onClose, onUpdated }
   };
 
   const inputStyle =
-    "w-full bg-white border border-stone-200 p-2 outline-none focus:border-[#5C4033] text-sm";
+    "w-full bg-white border border-stone-200 p-2 outline-none focus:border-[#FFC107] text-sm";
 
   const labelStyle =
     "block text-[9px] uppercase tracking-widest text-stone-400 mb-1 font-bold";
@@ -135,7 +135,7 @@ export default function ProductUpdatePopover({ productData, onClose, onUpdated }
           <X size={18} />
         </button>
 
-        <h2 className="text-xl font-serif text-[#5C4033] mb-6">
+        <h2 className="text-xl font-serif text-[#FFC107] mb-6">
           Update Product
         </h2>
 
@@ -267,7 +267,7 @@ export default function ProductUpdatePopover({ productData, onClose, onUpdated }
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="bg-[#5C4033] text-white px-8 py-3 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2"
+            className="bg-[#1f1f1f] text-white px-8 py-3 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2"
           >
             {loading ? (
               <>

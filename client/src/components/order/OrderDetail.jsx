@@ -41,14 +41,14 @@ const OrderDetail = () => {
   const getStatusClasses = (status) => {
     return status === 'Delivered'
       ? 'bg-green-50 text-green-700'
-      : 'bg-amber-50 text-amber-700';
+      : 'bg-amber-50 text-[#ffa110]700';
   };
 
   return (
     <div className="p-10 space-y-6">
       <button
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 text-amber-800 text-xs font-bold uppercase tracking-widest border-b border-amber-800 hover:opacity-70 transition-opacity"
+        className="flex items-center gap-2 text-[#ffa110]800 text-xs font-bold uppercase tracking-widest border-b border-amber-800 hover:opacity-70 transition-opacity"
       >
         <ArrowLeft size={14} />
         Back to Orders
@@ -132,7 +132,7 @@ const OrderDetail = () => {
         )}
         <div className="flex justify-between text-lg font-serif font-bold pt-2 border-t border-stone-200">
           <span className="text-stone-900">Total</span>
-          <span className="text-[#5C4033]">LKR {order.totalPrice.toFixed(2)}</span>
+          <span className="text-[#FFC107]">LKR {order.totalPrice.toFixed(2)}</span>
         </div>
       </div>
     </div>

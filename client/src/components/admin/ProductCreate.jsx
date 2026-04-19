@@ -84,7 +84,7 @@ export default function ProductCreate() {
   };
 
   const inputStyle =
-    "w-full bg-white border border-stone-200 p-2 outline-none focus:border-[#5C4033] transition-colors text-sm font-light";
+    "w-full bg-white border border-stone-200 p-2 outline-none focus:border-[#FFC107] transition-colors text-sm font-light";
 
   const labelStyle =
     "block text-[9px] uppercase tracking-widest text-stone-400 mb-1 font-bold";
@@ -241,7 +241,7 @@ export default function ProductCreate() {
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="bg-[#5C4033] text-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#3E2B22] transition-all disabled:opacity-50 flex items-center gap-2"
+              className="bg-[#1f1f1f] text-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#1f1f1f] transition-all disabled:opacity-50 flex items-center gap-2"
             >
               {loading ? (
                 <>

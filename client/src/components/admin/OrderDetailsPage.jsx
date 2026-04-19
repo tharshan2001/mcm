@@ -42,7 +42,7 @@ const OrderDetailsPage = () => {
     if (s.includes("delivered") || s.includes("completed")) return "bg-green-100 text-green-800";
     if (s.includes("processing") || s.includes("shipped")) return "bg-blue-100 text-blue-800";
     if (s.includes("cancelled")) return "bg-red-100 text-red-800";
-    return "bg-amber-100 text-amber-800"; // default/pending
+    return "bg-amber-100 text-[#ffa110]800"; // default/pending
   };
 
   if (loading) {

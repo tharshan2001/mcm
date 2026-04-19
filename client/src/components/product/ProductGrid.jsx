@@ -42,12 +42,12 @@ const ProductGrid = ({ products }) => {
             <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out flex gap-2">
               <button 
                 onClick={(e) => { e.stopPropagation(); /* Add to cart logic */ }}
-                className="flex-1 bg-white text-stone-900 py-3 text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-[#5C4033] hover:text-white transition-colors shadow-lg"
+                className="flex-1 bg-white text-stone-900 py-3 text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-[#1f1f1f] hover:text-white transition-colors shadow-lg"
               >
                 <ShoppingBag size={14} /> Quick Add
               </button>
               <button 
-                className="bg-white/90 backdrop-blur-sm p-3 text-stone-700 hover:text-amber-800 transition-colors shadow-lg"
+                className="bg-white/90 backdrop-blur-sm p-3 text-stone-700 hover:text-[#ffa110]800 transition-colors shadow-lg"
                 onClick={(e) => e.stopPropagation()}
               >
                 <Heart size={16} />
@@ -58,7 +58,7 @@ const ProductGrid = ({ products }) => {
           {/* Product Meta */}
           <div className="space-y-1">
             <div className="flex justify-between items-baseline">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-amber-800 font-bold">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-[#ffa110]800 font-bold">
                 {product.category?.category_name || 'Handloom'}
               </p>
               <p className="text-sm font-serif text-stone-900 font-bold">
@@ -66,7 +66,7 @@ const ProductGrid = ({ products }) => {
               </p>
             </div>
             
-            <h3 className="text-lg font-serif text-stone-800 leading-snug group-hover:text-amber-900 transition-colors">
+            <h3 className="text-lg font-serif text-stone-800 leading-snug group-hover:text-[#ffa110]900 transition-colors">
               {product.name}
             </h3>
             
@@ -77,7 +77,7 @@ const ProductGrid = ({ products }) => {
             <div className="pt-2 flex items-center gap-2">
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <div key={i} className="w-1.5 h-1.5 rounded-full bg-stone-200 group-hover:bg-amber-200 transition-colors" />
+                  <div key={i} className="w-1.5 h-1.5 rounded-full bg-stone-200 group-hover:bg-[#ffa110]200 transition-colors" />
                 ))}
               </div>
               <span className="text-[9px] text-stone-400 uppercase tracking-widest">

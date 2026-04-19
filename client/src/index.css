@@ -1,5 +1,117 @@
 @import "tailwindcss";
 
+@theme {
+  /* Primary */
+  --color-mistral-orange: #fa520f;
+  --color-mistral-flame: #fb6424;
+  --color-block-orange: #ff8105;
+  
+  /* Secondary & Accent */
+  --color-sunshine-900: #ff8a00;
+  --color-sunshine-700: #ffa110;
+  --color-sunshine-500: #ffb83e;
+  --color-sunshine-300: #ffd06a;
+  --color-block-gold: #ffe295;
+  --color-bright-yellow: #ffd900;
+  
+  /* Surface & Background */
+  --color-warm-ivory: #fffaeb;
+  --color-cream: #fff0c2;
+  --color-pure-white: #ffffff;
+  --color-mistral-black: #1f1f1f;
+  
+  /* Input Border - cool gray (sole cool tone) */
+  --color-input-border: hsl(240, 5.9%, 90%);
+  
+  /* Semantic */
+  --color-success: #2E7D32;
+  --color-error: #D32F2F;
+  
+  /* Legacy mappings */
+  --color-primary-bg: #fffaeb;
+  --color-secondary-bg: #fff0c2;
+  --color-accent: #ffa110;
+  --color-accent-dark: #ff8a00;
+  --color-text-primary: #1f1f1f;
+  --color-text-secondary: hsl(0, 0%, 24%);
+  --color-border: #e9ecef;
+}
+
+body {
+  background-color: var(--color-warm-ivory);
+  color: var(--color-mistral-black);
+  font-family: Arial, ui-sans-serif, system-ui, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+/* Typography - Single weight 400 throughout (Mistral design) */
+h1, h2, h3, h4, h5, h6, p, span, a, button {
+  font-weight: 400;
+}
+
+/* Golden Float Shadow - Mistral-inspired warm shadows */
+.golden-shadow {
+  box-shadow: 
+    rgba(127, 99, 21, 0.12) -8px 16px 39px,
+    rgba(127, 99, 21, 0.1) -33px 64px 72px,
+    rgba(127, 99, 21, 0.06) -73px 144px 97px;
+}
+
+/* Near-zero border-radius - sharp architectural corners */
+.sharp {
+  border-radius: 0;
+}
+
+/* Button variants */
+.btn-dark {
+  background-color: var(--color-mistral-black);
+  color: var(--color-pure-white);
+  padding: 12px;
+  border-radius: 0;
+}
+
+.btn-cream {
+  background-color: var(--color-cream);
+  color: var(--color-mistral-black);
+  border-radius: 0;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-mistral-black);
+  opacity: 0.4;
+}
+
+/* Card with golden shadow */
+.card-golden {
+  background-color: var(--color-pure-white);
+  border-radius: 0;
+  box-shadow: 
+    rgba(127, 99, 21, 0.12) -8px 16px 39px,
+    rgba(127, 99, 21, 0.1) -33px 64px 72px,
+    rgba(127, 99, 21, 0.06) -73px 144px 97px;
+}
+
+/* Mistral Block Gradient */
+.mistral-gradient {
+  background: linear-gradient(to right, 
+    #ffd900 0%, 
+    #ffe295 20%, 
+    #ffa110 40%, 
+    #ff8105 60%, 
+    #fb6424 80%, 
+    #fa520f 100%
+  );
+}
+
+/* Input styling - using cool gray as per DESIGN.md */
+input, textarea, select {
+  border-color: var(--color-input-border);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline-color: var(--color-sunshine-700);
+}
+
 @keyframes slideIn {
   0% {
     transform: translateX(100%);

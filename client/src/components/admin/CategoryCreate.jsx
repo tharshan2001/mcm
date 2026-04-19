@@ -21,7 +21,7 @@ export default function CategoryCreate({ onCreated }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
 
-      <h2 className="text-xl font-serif text-[#5C4033]">
+      <h2 className="text-xl font-serif text-[#FFC107]">
         Create Category
       </h2>
 
@@ -42,7 +42,7 @@ export default function CategoryCreate({ onCreated }) {
 
       <button
         type="submit"
-        className="bg-[#5C4033] text-white px-4 py-2"
+        className="bg-[#1f1f1f] text-white px-4 py-2"
       >
         Create
       </button>

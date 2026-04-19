@@ -5,12 +5,12 @@ const CustomerCard = React.forwardRef(({ customer, onEdit, onToggleStatus }, ref
   const defaultAddress = customer.addresses?.find(a => a.isDefault) || customer.addresses?.[0];
 
   return (
-    <tr ref={ref} className="hover:bg-[#FCF9F6] transition-colors">
+    <tr ref={ref} className="hover:bg-[#fffaeb] transition-colors">
       <td className="p-4 font-mono text-sm text-stone-500">{customer.id}</td>
       <td className="p-4">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-[#5C4033]/10 flex items-center justify-center">
-            <span className="text-xs font-semibold text-[#5C4033]">
+          <div className="w-8 h-8 rounded-full bg-[#FFC107]/10 flex items-center justify-center">
+            <span className="text-xs font-semibold text-[#FFC107]">
               {customer.fullName?.charAt(0).toUpperCase() || "?"}
             </span>
           </div>
@@ -48,7 +48,7 @@ const CustomerCard = React.forwardRef(({ customer, onEdit, onToggleStatus }, ref
         <div className="flex items-center gap-2">
           <button
             onClick={() => onEdit(customer)}
-            className="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors"
+            className="p-2 text-stone-400 hover:text-[#ffa110]700 hover:bg-amber-50 rounded-lg transition-colors"
             title="Edit"
           >
             <Edit2 size={16} />
