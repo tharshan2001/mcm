@@ -70,7 +70,7 @@ const Sidebar = () => {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "#FFC107",
+          colorPrimary: "#5C4033",
           colorBgContainer: "#fafaf9",
           colorText: "#57534e",
           fontFamily: "inherit",
@@ -79,7 +79,7 @@ const Sidebar = () => {
           Menu: {
             itemBg: "transparent",
             itemSelectedBg: "#e7e5e4",
-            itemSelectedColor: "#FFC107",
+            itemSelectedColor: "#5C4033",
             itemHoverBg: "#f5f5f4",
             itemActiveBg: "#f5f5f4",
           },
@@ -100,7 +100,7 @@ const Sidebar = () => {
         {/* Brand Header */}
         <div className="h-20 flex items-center justify-center border-b border-stone-200 mb-4">
           <span
-            className={`font-serif text-[#FFC107] font-bold tracking-tighter transition-all ${collapsed ? "text-xl" : "text-2xl"}`}
+            className={`font-serif text-[#5C4033] font-bold tracking-tighter transition-all ${collapsed ? "text-xl" : "text-2xl"}`}
           >
             {collapsed ? "MCM" : "MCM Handlooms"}
           </span>

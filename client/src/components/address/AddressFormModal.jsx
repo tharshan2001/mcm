@@ -66,7 +66,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
       <div className="relative bg-white w-full max-w-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
         <button 
           onClick={onClose}
-          className="absolute top-6 right-6 text-stone-400 hover:text-[#FFC107] transition-colors"
+          className="absolute top-6 right-6 text-stone-400 hover:text-[#5C4033] transition-colors"
         >
           <X size={20} strokeWidth={1.5} />
         </button>
@@ -76,7 +76,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
             <span className="text-[10px] uppercase tracking-[0.4em] text-stone-400 block mb-1">
               Registry Entry
             </span>
-            <h3 className="text-2xl font-serif text-[#FFC107]">
+            <h3 className="text-2xl font-serif text-[#5C4033]">
               {initialData ? "Update Destination" : "New Address"}
             </h3>
           </header>
@@ -92,7 +92,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="e.g. Anton Abitharshan"
-                className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#FFC107] outline-none transition-colors placeholder:text-stone-200"
+                className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#5C4033] outline-none transition-colors placeholder:text-stone-200"
               />
             </div>
 
@@ -106,7 +106,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
                   required
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#FFC107] outline-none transition-colors"
+                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#5C4033] outline-none transition-colors"
                 />
               </div>
               <div className="group">
@@ -117,7 +117,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
                   required
                   value={formData.country}
                   onChange={handleChange}
-                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#FFC107] outline-none transition-colors"
+                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#5C4033] outline-none transition-colors"
                 />
               </div>
             </div>
@@ -131,7 +131,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
                 required
                 value={formData.addressLine}
                 onChange={handleChange}
-                className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#FFC107] outline-none transition-colors"
+                className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#5C4033] outline-none transition-colors"
               />
             </div>
 
@@ -145,7 +145,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
                   required
                   value={formData.city}
                   onChange={handleChange}
-                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#FFC107] outline-none transition-colors"
+                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#5C4033] outline-none transition-colors"
                 />
               </div>
               <div>
@@ -156,7 +156,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
                   required
                   value={formData.state}
                   onChange={handleChange}
-                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#FFC107] outline-none transition-colors"
+                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#5C4033] outline-none transition-colors"
                 />
               </div>
               <div>
@@ -167,7 +167,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
                   required
                   value={formData.postalCode}
                   onChange={handleChange}
-                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#FFC107] outline-none transition-colors"
+                  className="w-full bg-transparent border-b border-stone-200 py-2 text-sm focus:border-[#5C4033] outline-none transition-colors"
                 />
               </div>
             </div>
@@ -180,7 +180,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
                 name="isDefault"
                 checked={formData.isDefault}
                 onChange={handleChange}
-                className="w-4 h-4 border-stone-300 rounded text-[#FFC107] focus:ring-[#FFC107] cursor-pointer"
+                className="w-4 h-4 border-stone-300 rounded text-[#5C4033] focus:ring-[#5C4033] cursor-pointer"
               />
               <label htmlFor="isDefault" className="text-[11px] uppercase tracking-widest text-stone-500 cursor-pointer">
                 Set as primary delivery address
@@ -192,7 +192,7 @@ const AddressFormModal = ({ isOpen, onClose, initialData = null }) => {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-[#1f1f1f] text-white py-5 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-stone-800 transition-all flex items-center justify-center gap-2"
+              className="flex-1 bg-[#5C4033] text-white py-5 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-stone-800 transition-all flex items-center justify-center gap-2"
             >
               {loading ? <Loader2 size={16} className="animate-spin" /> : initialData ? "Update Entry" : "Save Entry"}
             </button>

@@ -71,8 +71,8 @@ const BrandStory = () => {
             visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
           }`}>
             <div className="space-y-5">
-              <span className="text-[#ffa110]700 text-xs font-bold uppercase tracking-[0.3em]">Our Story</span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#FFC107] leading-tight">
+              <span className="text-[#5C4033]700 text-xs font-bold uppercase tracking-[0.3em]">Our Story</span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#5C4033] leading-tight">
                 Weaving <span className="italic">Heritage</span>, One Thread at a Time
               </h2>
               <p className="text-stone-600 font-light leading-relaxed text-base md:text-lg max-w-lg">
@@ -84,7 +84,7 @@ const BrandStory = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-stone-200">
               {pillars.map((pillar, idx) => (
                 <div key={idx} className="space-y-2">
-                  <div className="text-[#ffa110]700 bg-amber-50 w-10 h-10 flex items-center justify-center rounded-full">
+                  <div className="text-[#5C4033]700 bg-amber-50 w-10 h-10 flex items-center justify-center rounded-full">
                     {pillar.icon}
                   </div>
                   <h5 className="font-medium text-stone-800 text-sm">{pillar.title}</h5>
@@ -98,7 +98,7 @@ const BrandStory = () => {
             <div className="pt-4">
               <button 
                 onClick={() => navigate('/about')}
-                className="group inline-flex items-center gap-3 text-[#FFC107] hover:text-[#ffa110]700 transition-colors"
+                className="group inline-flex items-center gap-3 text-[#5C4033] hover:text-[#5C4033]700 transition-colors"
               >
                 <span className="text-sm font-semibold uppercase tracking-wider">Discover Our Journey</span>
                 <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />

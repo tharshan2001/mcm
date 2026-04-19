@@ -49,7 +49,7 @@ export default function CouponUpdatePopover({ couponData, onClose, onUpdated }) 
         </button>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <h2 className="text-xl font-serif text-[#FFC107]">
+          <h2 className="text-xl font-serif text-[#5C4033]">
             Edit Coupon
           </h2>
 
@@ -149,7 +149,7 @@ export default function CouponUpdatePopover({ couponData, onClose, onUpdated }) 
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#1f1f1f] text-white px-4 py-2 disabled:opacity-50"
+            className="bg-[#5C4033] text-white px-4 py-2 disabled:opacity-50"
           >
             {loading ? "Updating..." : "Update"}
           </button>

@@ -48,7 +48,7 @@ const FilterPage = ({
             categories.map((cat) => (
               <label
                 key={cat.id}
-                className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-[#ffa110]800 py-0.5"
+                className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-[#5C4033]800 py-0.5"
               >
                 <input
                   type="checkbox"
@@ -92,7 +92,7 @@ const FilterPage = ({
       {/* mobile button */}
       <div className="lg:hidden fixed bottom-10 right-1 z-50">
         <button
-          className="bg-[#1f1f1f] text-white p-1.5 rounded-full shadow-lg flex items-end"
+          className="bg-[#5C4033] text-white p-1.5 rounded-full shadow-lg flex items-end"
           onClick={() => setIsOpen(true)}
         >
           <SlidersHorizontal size={20} />
@@ -136,7 +136,7 @@ const FilterPage = ({
               categories.map((cat) => (
                 <label
                   key={cat.id}
-                  className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-[#ffa110]800 py-0.5"
+                  className="flex items-center text-sm text-stone-600 cursor-pointer hover:text-[#5C4033]800 py-0.5"
                 >
                   <input
                     type="checkbox"

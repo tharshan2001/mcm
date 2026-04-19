@@ -92,7 +92,7 @@ const HeroCarousel = () => {
             <div className={`transform transition-all duration-700 delay-300 ${
               index === currentIndex ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              <p className="text-[#ffa110]300 text-xs md:text-sm font-medium tracking-[0.3em] uppercase mb-4">
+              <p className="text-[#5C4033]300 text-xs md:text-sm font-medium tracking-[0.3em] uppercase mb-4">
                 Handloom Excellence Since 2024
               </p>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight mb-4">
@@ -105,7 +105,7 @@ const HeroCarousel = () => {
                 onClick={() => handleCtaClick(slide.link)}
                 className="group relative px-8 py-4 bg-amber-700 text-white overflow-hidden"
               >
-                <span className="relative z-10 text-sm font-semibold tracking-widest uppercase group-hover:text-[#ffa110]900 transition-colors">
+                <span className="relative z-10 text-sm font-semibold tracking-widest uppercase group-hover:text-[#5C4033]900 transition-colors">
                   {slide.cta}
                 </span>
                 <div className="absolute inset-0 bg-amber-400 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
@@ -118,15 +118,15 @@ const HeroCarousel = () => {
             index === currentIndex ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
             <div className="flex items-center gap-2 text-white/80">
-              <Award size={18} className="text-[#ffa110]400" />
+              <Award size={18} className="text-[#5C4033]400" />
               <span className="text-xs tracking-wide">Silk Mark Certified</span>
             </div>
             <div className="hidden sm:flex items-center gap-2 text-white/80">
-              <Truck size={18} className="text-[#ffa110]400" />
+              <Truck size={18} className="text-[#5C4033]400" />
               <span className="text-xs tracking-wide">Free Shipping</span>
             </div>
             <div className="hidden md:flex items-center gap-2 text-white/80">
-              <Heart size={18} className="text-[#ffa110]400" />
+              <Heart size={18} className="text-[#5C4033]400" />
               <span className="text-xs tracking-wide">Handwoven Love</span>
             </div>
           </div>

@@ -18,7 +18,7 @@ const OrderCard = React.forwardRef(({ order }, ref) => {
     <tr
       ref={ref}
       onClick={goToOrder}
-      className="group border-b border-stone-100 transition-colors hover:bg-[#fffaeb] bg-white cursor-pointer"
+      className="group border-b border-stone-100 transition-colors hover:bg-[#FCF9F6] bg-white cursor-pointer"
     >
       {/* Order Icon + ID */}
       <td className="py-4 pl-6 pr-4">
@@ -77,7 +77,7 @@ const OrderCard = React.forwardRef(({ order }, ref) => {
       <td className="py-4 pl-4 pr-6">
         <button
           onClick={handleViewCustomer}
-          className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-stone-500 bg-stone-50 hover:bg-[#1f1f1f] hover:text-white rounded-md transition-all border border-stone-200 hover:border-[#FFC107]"
+          className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-stone-500 bg-stone-50 hover:bg-[#5C4033] hover:text-white rounded-md transition-all border border-stone-200 hover:border-[#5C4033]"
         >
           <ExternalLink size={14} />
           View

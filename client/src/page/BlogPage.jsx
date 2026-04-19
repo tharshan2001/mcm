@@ -92,10 +92,10 @@ const BlogPage = () => {
   const regularPosts = filteredPosts.filter(post => post.id !== featuredPost?.id);
 
   return (
-    <div ref={ref} className="bg-[#fffaeb] min-h-screen">
+    <div ref={ref} className="bg-[#FCF9F6] min-h-screen">
       {/* Hero */}
       <section className="relative py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-[#FFC107] opacity-90" />
+        <div className="absolute inset-0 bg-[#5C4033] opacity-90" />
         <div 
           className="absolute inset-0 opacity-20"
           style={{
@@ -106,9 +106,9 @@ const BlogPage = () => {
         <div className={`relative z-10 max-w-4xl mx-auto px-4 text-center transition-all duration-700 ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <span className="text-[#ffa110]300 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">The Journal</span>
+          <span className="text-[#5C4033]300 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">The Journal</span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6">
-            Stories of <span className="italic text-[#ffa110]200">Handloom</span> & Heritage
+            Stories of <span className="italic text-[#5C4033]200">Handloom</span> & Heritage
           </h1>
           <p className="text-white/70 text-lg font-light max-w-2xl mx-auto">
             Discover the art, craft, and stories behind every handwoven piece
@@ -128,7 +128,7 @@ const BlogPage = () => {
                   onClick={() => setActiveCategory(cat)}
                   className={`px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider transition-all ${
                     activeCategory === cat
-                      ? "bg-[#1f1f1f] text-white"
+                      ? "bg-[#5C4033] text-white"
                       : "bg-stone-100 text-stone-600 hover:bg-stone-200"
                   }`}
                 >
@@ -144,7 +144,7 @@ const BlogPage = () => {
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-[#FFC107] transition-colors"
+                className="w-full pl-10 pr-4 py-2 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-[#5C4033] transition-colors"
               />
               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
             </div>
@@ -158,7 +158,7 @@ const BlogPage = () => {
           <div className={`transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <span className="text-[#ffa110]700 text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Featured</span>
+            <span className="text-[#5C4033]700 text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Featured</span>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
                 <img 
@@ -169,17 +169,17 @@ const BlogPage = () => {
               </div>
               <div className="space-y-4">
                 <div className="flex items-center gap-4 text-xs text-stone-500">
-                  <span className="px-3 py-1 bg-amber-100 text-[#ffa110]800 rounded-full font-medium">{featuredPost.category}</span>
+                  <span className="px-3 py-1 bg-amber-100 text-[#5C4033]800 rounded-full font-medium">{featuredPost.category}</span>
                   <span className="flex items-center gap-1"><Calendar size={12} /> {featuredPost.date}</span>
                   <span className="flex items-center gap-1"><Clock size={12} /> {featuredPost.readTime}</span>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-serif text-[#FFC107] leading-tight">
+                <h2 className="text-2xl md:text-3xl font-serif text-[#5C4033] leading-tight">
                   {featuredPost.title}
                 </h2>
                 <p className="text-stone-600 font-light leading-relaxed">
                   {featuredPost.excerpt}
                 </p>
-                <button className="group inline-flex items-center gap-2 text-[#FFC107] hover:text-[#ffa110]700 font-medium transition-colors">
+                <button className="group inline-flex items-center gap-2 text-[#5C4033] hover:text-[#5C4033]700 font-medium transition-colors">
                   Read Article <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -190,7 +190,7 @@ const BlogPage = () => {
 
       {/* Regular Posts Grid */}
       <section className="max-w-7xl mx-auto px-4 pb-16 md:pb-24">
-        <h3 className="text-xl font-serif text-[#FFC107] mb-8">Latest Articles</h3>
+        <h3 className="text-xl font-serif text-[#5C4033] mb-8">Latest Articles</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {regularPosts.map((post, idx) => (
             <article 
@@ -212,13 +212,13 @@ const BlogPage = () => {
                   <span className="px-2 py-1 bg-stone-100 text-stone-600 rounded font-medium">{post.category}</span>
                   <span>{post.date}</span>
                 </div>
-                <h4 className="text-lg font-serif text-stone-800 group-hover:text-[#FFC107] transition-colors line-clamp-2">
+                <h4 className="text-lg font-serif text-stone-800 group-hover:text-[#5C4033] transition-colors line-clamp-2">
                   {post.title}
                 </h4>
                 <p className="text-sm text-stone-500 font-light line-clamp-2">
                   {post.excerpt}
                 </p>
-                <button className="text-xs font-medium uppercase tracking-wider text-[#ffa110]700 hover:text-[#ffa110]900 transition-colors">
+                <button className="text-xs font-medium uppercase tracking-wider text-[#5C4033]700 hover:text-[#5C4033]900 transition-colors">
                   Read More →
                 </button>
               </div>
@@ -231,7 +231,7 @@ const BlogPage = () => {
             <p className="text-stone-500">No articles found matching your criteria.</p>
             <button 
               onClick={() => {setActiveCategory("All"); setSearchQuery("");}}
-              className="mt-4 text-[#ffa110]700 hover:text-[#ffa110]900 font-medium"
+              className="mt-4 text-[#5C4033]700 hover:text-[#5C4033]900 font-medium"
             >
               Clear filters
             </button>
@@ -240,7 +240,7 @@ const BlogPage = () => {
       </section>
 
       {/* Newsletter CTA */}
-      <section className="bg-[#FFC107] py-16">
+      <section className="bg-[#5C4033] py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h3 className="text-2xl md:text-3xl font-serif text-white mb-4">
             Stay Connected

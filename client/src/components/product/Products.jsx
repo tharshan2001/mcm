@@ -73,7 +73,7 @@ const HoverProductCard = ({ product }) => {
         <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <button
             onClick={handleQuickAdd}
-            className="w-full bg-white/95 text-stone-900 py-3 text-xs font-bold uppercase tracking-widest shadow-xl flex items-center justify-center gap-2 hover:bg-[#1f1f1f] hover:text-white"
+            className="w-full bg-white/95 text-stone-900 py-3 text-xs font-bold uppercase tracking-widest shadow-xl flex items-center justify-center gap-2 hover:bg-[#5C4033] hover:text-white"
           >
             <ShoppingBag size={14} /> Quick Add
           </button>
@@ -81,7 +81,7 @@ const HoverProductCard = ({ product }) => {
       </div>
 
       <div className="flex-1 space-y-1">
-        <p className="text-[10px] uppercase tracking-[0.2em] text-[#ffa110]800 font-bold">
+        <p className="text-[10px] uppercase tracking-[0.2em] text-[#5C4033]800 font-bold">
           {product.categoryName || "Uncategorized"}
         </p>
 

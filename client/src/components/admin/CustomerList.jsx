@@ -117,7 +117,7 @@ export default function CustomerList() {
           >
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="sticky top-0 bg-[#fffaeb] border-b border-stone-200">
+                <tr className="sticky top-0 bg-[#FCF9F6] border-b border-stone-200">
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">ID</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Name</th>
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Email</th>
@@ -140,7 +140,7 @@ export default function CustomerList() {
 
             {(loading || scrollLoading) && (
               <div className="flex justify-center py-4">
-                <Loader2 className="animate-spin text-[#ffa110]800" size={24} />
+                <Loader2 className="animate-spin text-[#5C4033]800" size={24} />
               </div>
             )}
           </div>

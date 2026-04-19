@@ -55,7 +55,7 @@ export default function CategoryUpdatePopover({ categoryData, onClose, onUpdated
 
             <button
               type="submit"
-              className="bg-[#1f1f1f] text-white px-4 py-1"
+              className="bg-[#5C4033] text-white px-4 py-1"
             >
               Update
             </button>

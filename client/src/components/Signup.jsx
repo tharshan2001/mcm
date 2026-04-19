@@ -340,7 +340,7 @@ const Signup = ({ switchToLogin }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#1f1f1f] text-white py-2.5 rounded-lg text-sm font-medium tracking-wide hover:bg-[#1f1f1f] transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
+            className="w-full bg-[#5C4033] text-white py-2.5 rounded-lg text-sm font-medium tracking-wide hover:bg-[#5C4033] transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
           >
             {loading && <Loader2 size={16} className="animate-spin" />}
             {loading ? "Sending..." : "Continue"}
@@ -351,7 +351,7 @@ const Signup = ({ switchToLogin }) => {
           {/* OTP Display */}
           <div className="bg-amber-50 rounded-lg p-4 text-center">
             <p className="text-stone-600 text-sm">We've sent a verification code to</p>
-            <p className="font-semibold text-[#ffa110]800 mt-1">{email}</p>
+            <p className="font-semibold text-[#5C4033]800 mt-1">{email}</p>
           </div>
 
           {/* OTP Input */}
@@ -373,7 +373,7 @@ const Signup = ({ switchToLogin }) => {
           <button
             type="submit"
             disabled={loading || otp.length !== 6}
-            className="w-full bg-[#1f1f1f] text-white py-2.5 rounded-lg text-sm font-medium tracking-wide hover:bg-[#1f1f1f] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+            className="w-full bg-[#5C4033] text-white py-2.5 rounded-lg text-sm font-medium tracking-wide hover:bg-[#5C4033] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
           >
             {loading && <Loader2 size={16} className="animate-spin" />}
             {loading ? "Verifying..." : "Verify & Create Account"}
@@ -396,7 +396,7 @@ const Signup = ({ switchToLogin }) => {
               <button
                 type="button"
                 onClick={handleResendOtp}
-                className="text-[#ffa110]700 font-medium hover:underline text-sm"
+                className="text-[#5C4033]700 font-medium hover:underline text-sm"
               >
                 Resend verification code
               </button>
@@ -409,7 +409,7 @@ const Signup = ({ switchToLogin }) => {
         <span className="text-stone-500 text-sm">Already have an account?</span>{" "}
         <button
           onClick={switchToLogin}
-          className="text-[#ffa110]700 font-medium hover:underline text-sm"
+          className="text-[#5C4033]700 font-medium hover:underline text-sm"
         >
           Sign in
         </button>

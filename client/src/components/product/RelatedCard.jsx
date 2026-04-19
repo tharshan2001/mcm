@@ -20,7 +20,7 @@ const RelatedCard = ({ product, onClick }) => {
       </div>
 
       {/* Product category */}
-      <p className="text-[10px] uppercase text-[#ffa110]800 font-bold mb-1">
+      <p className="text-[10px] uppercase text-[#5C4033]800 font-bold mb-1">
         {product.categoryName || "Uncategorized"}
       </p>
 

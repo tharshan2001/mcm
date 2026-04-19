@@ -42,7 +42,7 @@ export default function CouponCreate({ onCreated }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <h2 className="text-xl font-serif text-[#FFC107]">
+      <h2 className="text-xl font-serif text-[#5C4033]">
         Create Coupon
       </h2>
 
@@ -147,7 +147,7 @@ export default function CouponCreate({ onCreated }) {
       <button
         type="submit"
         disabled={loading}
-        className="bg-[#1f1f1f] text-white px-4 py-2 disabled:opacity-50"
+        className="bg-[#5C4033] text-white px-4 py-2 disabled:opacity-50"
       >
         {loading ? "Creating..." : "Create"}
       </button>

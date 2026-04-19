@@ -60,7 +60,7 @@ const OrdersList = () => {
 
   return (
     <div className="space-y-4 overflow-y-auto max-h-[500px] p-10 pt-3">
-      <h3 className="text-lg font-serif text-[#FFC107] mb-4 z-55 absolute top-70">
+      <h3 className="text-lg font-serif text-[#5C4033] mb-4 z-55 absolute top-70">
         My Purchases
       </h3>
 
@@ -73,7 +73,7 @@ const OrdersList = () => {
         <p className="text-sm text-stone-500 italic">Ready for your next find?</p>
         <button
           onClick={() => navigate('/shop')}
-          className="mt-3 text-[#ffa110]800 text-xs font-bold uppercase tracking-widest border-b border-amber-800"
+          className="mt-3 text-[#5C4033]800 text-xs font-bold uppercase tracking-widest border-b border-amber-800"
         >
           Shop The Collection
         </button>

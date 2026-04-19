@@ -27,13 +27,13 @@ const RelatedCard = ({ product, onClick, isVisible, index }) => {
 
       {/* Product info */}
       <div className="p-4">
-        <p className="text-[10px] uppercase tracking-wider text-[#ffa110]700 font-semibold mb-1.5">
+        <p className="text-[10px] uppercase tracking-wider text-[#5C4033]700 font-semibold mb-1.5">
           {product.categoryName || "Uncategorized"}
         </p>
-        <h3 className="text-sm font-medium text-stone-800 mb-2 line-clamp-2 group-hover:text-[#FFC107] transition-colors">
+        <h3 className="text-sm font-medium text-stone-800 mb-2 line-clamp-2 group-hover:text-[#5C4033] transition-colors">
           {product.name}
         </h3>
-        <p className="text-base font-semibold text-[#FFC107]">LKR {product.price}</p>
+        <p className="text-base font-semibold text-[#5C4033]">LKR {product.price}</p>
       </div>
     </div>
   );
@@ -130,7 +130,7 @@ const RelatedProductsCarousel = ({ categorySlug, limit = 6 }) => {
       <button
         onClick={() => scroll("left")}
         disabled={!canScrollLeft}
-        className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-20 bg-white border border-stone-200 p-2.5 rounded-full shadow-md hover:shadow-lg hover:border-[#FFC107] hover:bg-[#FFC107] transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed items-center justify-center"
+        className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-20 bg-white border border-stone-200 p-2.5 rounded-full shadow-md hover:shadow-lg hover:border-[#5C4033] hover:bg-[#5C4033] transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed items-center justify-center"
       >
         <ChevronLeft size={20} className="text-stone-600 group-hover:text-white" />
       </button>
@@ -138,7 +138,7 @@ const RelatedProductsCarousel = ({ categorySlug, limit = 6 }) => {
       <button
         onClick={() => scroll("right")}
         disabled={!canScrollRight}
-        className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-20 bg-white border border-stone-200 p-2.5 rounded-full shadow-md hover:shadow-lg hover:border-[#FFC107] hover:bg-[#FFC107] transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed items-center justify-center"
+        className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-20 bg-white border border-stone-200 p-2.5 rounded-full shadow-md hover:shadow-lg hover:border-[#5C4033] hover:bg-[#5C4033] transition-all duration-300 disabled:opacity-20 disabled:cursor-not-allowed items-center justify-center"
       >
         <ChevronRight size={20} className="text-stone-600 group-hover:text-white" />
       </button>

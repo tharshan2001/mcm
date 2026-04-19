@@ -54,7 +54,7 @@ const Features = () => {
               }`}
               style={{ transitionDelay: `${idx * 100}ms` }}
             >
-              <div className="w-12 h-12 flex items-center justify-center bg-[#FFC107] text-[#ffa110]400 shrink-0">
+              <div className="w-12 h-12 flex items-center justify-center bg-[#5C4033] text-[#5C4033]400 shrink-0">
                 {feature.icon}
               </div>
               <div>

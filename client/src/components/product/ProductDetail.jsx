@@ -44,8 +44,8 @@ const ProductDetail = ({ onProductLoaded }) => {
 
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#fffaeb]">
-        <Loader2 className="animate-spin text-[#ffa110]800" size={32} />
+      <div className="min-h-screen flex items-center justify-center bg-[#FCF9F6]">
+        <Loader2 className="animate-spin text-[#5C4033]800" size={32} />
       </div>
     );
 
@@ -58,14 +58,14 @@ const ProductDetail = ({ onProductLoaded }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fffaeb] p-3 md:p-4">
+    <div className="min-h-screen bg-[#FCF9F6] p-3 md:p-4">
       {/* Main Card Container */}
       <div className="w-full bg-white shadow-lg md:shadow-xl md:max-w-6xl md:mx-auto md:rounded-2xl overflow-hidden flex flex-col md:flex-row relative">
         
         {/* Back Button - Stylish */}
         <button
           onClick={() => navigate(-1)}
-          className="absolute top-4 left-4 z-30 flex items-center justify-center w-9 h-9 text-[#FFC107] hover:text-[#FFB300] hover:scale-110 transition-all"
+          className="absolute top-4 left-4 z-30 flex items-center justify-center w-9 h-9 text-[#5C4033] hover:text-[#8B5A3C] hover:scale-110 transition-all"
         >
           <ChevronLeft size={24} strokeWidth={2.5} />
         </button>
@@ -110,12 +110,12 @@ const ProductDetail = ({ onProductLoaded }) => {
           {/* Scrollable Content */}
           <div className="flex-1 p-5 md:p-8 space-y-4 overflow-y-auto">
             {/* Category */}
-            <span className="inline-block text-[#ffa110]700 text-xs uppercase tracking-wider font-semibold">
+            <span className="inline-block text-[#5C4033]700 text-xs uppercase tracking-wider font-semibold">
               {product?.categoryName}
             </span>
             
             {/* Name */}
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif text-[#FFC107] leading-tight">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-serif text-[#5C4033] leading-tight">
               {product?.name}
             </h1>
             
@@ -151,7 +151,7 @@ const ProductDetail = ({ onProductLoaded }) => {
               <button
                 onClick={handleAddToCart}
                 disabled={product?.stockQuantity === 0}
-                className="flex-1 bg-[#1f1f1f] text-white py-3 md:py-4 px-4 text-xs md:text-sm uppercase tracking-wide font-semibold hover:bg-[#1f1f1f] transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-[#5C4033] text-white py-3 md:py-4 px-4 text-xs md:text-sm uppercase tracking-wide font-semibold hover:bg-[#5C4033] transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <ShoppingBag size={18} />
                 {product?.stockQuantity === 0 ? "Sold Out" : "Add to Cart"}

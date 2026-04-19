@@ -49,9 +49,9 @@ const Navbar = ({ onCartOpen }) => {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <nav className="bg-[#fffaeb] border-b border-stone-200 sticky top-0 z-50">
+    <nav className="bg-[#FCF9F6] border-b border-stone-200 sticky top-0 z-50">
       {/* Top banner */}
-      <div className="lm:hidden bg-[#FFC107] text-stone-100 text-center py-2 text-[10px] sm:text-xs tracking-widest uppercase px-2">
+      <div className="lm:hidden bg-[#5C4033] text-stone-100 text-center py-2 text-[10px] sm:text-xs tracking-widest uppercase px-2">
         Authentic Hand-Woven Traditions • Free Shipping on Orders Over LKR 15000
       </div>
 
@@ -74,12 +74,12 @@ const Navbar = ({ onCartOpen }) => {
             to="/"
             className="flex flex-col group transition-opacity hover:opacity-90"
           >
-            <span className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#FFC107] leading-none tracking-[0.15em]">
+            <span className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-[#5C4033] leading-none tracking-[0.15em]">
               MCM
             </span>
 
             <span
-              className="text-[15px] sm:text-l md:text-sm text-[#FFC107]/80 lowercase italic ml-6 sm:ml-8 md:ml-10 -mt-1"
+              className="text-[15px] sm:text-l md:text-sm text-[#5C4033]/80 lowercase italic ml-6 sm:ml-8 md:ml-10 -mt-1"
               style={{ fontFamily: "cursive, serif" }}
             >
               handlooms
@@ -88,19 +88,19 @@ const Navbar = ({ onCartOpen }) => {
 
           {/* CENTERED LINKS */}
           <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center space-x-10 text-sm font-medium uppercase text-stone-700">
-            <Link to="/" className="hover:text-[#FFC107] transition-all duration-300 ease-in-out hover:scale-105">
+            <Link to="/" className="hover:text-[#5C4033] transition-all duration-300 ease-in-out hover:scale-105">
               Home
             </Link>
 
-            <Link to="/shop" className="hover:text-[#FFC107] transition-all duration-300 ease-in-out hover:scale-105">
+            <Link to="/shop" className="hover:text-[#5C4033] transition-all duration-300 ease-in-out hover:scale-105">
               Shop All
             </Link>
 
-            <Link to="/blog" className="hover:text-[#FFC107] transition-all duration-300 ease-in-out hover:scale-105">
+            <Link to="/blog" className="hover:text-[#5C4033] transition-all duration-300 ease-in-out hover:scale-105">
               Blog
             </Link>
 
-            <Link to="/about" className="hover:text-[#FFC107] transition-all duration-300 ease-in-out hover:scale-105">
+            <Link to="/about" className="hover:text-[#5C4033] transition-all duration-300 ease-in-out hover:scale-105">
               About Us
             </Link>
           </div>
@@ -109,14 +109,14 @@ const Navbar = ({ onCartOpen }) => {
           <div className="flex items-center space-x-4">
             <button
               onClick={handleUserClick}
-              className="text-stone-700 hover:text-[#FFC107]"
+              className="text-stone-700 hover:text-[#5C4033]"
             >
               <User size={22} />
             </button>
 
             <button
               onClick={onCartOpen}
-              className="relative text-stone-700 hover:text-[#FFC107]"
+              className="relative text-stone-700 hover:text-[#5C4033]"
             >
               <ShoppingBag size={22} />
 
@@ -132,22 +132,22 @@ const Navbar = ({ onCartOpen }) => {
 
       {/* MOBILE MENU */}
       {isMenuOpen && (
-        <div className="md:hidden border-t border-stone-200 bg-[#fffaeb]">
+        <div className="md:hidden border-t border-stone-200 bg-[#FCF9F6]">
           <div className="flex flex-col px-6 py-4 space-y-4 text-sm uppercase font-medium text-stone-700">
 
-            <Link to="/" onClick={closeMenu} className="hover:text-[#FFC107]">
+            <Link to="/" onClick={closeMenu} className="hover:text-[#5C4033]">
               Home
             </Link>
 
-            <Link to="/shop" onClick={closeMenu} className="hover:text-[#FFC107]">
+            <Link to="/shop" onClick={closeMenu} className="hover:text-[#5C4033]">
               Shop All
             </Link>
 
-            <Link to="/blog" onClick={closeMenu} className="hover:text-[#FFC107]">
+            <Link to="/blog" onClick={closeMenu} className="hover:text-[#5C4033]">
               Blog
             </Link>
 
-            <Link to="/about" onClick={closeMenu} className="hover:text-[#FFC107]">
+            <Link to="/about" onClick={closeMenu} className="hover:text-[#5C4033]">
               About Us
             </Link>
 

@@ -129,7 +129,7 @@ const ShopPage = () => {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 bg-white border border-stone-200 rounded-lg text-xs focus:outline-none focus:border-[#FFC107] transition-colors"
+                className="w-full pl-9 pr-8 py-2 bg-white border border-stone-200 rounded-lg text-xs focus:outline-none focus:border-[#5C4033] transition-colors"
               />
               {isSearching ? (
                 <Loader2 size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 animate-spin" />
@@ -153,7 +153,7 @@ const ShopPage = () => {
                 <button
                   onClick={() => setSortOpen(!sortOpen)}
                   className={`relative w-40 sm:w-48 lg:w-56 bg-white border ${
-                    sortOpen ? "border-[#FFC107]" : "border-stone-200"
+                    sortOpen ? "border-[#5C4033]" : "border-stone-200"
                   } py-1.5 px-4 flex justify-between items-center mt-3 mb-2
                   text-[11px] uppercase tracking-widest font-medium text-stone-700
                   transition-all duration-300
@@ -194,8 +194,8 @@ const ShopPage = () => {
                               w-full text-left px-4 py-2 text-[10px] uppercase tracking-widest transition-colors
                               ${
                                 sortOption === option
-                                  ? "text-[#FFC107] bg-[#fffaeb] font-bold"
-                                  : "text-stone-500 hover:bg-[#fffaeb] hover:text-[#FFC107]"
+                                  ? "text-[#5C4033] bg-[#FCF9F6] font-bold"
+                                  : "text-stone-500 hover:bg-[#FCF9F6] hover:text-[#5C4033]"
                               }
                             `}
                           >

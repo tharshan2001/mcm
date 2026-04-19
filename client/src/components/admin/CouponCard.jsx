@@ -15,7 +15,7 @@ const CouponCard = React.forwardRef(({ coupon, onEdit, onDelete }, ref) => {
   };
 
   return (
-    <tr ref={ref} className="hover:bg-[#fffaeb] transition-colors">
+    <tr ref={ref} className="hover:bg-[#FCF9F6] transition-colors">
       <td className="p-4 font-mono text-sm">
         {coupon.id}
       </td>

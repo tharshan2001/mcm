@@ -66,7 +66,7 @@ const FeedbackUpdateModal = ({ isOpen, onClose, feedback, onSuccess }) => {
                   >
                     <Star 
                       size={28} 
-                      className={s <= (hoverRating || rating) ? "fill-amber-400 text-[#ffa110]400" : "text-stone-200"} 
+                      className={s <= (hoverRating || rating) ? "fill-amber-400 text-[#5C4033]400" : "text-stone-200"} 
                     />
                   </button>
                 ))}
@@ -78,7 +78,7 @@ const FeedbackUpdateModal = ({ isOpen, onClose, feedback, onSuccess }) => {
               value={comments}
               onChange={(e) => setComments(e.target.value)}
               placeholder="Update your review..."
-              className="w-full px-3 py-2 text-sm border border-stone-200 rounded-lg focus:border-[#FFC107] focus:outline-none resize-none"
+              className="w-full px-3 py-2 text-sm border border-stone-200 rounded-lg focus:border-[#5C4033] focus:outline-none resize-none"
             />
 
             <div className="flex gap-3 pt-2">
@@ -92,7 +92,7 @@ const FeedbackUpdateModal = ({ isOpen, onClose, feedback, onSuccess }) => {
               <button
                 type="submit"
                 disabled={!rating || !comments.trim() || loading}
-                className="flex-1 py-2 bg-[#1f1f1f] text-white rounded-lg hover:bg-[#1f1f1f] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 py-2 bg-[#5C4033] text-white rounded-lg hover:bg-[#5C4033] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {loading && <Loader2 size={16} className="animate-spin" />}
                 {loading ? "Updating..." : "Update"}

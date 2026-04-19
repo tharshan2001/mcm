@@ -81,7 +81,7 @@ const ProductFeedback = ({ onFeedbackSubmitted }) => {
             >
               <Star 
                 size={24} 
-                className={s <= (hoverRating || rating) ? "fill-amber-400 text-[#ffa110]400" : "text-stone-200"} 
+                className={s <= (hoverRating || rating) ? "fill-amber-400 text-[#5C4033]400" : "text-stone-200"} 
               />
             </button>
           ))}
@@ -92,13 +92,13 @@ const ProductFeedback = ({ onFeedbackSubmitted }) => {
           value={comments}
           onChange={(e) => setComments(e.target.value)}
           placeholder="Write a short review..."
-          className="w-full px-3 py-2 text-sm border border-stone-200 rounded-lg focus:border-[#FFC107] focus:outline-none"
+          className="w-full px-3 py-2 text-sm border border-stone-200 rounded-lg focus:border-[#5C4033] focus:outline-none"
         />
 
         <button
           type="submit"
           disabled={!rating || !comments.trim() || loading || !productId}
-          className="w-full bg-[#1f1f1f] text-white py-2 text-sm rounded-lg hover:bg-[#1f1f1f] disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full bg-[#5C4033] text-white py-2 text-sm rounded-lg hover:bg-[#5C4033] disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {!user ? "Sign in to Submit" : loading ? <Loader2 size={16} className="animate-spin mx-auto" /> : "Submit Review"}
         </button>

@@ -21,7 +21,7 @@ const NavItem = ({ item, active, onClick, mobile }) => (
     onClick={() => onClick(item.id)}
     className={`w-full flex items-center justify-between p-3 md:p-4 text-sm transition-all border ${
       active === item.id
-        ? "bg-[#1f1f1f] text-white"
+        ? "bg-[#5C4033] text-white"
         : "bg-white text-stone-600 hover:bg-stone-50 border-stone-100"
     }`}
   >
@@ -77,16 +77,16 @@ const Account = () => {
   ];
 
   return (
-    <div className="bg-[#fffaeb] h-[700px]">
+    <div className="bg-[#FCF9F6] h-[700px]">
       {/* Header */}
       <div className="bg-white border-b border-stone-200 py-6 md:py-10 px-4 md:px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
           <div className="flex items-center gap-4 md:gap-5 w-full md:w-auto">
-            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full bg-stone-100 flex items-center justify-center text-lg md:text-xl font-serif text-[#FFC107] border border-stone-200 shrink-0">
+            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full bg-stone-100 flex items-center justify-center text-lg md:text-xl font-serif text-[#5C4033] border border-stone-200 shrink-0">
               {user.fullName?.charAt(0)}
             </div>
             <div className="min-w-0">
-              <h1 className="text-lg md:text-2xl font-serif text-[#FFC107] truncate">
+              <h1 className="text-lg md:text-2xl font-serif text-[#5C4033] truncate">
                 {user.fullName}
               </h1>
               <p className="text-stone-400 text-xs uppercase tracking-widest truncate max-w-[200px] md:max-w-none">
@@ -105,10 +105,10 @@ const Account = () => {
 
           <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto justify-between md:justify-end">
             <div className="text-right">
-              <p className="text-[10px] text-[#ffa110]800 font-bold uppercase tracking-tighter">
+              <p className="text-[10px] text-[#5C4033]800 font-bold uppercase tracking-tighter">
                 Credits
               </p>
-              <p className="flex items-center justify-end gap-1 text-lg font-serif text-[#ffa110]900">
+              <p className="flex items-center justify-end gap-1 text-lg font-serif text-[#5C4033]900">
                 <Award size={16} /> {user.credits || 0}
               </p>
             </div>
@@ -134,7 +134,7 @@ const Account = () => {
               }}
               className={`flex-1 min-w-0 py-3 px-4 text-xs font-medium transition-all border-b-2 ${
                 activeTab === tab.id
-                  ? "text-[#FFC107] border-[#FFC107]"
+                  ? "text-[#5C4033] border-[#5C4033]"
                   : "text-stone-400 border-transparent"
               }`}
             >

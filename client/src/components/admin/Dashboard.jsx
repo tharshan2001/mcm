@@ -116,7 +116,7 @@ export default function Dashboard() {
                 <p className="text-2xl font-bold text-stone-800 mt-1">{stats?.totalCustomers || 0}</p>
               </div>
               <div className="p-3 bg-stone-100 rounded-lg">
-                <Users size={22} className="text-[#FFC107]" />
+                <Users size={22} className="text-[#5C4033]" />
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function Dashboard() {
                 <p className="text-2xl font-bold text-stone-800 mt-1">{stats?.totalProducts || 0}</p>
               </div>
               <div className="p-3 bg-stone-100 rounded-lg">
-                <Package size={22} className="text-[#FFC107]" />
+                <Package size={22} className="text-[#5C4033]" />
               </div>
             </div>
           </div>
@@ -140,12 +140,12 @@ export default function Dashboard() {
                 <p className="text-2xl font-bold text-stone-800 mt-1">{stats?.totalOrders || 0}</p>
               </div>
               <div className="p-3 bg-stone-100 rounded-lg">
-                <ShoppingCart size={22} className="text-[#FFC107]" />
+                <ShoppingCart size={22} className="text-[#5C4033]" />
               </div>
             </div>
           </div>
 
-          <div className="bg-[#FFC107] p-4 rounded-lg border border-[#FFA000]">
+          <div className="bg-[#5C4033] p-4 rounded-lg border border-[#4A332A]">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-stone-300 uppercase tracking-wider">Revenue</p>
@@ -164,7 +164,7 @@ export default function Dashboard() {
             <div className="bg-white p-4 rounded-lg border border-stone-200 hover:shadow-sm transition-shadow">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs text-stone-500 uppercase tracking-wider">Today</span>
-                <TrendingUp size={16} className="text-[#ffa110]700" />
+                <TrendingUp size={16} className="text-[#5C4033]700" />
               </div>
               <p className="text-lg font-bold text-stone-800">{formatCurrency(sales.today?.totalRevenue)}</p>
               <p className="text-xs text-stone-400 mt-1">{sales.today?.totalOrders || 0} orders</p>
@@ -173,7 +173,7 @@ export default function Dashboard() {
             <div className="bg-white p-4 rounded-lg border border-stone-200 hover:shadow-sm transition-shadow">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs text-stone-500 uppercase tracking-wider">This Week</span>
-                <TrendingUp size={16} className="text-[#ffa110]700" />
+                <TrendingUp size={16} className="text-[#5C4033]700" />
               </div>
               <p className="text-lg font-bold text-stone-800">{formatCurrency(sales.week?.totalRevenue)}</p>
               <p className="text-xs text-stone-400 mt-1">{sales.week?.totalOrders || 0} orders</p>
@@ -182,7 +182,7 @@ export default function Dashboard() {
             <div className="bg-white p-4 rounded-lg border border-stone-200 hover:shadow-sm transition-shadow">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs text-stone-500 uppercase tracking-wider">This Month</span>
-                <TrendingUp size={16} className="text-[#ffa110]700" />
+                <TrendingUp size={16} className="text-[#5C4033]700" />
               </div>
               <p className="text-lg font-bold text-stone-800">{formatCurrency(sales.month?.totalRevenue)}</p>
               <p className="text-xs text-stone-400 mt-1">{sales.month?.totalOrders || 0} orders</p>
@@ -225,8 +225,8 @@ export default function Dashboard() {
                   <Area 
                     type="monotone" 
                     dataKey="revenue" 
-                    stroke="#FFC107" 
-                    fill="#FFC107" 
+                    stroke="#5C4033" 
+                    fill="#5C4033" 
                     fillOpacity={0.15}
                     strokeWidth={2}
                   />

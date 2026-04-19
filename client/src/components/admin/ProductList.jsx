@@ -149,7 +149,7 @@ export default function ProductList() {
           {/* New Product Button */}
           <button
             onClick={() => setShowCreatePopover(true)}
-            className="flex items-center gap-2 bg-[#1f1f1f] text-white px-6 py-3 text-sm font-medium rounded-lg hover:bg-[#1f1f1f] transition-colors"
+            className="flex items-center gap-2 bg-[#5C4033] text-white px-6 py-3 text-sm font-medium rounded-lg hover:bg-[#5C4033] transition-colors"
           >
             <Plus size={14} /> New Product
           </button>
@@ -168,7 +168,7 @@ export default function ProductList() {
           <div ref={scrollContainerRef} className="bg-white overflow-y-auto max-h-[500px]">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="sticky top-0 bg-[#fffaeb] border-b border-stone-200">
+                <tr className="sticky top-0 bg-[#FCF9F6] border-b border-stone-200">
                   <th className="p-5 text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">
                     Product Details
                   </th>
@@ -205,7 +205,7 @@ export default function ProductList() {
 
             {scrollLoading && (
               <div className="flex justify-center py-4">
-                <Loader2 className="animate-spin text-[#ffa110]800" size={24} />
+                <Loader2 className="animate-spin text-[#5C4033]800" size={24} />
               </div>
             )}
           </div>

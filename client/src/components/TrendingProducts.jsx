@@ -57,16 +57,16 @@ const TrendingProducts = () => {
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <div className="max-w-xl">
-            <span className="text-[#ffa110]700 text-xs font-bold uppercase tracking-[0.25em] mb-4 block">
+            <span className="text-[#5C4033]700 text-xs font-bold uppercase tracking-[0.25em] mb-4 block">
               Handpicked For You
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#FFC107] leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#5C4033] leading-tight">
               Trending <span className="italic">Favorites</span>
             </h2>
           </div>
           <button 
             onClick={() => navigate('/shop')}
-            className="group flex items-center gap-2 text-stone-600 hover:text-[#FFC107] transition-colors text-sm font-medium uppercase tracking-wider"
+            className="group flex items-center gap-2 text-stone-600 hover:text-[#5C4033] transition-colors text-sm font-medium uppercase tracking-wider"
           >
             View All Products
             <span className="transform group-hover:translate-x-1 transition-transform">→</span>
@@ -119,7 +119,7 @@ const TrendingProducts = () => {
                   <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/40 to-transparent">
                     <button 
                       onClick={(e) => handleAddToCart(e, product)}
-                      className="w-full bg-white text-stone-900 py-3 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-[#1f1f1f] hover:text-white transition-colors"
+                      className="w-full bg-white text-stone-900 py-3 text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-[#5C4033] hover:text-white transition-colors"
                     >
                       <ShoppingCart size={14} /> Add to Cart
                     </button>
@@ -139,7 +139,7 @@ const TrendingProducts = () => {
                       {product.category?.name || product.categoryName || 'Handloom'}
                     </span>
                   </div>
-                  <h3 className="text-stone-800 font-medium group-hover:text-[#ffa110]800 transition-colors">
+                  <h3 className="text-stone-800 font-medium group-hover:text-[#5C4033]800 transition-colors">
                     {product.name}
                   </h3>
                   <p className="text-xs text-stone-500 font-light leading-relaxed line-clamp-2">
