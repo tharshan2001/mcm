@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./page/HomePage";
 import ShopPage from "./components/product/ShopPage";
@@ -20,10 +20,12 @@ import OrderDetailsPage from "./components/admin/OrderDetailsPage";
 import ProductPage from "./page/ProductPage";
 import CouponList from "./components/admin/CouponList";
 import Dashboard from "./components/admin/Dashboard";
+import CartDrawer from "./components/cart/CartDrawer";
 
 function App() {
   const location = useLocation();
   const { fetchUser } = useAuthStore();
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   // hide navbar for admin routes
   const hideNavbar = location.pathname.startsWith("/admin");
@@ -35,7 +37,8 @@ function App() {
 
   return (
     <div>
-      {!hideNavbar && <Navbar />}
+      {!hideNavbar && <Navbar onCartOpen={() => setIsCartOpen(true)} />}
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       <Toaster
         containerStyle={{
           top: 20,

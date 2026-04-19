@@ -45,7 +45,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
     <>
       {/* Dark Overlay */}
       <div
-        className={`fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 transition-opacity duration-500 ${
+        className={`fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-[60] transition-opacity duration-500 ${
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -55,7 +55,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
 
       {/* Right Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-[450px] bg-[#FCF9F6] shadow-2xl z-50 flex flex-col transform transition-transform duration-500 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-[450px] bg-[#FCF9F6] shadow-2xl z-[60] flex flex-col transform transition-transform duration-500 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

@@ -4,12 +4,10 @@ import { ShoppingBag, User, Menu, X } from "lucide-react";
 import Login from "./Login";
 import Signup from "./Signup";
 import { useAuthStore } from "../stores/authStore";
-import CartDrawer from "../components/cart/CartDrawer";
 import { useCartStore } from "../stores/cartStore";
 
-const Navbar = () => {
+const Navbar = ({ onCartOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const {
     user,
@@ -90,19 +88,19 @@ const Navbar = () => {
 
           {/* CENTERED LINKS */}
           <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center space-x-10 text-sm font-medium uppercase text-stone-700">
-            <Link to="/" className="hover:text-[#5C4033]">
+            <Link to="/" className="hover:text-[#5C4033] transition-all duration-300 ease-in-out hover:scale-105">
               Home
             </Link>
 
-            <Link to="/shop" className="hover:text-[#5C4033]">
+            <Link to="/shop" className="hover:text-[#5C4033] transition-all duration-300 ease-in-out hover:scale-105">
               Shop All
             </Link>
 
-            <Link to="/blog" className="hover:text-[#5C4033]">
+            <Link to="/blog" className="hover:text-[#5C4033] transition-all duration-300 ease-in-out hover:scale-105">
               Blog
             </Link>
 
-            <Link to="/about" className="hover:text-[#5C4033]">
+            <Link to="/about" className="hover:text-[#5C4033] transition-all duration-300 ease-in-out hover:scale-105">
               About Us
             </Link>
           </div>
@@ -117,7 +115,7 @@ const Navbar = () => {
             </button>
 
             <button
-              onClick={() => setIsCartOpen(true)}
+              onClick={onCartOpen}
               className="relative text-stone-700 hover:text-[#5C4033]"
             >
               <ShoppingBag size={22} />
@@ -177,9 +175,7 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* CART DRAWER */}
-      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-    </nav>
+      </nav>
   );
 };
 
