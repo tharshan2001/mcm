@@ -60,14 +60,27 @@ export async function updateCustomer(id, customerData) {
 }
 
 /**
- * Delete customer
+ * Activate customer
  */
-export async function deleteCustomer(id) {
+export async function activateCustomer(id) {
   try {
-    const response = await api.delete(`/users/customers/${id}`);
+    const response = await api.patch(`/users/customers/${id}/activate`);
     return response.data;
   } catch (error) {
-    console.error('[deleteCustomer] API error:', error);
+    console.error('[activateCustomer] API error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Deactivate customer
+ */
+export async function deactivateCustomer(id) {
+  try {
+    const response = await api.patch(`/users/customers/${id}/deactivate`);
+    return response.data;
+  } catch (error) {
+    console.error('[deactivateCustomer] API error:', error);
     throw error;
   }
 }

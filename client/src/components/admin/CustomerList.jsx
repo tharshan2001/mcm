@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Loader2, AlertCircle } from "lucide-react";
-import { fetchCustomersForScroll, deleteCustomer } from "../../service/userService";
+import { fetchCustomersForScroll, activateCustomer, deactivateCustomer } from "../../service/userService";
 import CustomerCard from "./CustomerCard";
 import CustomerUpdateModal from "./CustomerUpdateModal";
 import sweetAlert from "../../utils/sweetAlert";
@@ -58,15 +58,18 @@ export default function CustomerList() {
     setEditModal({ isOpen: true, customerId: customer.id });
   };
 
-  const handleDelete = async (customer) => {
-    const result = await sweetAlert.deleteConfirm(customer.fullName);
-    if (!result.isConfirmed) return;
+  const handleToggleStatus = async (customer) => {
     try {
-      await deleteCustomer(customer.id);
-      setCustomers((prev) => prev.filter((c) => c.id !== customer.id));
-      sweetAlert.toast("Customer deleted successfully!");
+      if (customer.isActive) {
+        await deactivateCustomer(customer.id);
+        sweetAlert.toast("Customer deactivated successfully!");
+      } else {
+        await activateCustomer(customer.id);
+        sweetAlert.toast("Customer activated successfully!");
+      }
+      loadCustomers();
     } catch (error) {
-      sweetAlert.error(error.response?.data?.message || "Failed to delete customer");
+      sweetAlert.error(error.response?.data?.message || "Failed to update customer status");
     }
   };
 
@@ -128,7 +131,7 @@ export default function CustomerList() {
                     key={customer.id}
                     customer={customer}
                     onEdit={handleEdit}
-                    onDelete={handleDelete}
+                    onToggleStatus={handleToggleStatus}
                     ref={index === customers.length - 1 ? lastCustomerRef : null}
                   />
                 ))}

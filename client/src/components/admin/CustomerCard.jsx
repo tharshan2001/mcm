@@ -1,7 +1,7 @@
 import React from "react";
-import { User, Mail, MapPin, Phone, Edit2, Trash2 } from "lucide-react";
+import { User, Mail, MapPin, Phone, Edit2, ToggleLeft, ToggleRight } from "lucide-react";
 
-const CustomerCard = React.forwardRef(({ customer, onEdit, onDelete }, ref) => {
+const CustomerCard = React.forwardRef(({ customer, onEdit, onToggleStatus }, ref) => {
   const defaultAddress = customer.addresses?.find(a => a.isDefault) || customer.addresses?.[0];
 
   return (
@@ -54,11 +54,15 @@ const CustomerCard = React.forwardRef(({ customer, onEdit, onDelete }, ref) => {
             <Edit2 size={16} />
           </button>
           <button
-            onClick={() => onDelete(customer)}
-            className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-            title="Delete"
+            onClick={() => onToggleStatus(customer)}
+            className={`p-2 rounded-lg transition-colors ${
+              customer.isActive
+                ? "text-green-600 hover:bg-green-50"
+                : "text-stone-400 hover:text-green-600 hover:bg-green-50"
+            }`}
+            title={customer.isActive ? "Deactivate" : "Activate"}
           >
-            <Trash2 size={16} />
+            {customer.isActive ? <ToggleRight size={16} /> : <ToggleLeft size={16} />}
           </button>
         </div>
       </td>
