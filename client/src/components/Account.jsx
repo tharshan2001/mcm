@@ -7,7 +7,6 @@ import {
   LogOut,
   ChevronRight,
   Clock,
-  Award,
   Menu,
   X,
 } from "lucide-react";
@@ -73,7 +72,7 @@ const Account = () => {
   const tabs = [
     { id: "orders", label: "Orders", icon: <Package size={18} /> },
     { id: "addresses", label: "Addresses", icon: <MapPin size={18} /> },
-    { id: "settings", label: "Settings", icon: <Settings size={18} /> },
+    { id: "logout", label: "Logout", icon: <LogOut size={18} /> },
   ];
 
   return (
@@ -104,19 +103,12 @@ const Account = () => {
           </button>
 
           <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto justify-between md:justify-end">
-            <div className="text-right">
-              <p className="text-[10px] text-[#5C4033] font-bold uppercase tracking-tight">
-                Credits
-              </p>
-              <p className="flex items-center justify-end gap-1 text-lg font-serif text-[#5C4033]">
-                <Award size={16} /> {user.credits || 0}
-              </p>
-            </div>
             <button
               onClick={handleLogout}
-              className="p-2 text-stone-400 hover:text-red-600 transition-colors"
+              className="flex items-center gap-2 text-stone-400 hover:text-red-600 transition-colors text-sm"
             >
-              <LogOut size={20} />
+              <LogOut size={18} />
+              <span className="hidden md:inline">Logout</span>
             </button>
           </div>
         </div>
@@ -167,6 +159,15 @@ const Account = () => {
             <OrdersList />
           ) : activeTab === "addresses" ? (
             <AddressSettings />
+          ) : activeTab === "logout" ? (
+            <div className="bg-white border border-stone-200 p-8 md:p-20 text-center">
+              <button
+                onClick={handleLogout}
+                className="text-[#5C4033] hover:text-red-600 text-sm font-medium"
+              >
+                Click to logout
+              </button>
+            </div>
           ) : (
             <div className="bg-white border border-stone-200 p-8 md:p-20 text-center">
               <p className="text-stone-400 italic font-serif capitalize">

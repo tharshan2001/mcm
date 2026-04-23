@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Star, Loader2, Edit2, Trash2 } from "lucide-react";
+import { Star, Loader2, Edit2, Trash2, User } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { getFeedbackByProduct, deleteFeedback } from "../../service/feedbackService";
 import { useAuthStore } from "../../stores/authStore";
@@ -81,11 +81,8 @@ const FeedbackList = ({ refreshKey }) => {
             <div key={item.id} className="bg-stone-50 rounded-lg p-4 group">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-7 h-7 rounded-full bg-[#5C4033]/10 flex items-center justify-center">
-                  <span className="text-[10px] font-semibold text-[#5C4033]">
-                    {item.username ? item.username.charAt(0).toUpperCase() : "?"}
-                  </span>
+                  <User size={14} className="text-[#5C4033]" />
                 </div>
-                <span className="text-xs font-medium text-stone-700">{item.username || "Anonymous"}</span>
                 <span className="text-[10px] text-stone-400 ml-auto">
                   {new Date(item.createdAt || item.created_at).toLocaleDateString()}
                 </span>
