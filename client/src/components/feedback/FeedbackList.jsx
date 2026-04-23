@@ -15,6 +15,13 @@ const FeedbackList = ({ refreshKey }) => {
   const [loading, setLoading] = useState(true);
   const [editModal, setEditModal] = useState({ isOpen: false, feedback: null });
   const user = useAuthStore((state) => state.user);
+  const isAdmin = user?.roles?.includes("ADMIN") || user?.role === "ADMIN";
+
+  const canManage = (item) => {
+    if (!user) return false;
+    const isOwner = String(user.id) === String(item.userId) || user.email === item.userEmail;
+    return isOwner || isAdmin;
+  };
 
   useEffect(() => {
     const fetchId = async () => {
@@ -75,7 +82,7 @@ const FeedbackList = ({ refreshKey }) => {
     <>
       <div className="space-y-3">
         {feedbackItems.map((item) => {
-          const isOwner = user?.id === item.userId;
+          const canEdit = canManage(item);
           
           return (
             <div key={item.id} className="bg-stone-50 rounded-lg p-4 group">
@@ -87,7 +94,7 @@ const FeedbackList = ({ refreshKey }) => {
                   {new Date(item.createdAt || item.created_at).toLocaleDateString()}
                 </span>
                 
-                {isOwner && (
+                {canEdit && (
                   <div className="flex items-center gap-1 ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                       onClick={() => handleEdit(item)}
