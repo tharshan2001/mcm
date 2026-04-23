@@ -3,6 +3,7 @@ import { Plus, Loader2 } from "lucide-react";
 import { useAddressStore } from "../../stores/addressStore";
 import AddressFormModal from "./AddressFormModal";
 import sweetAlert from "../../utils/sweetAlert";
+import toast from "react-hot-toast";
 
 const AddressSettings = () => {
   const { 
@@ -24,7 +25,7 @@ const AddressSettings = () => {
     const result = await sweetAlert.deleteConfirm("this address");
     if (!result.isConfirmed) return;
     await deleteAddress(id);
-    sweetAlert.toast("Address removed!");
+    toast.success("Address removed!");
   };
 
   return (

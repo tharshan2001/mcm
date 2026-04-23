@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createProduct } from "../../service/product";
 import api from "../../service/api";
 import { Upload, X, PackagePlus, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function ProductCreate() {
   const [product, setProduct] = useState({
@@ -62,7 +63,7 @@ export default function ProductCreate() {
 
     try {
       await createProduct(product, files);
-      setSuccess(true);
+      toast.success("Product created successfully!");
 
       previews.forEach((preview) => URL.revokeObjectURL(preview.url));
 

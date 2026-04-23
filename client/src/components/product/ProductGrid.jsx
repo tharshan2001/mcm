@@ -24,7 +24,7 @@ const ProductGrid = ({ products }) => {
           {/* Image Container */}
           <div className="relative aspect-[4/5] overflow-hidden bg-stone-100 mb-5 rounded-sm">
             <img
-              src={product.images?.[0]?.image_url || 'https://via.placeholder.com/600x800'}
+              src={product.images?.[0] || 'https://via.placeholder.com/600x800'}
               alt={product.name}
               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
             />

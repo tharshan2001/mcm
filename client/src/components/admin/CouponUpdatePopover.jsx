@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { updateCoupon } from "../../service/couponService";
+import toast from "react-hot-toast";
 
 export default function CouponUpdatePopover({ couponData, onClose, onUpdated }) {
   const [formData, setFormData] = useState({
@@ -32,6 +33,7 @@ export default function CouponUpdatePopover({ couponData, onClose, onUpdated }) 
         minOrderAmount: parseFloat(formData.minOrderAmount) || 0,
         maxUsage: parseInt(formData.maxUsage) || 0
       });
+      toast.success("Coupon updated successfully!");
       onUpdated();
       onClose();
     } catch (err) {

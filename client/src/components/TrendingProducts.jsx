@@ -111,7 +111,7 @@ const TrendingProducts = () => {
                     </div>
                   )}
                   <img
-                    src={product.images?.[0]?.url || product.imageUrl || 'https://via.placeholder.com/400x500'}
+                    src={product.images?.[0] || product.imageUrl || 'https://via.placeholder.com/400x500'}
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />

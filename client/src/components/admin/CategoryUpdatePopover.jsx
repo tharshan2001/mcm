@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { updateCategory } from "../../service/categoryService";
+import toast from "react-hot-toast";
 
 export default function CategoryUpdatePopover({ categoryData, onClose, onUpdated }) {
 
@@ -15,6 +16,7 @@ export default function CategoryUpdatePopover({ categoryData, onClose, onUpdated
       description
     });
 
+    toast.success("Category updated successfully!");
     onUpdated();
     onClose();
   };

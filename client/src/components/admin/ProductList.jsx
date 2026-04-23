@@ -5,6 +5,7 @@ import ProductCreate from "./ProductCreate";
 import { Loader2, Plus, PackageOpen, AlertCircle } from "lucide-react";
 import { fetchProducts, deleteProduct, toggleArchive } from "../../service/product";
 import sweetAlert from "../../utils/sweetAlert";
+import toast from "react-hot-toast";
 
 const PAGE_SIZE = 10;
 
@@ -93,10 +94,10 @@ export default function ProductList() {
     try {
       await deleteProduct(id);
       setProducts((prev) => prev.filter((p) => p.id !== id));
-      sweetAlert.toast("Product deleted successfully!");
+      toast.success("Product deleted successfully!");
     } catch (err) {
       console.error("Failed to delete product:", err);
-      sweetAlert.error("Action failed. Please try again.");
+      toast.error("Action failed. Please try again.");
     }
   };
 
@@ -112,10 +113,10 @@ export default function ProductList() {
 
     try {
       await toggleArchive(id, newArchivedStatus);
-      sweetAlert.toast(newArchivedStatus ? "Product archived!" : "Product restored!");
+      toast.success(newArchivedStatus ? "Product archived!" : "Product restored!");
     } catch (err) {
       console.error("Failed to archive product:", err);
-      sweetAlert.error("Status update failed.");
+      toast.error("Status update failed.");
       setProducts((prev) =>
         prev.map((p) => (p.id === id ? { ...p, archived: product.archived } : p))
       );

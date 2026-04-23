@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Loader2, AlertCircle } from "lucide-react";
 import { fetchCustomersForScroll, activateCustomer, deactivateCustomer } from "../../service/userService";
 import CustomerCard from "./CustomerCard";
-import CustomerUpdateModal from "./CustomerUpdateModal";
-import sweetAlert from "../../utils/sweetAlert";
+import toast from "react-hot-toast";
 
 const PAGE_SIZE = 10;
 
@@ -14,7 +13,6 @@ export default function CustomerList() {
   const [error, setError] = useState(null);
   const [nextCursor, setNextCursor] = useState(null);
   const [hasMore, setHasMore] = useState(true);
-  const [editModal, setEditModal] = useState({ isOpen: false, customerId: null });
 
   const observer = useRef();
   const scrollContainerRef = useRef(null);
@@ -54,22 +52,18 @@ export default function CustomerList() {
     }
   };
 
-  const handleEdit = (customer) => {
-    setEditModal({ isOpen: true, customerId: customer.id });
-  };
-
   const handleToggleStatus = async (customer) => {
     try {
       if (customer.isActive) {
         await deactivateCustomer(customer.id);
-        sweetAlert.toast("Customer deactivated successfully!");
+        toast.success("Customer deactivated successfully!");
       } else {
         await activateCustomer(customer.id);
-        sweetAlert.toast("Customer activated successfully!");
+        toast.success("Customer activated successfully!");
       }
       loadCustomers();
     } catch (error) {
-      sweetAlert.error(error.response?.data?.message || "Failed to update customer status");
+      toast.error(error.response?.data?.message || "Failed to update customer status");
     }
   };
 
@@ -130,7 +124,6 @@ export default function CustomerList() {
                   <CustomerCard
                     key={customer.id}
                     customer={customer}
-                    onEdit={handleEdit}
                     onToggleStatus={handleToggleStatus}
                     ref={index === customers.length - 1 ? lastCustomerRef : null}
                   />
@@ -147,12 +140,6 @@ export default function CustomerList() {
         )}
       </div>
 
-      <CustomerUpdateModal
-        isOpen={editModal.isOpen}
-        onClose={() => setEditModal({ isOpen: false, customerId: null })}
-        customerId={editModal.customerId}
-        onSuccess={handleUpdateSuccess}
-      />
     </div>
   );
 }

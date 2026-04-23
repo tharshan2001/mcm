@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createCoupon } from "../../service/couponService";
+import toast from "react-hot-toast";
 
 export default function CouponCreate({ onCreated }) {
   const [formData, setFormData] = useState({
@@ -32,6 +33,7 @@ export default function CouponCreate({ onCreated }) {
         minOrderAmount: parseFloat(formData.minOrderAmount),
         maxUsage: parseInt(formData.maxUsage)
       });
+      toast.success("Coupon created successfully!");
       onCreated();
     } catch (err) {
       console.error(err);

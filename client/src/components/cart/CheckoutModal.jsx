@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { Loader2, CheckCircle2, X, ShoppingCart, Tag, MapPin, CreditCard } from "lucide-react";
+import { Loader2, CheckCircle2, X, ShoppingCart, Tag, MapPin, CreditCard, Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import api from "../../service/api";
 import { useAddressStore } from "../../stores/addressStore";
 import AddressSelectModal from "../address/AddressSelectModal";
+import toast from "react-hot-toast";
+import { validateCoupon } from "../../service/couponService";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY); 
 
@@ -31,6 +33,8 @@ function CheckoutForm({ cart, onClose }) {
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
 
   const [couponCode, setCouponCode] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponLoading, setCouponLoading] = useState(false);
 
   const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState(null);
@@ -52,6 +56,39 @@ function CheckoutForm({ cart, onClose }) {
     }
   }, [addresses, navigate]);
 
+  const applyCoupon = async (code) => {
+    if (!code.trim()) return;
+    setCouponLoading(true);
+    try {
+      const result = await validateCoupon(code.trim());
+      setAppliedCoupon({
+        code: code.trim().toUpperCase(),
+        discountType: result.discountType,
+        discountValue: result.discountValue,
+        minOrderAmount: result.minOrderAmount || 0,
+      });
+      toast.success(`Coupon applied: ${result.discountType === 'PERCENTAGE' ? `${result.discountValue}% off` : `LKR ${result.discountValue} off`}`);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Invalid coupon code");
+      setAppliedCoupon(null);
+    } finally {
+      setCouponLoading(false);
+    }
+  };
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponCode("");
+  };
+
+  const discountAmount = appliedCoupon
+    ? appliedCoupon.discountType === "PERCENTAGE"
+      ? (cart.totalPrice * appliedCoupon.discountValue) / 100
+      : appliedCoupon.discountValue
+    : 0;
+
+  const finalTotal = Math.max(0, cart.totalPrice - discountAmount);
+
   const handlePayment = async (e) => {
     e.preventDefault();
     if (!stripe || !elements || !selectedAddress) return;
@@ -59,7 +96,7 @@ function CheckoutForm({ cart, onClose }) {
     setStatus('processing');
     setErrorMsg(null);
 
-    const couponCodeToUse = couponCode.trim() || null;
+    const couponCodeToUse = appliedCoupon?.code || null;
 
     try {
       const { data } = await api.post("/orders/pay", null, {
@@ -153,18 +190,39 @@ function CheckoutForm({ cart, onClose }) {
           <label className="text-xs font-medium text-stone-500 uppercase tracking-wider">
             Promo Code
           </label>
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <Tag size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
-              <input
-                type="text"
-                placeholder="Enter coupon code"
-                value={couponCode}
-                onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                className="w-full border border-stone-200 rounded-lg pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:border-[#5C4033] transition-colors"
-              />
+          {appliedCoupon ? (
+            <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-lg">
+              <Check size={16} className="text-green-600" />
+              <span className="flex-1 text-sm font-medium text-green-800">
+                {appliedCoupon.code} - {appliedCoupon.discountType === 'PERCENTAGE' ? `${appliedCoupon.discountValue}% off` : `LKR ${appliedCoupon.discountValue} off`}
+              </span>
+              <button type="button" onClick={removeCoupon} className="text-xs text-stone-500 hover:text-stone-700">
+                Remove
+              </button>
             </div>
-          </div>
+          ) : (
+            <div className="flex gap-2">
+              <div className="relative flex-1">
+                <Tag size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                <input
+                  type="text"
+                  placeholder="Enter coupon code"
+                  value={couponCode}
+                  onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                  onKeyDown={(e) => e.key === 'Enter' && applyCoupon(couponCode)}
+                  className="w-full border border-stone-200 rounded-lg pl-9 pr-3 py-2.5 text-sm focus:outline-none focus:border-[#5C4033] transition-colors"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => applyCoupon(couponCode)}
+                disabled={!couponCode.trim() || couponLoading}
+                className="px-4 py-2 bg-stone-200 text-stone-700 text-sm rounded-lg hover:bg-stone-300 transition-colors disabled:opacity-50"
+              >
+                {couponLoading ? <Loader2 size={16} className="animate-spin" /> : 'Apply'}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Order Summary */}
@@ -173,13 +231,19 @@ function CheckoutForm({ cart, onClose }) {
             <span className="text-stone-500">Subtotal</span>
             <span className="text-stone-700">LKR {cart.totalPrice.toFixed(2)}</span>
           </div>
+          {appliedCoupon && (
+            <div className="flex justify-between text-sm">
+              <span className="text-stone-500">Discount ({appliedCoupon.code})</span>
+              <span className="text-green-600">-LKR {discountAmount.toFixed(2)}</span>
+            </div>
+          )}
           <div className="flex justify-between text-sm">
             <span className="text-stone-500">Shipping</span>
             <span className="text-stone-500">Free</span>
           </div>
           <div className="border-t border-stone-200 pt-2 flex justify-between">
             <span className="font-medium text-stone-700">Total</span>
-            <span className="font-semibold text-lg text-[#5C4033]">LKR {cart.totalPrice.toFixed(2)}</span>
+            <span className="font-semibold text-lg text-[#5C4033]">LKR {finalTotal.toFixed(2)}</span>
           </div>
         </div>
 
@@ -211,7 +275,7 @@ function CheckoutForm({ cart, onClose }) {
               Processing...
             </>
           ) : (
-            `Pay LKR ${cart.totalPrice.toFixed(2)}`
+            `Pay LKR ${finalTotal.toFixed(2)}`
           )}
         </button>
 

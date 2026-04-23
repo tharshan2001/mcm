@@ -1,7 +1,7 @@
 import React from "react";
-import { User, Mail, MapPin, Phone, Edit2, ToggleLeft, ToggleRight } from "lucide-react";
+import { User, Mail, MapPin, Phone, ToggleLeft, ToggleRight } from "lucide-react";
 
-const CustomerCard = React.forwardRef(({ customer, onEdit, onToggleStatus }, ref) => {
+const CustomerCard = React.forwardRef(({ customer, onToggleStatus }, ref) => {
   const defaultAddress = customer.addresses?.find(a => a.isDefault) || customer.addresses?.[0];
 
   return (
@@ -46,13 +46,6 @@ const CustomerCard = React.forwardRef(({ customer, onEdit, onToggleStatus }, ref
       </td>
       <td className="p-4">
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => onEdit(customer)}
-            className="p-2 text-stone-400 hover:text-[#5C4033]700 hover:bg-amber-50 rounded-lg transition-colors"
-            title="Edit"
-          >
-            <Edit2 size={16} />
-          </button>
           <button
             onClick={() => onToggleStatus(customer)}
             className={`p-2 rounded-lg transition-colors ${

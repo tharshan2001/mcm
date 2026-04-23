@@ -59,8 +59,8 @@ const OrdersList = () => {
     );
 
   return (
-    <div className="space-y-4 overflow-y-auto max-h-[500px] p-10 pt-3">
-      <h3 className="text-lg font-serif text-[#5C4033] mb-4 z-55 absolute top-70">
+    <div className="space-y-4">
+      <h3 className="text-lg font-serif text-[#5C4033] mb-4">
         My Purchases
       </h3>
 
@@ -68,12 +68,12 @@ const OrdersList = () => {
         <OrderRow key={order.id} order={order} />
       ))}
 
-      <div className="mt-10 p-10 border border-dashed border-stone-200 text-center bg-white/50">
+      <div className="mt-6 p-6 border border-dashed border-stone-200 text-center bg-stone-50 rounded-lg">
         <ShoppingCart size={24} className="mx-auto text-stone-300 mb-3" />
         <p className="text-sm text-stone-500 italic">Ready for your next find?</p>
         <button
           onClick={() => navigate('/shop')}
-          className="mt-3 text-[#5C4033]800 text-xs font-bold uppercase tracking-widest border-b border-amber-800"
+          className="mt-3 text-[#5C4033] text-xs font-bold uppercase tracking-widest border-b border-[#5C4033]"
         >
           Shop The Collection
         </button>

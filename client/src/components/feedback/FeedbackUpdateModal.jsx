@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Star, Loader2, X } from "lucide-react";
 import { updateFeedback } from "../../service/feedbackService";
-import sweetAlert from "../../utils/sweetAlert";
+import toast from "react-hot-toast";
 
 const FeedbackUpdateModal = ({ isOpen, onClose, feedback, onSuccess }) => {
   const [rating, setRating] = useState(feedback?.rating || 0);
@@ -23,11 +23,11 @@ const FeedbackUpdateModal = ({ isOpen, onClose, feedback, onSuccess }) => {
     setLoading(true);
     try {
       await updateFeedback(feedback.id, { rating, comments });
-      sweetAlert.toast("Review updated successfully!");
+      toast.success("Review updated successfully!");
       onSuccess();
       onClose();
     } catch (error) {
-      sweetAlert.error(error.response?.data?.message || "Failed to update review");
+      toast.error(error.response?.data?.message || "Failed to update review");
     } finally {
       setLoading(false);
     }

@@ -105,10 +105,10 @@ const Account = () => {
 
           <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto justify-between md:justify-end">
             <div className="text-right">
-              <p className="text-[10px] text-[#5C4033]800 font-bold uppercase tracking-tighter">
+              <p className="text-[10px] text-[#5C4033] font-bold uppercase tracking-tight">
                 Credits
               </p>
-              <p className="flex items-center justify-end gap-1 text-lg font-serif text-[#5C4033]900">
+              <p className="flex items-center justify-end gap-1 text-lg font-serif text-[#5C4033]">
                 <Award size={16} /> {user.credits || 0}
               </p>
             </div>

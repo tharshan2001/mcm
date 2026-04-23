@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createCategory } from "../../service/categoryService";
+import toast from "react-hot-toast";
 
 export default function CategoryCreate({ onCreated }) {
 
@@ -15,6 +16,7 @@ export default function CategoryCreate({ onCreated }) {
       description
     });
 
+    toast.success("Category created successfully!");
     onCreated();
   };
 

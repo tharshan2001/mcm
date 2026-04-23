@@ -5,6 +5,7 @@ import { getFeedbackByProduct, deleteFeedback } from "../../service/feedbackServ
 import { useAuthStore } from "../../stores/authStore";
 import FeedbackUpdateModal from "./FeedbackUpdateModal";
 import sweetAlert from "../../utils/sweetAlert";
+import toast from "react-hot-toast";
 import api from "../../service/api";
 
 const FeedbackList = ({ refreshKey }) => {
@@ -45,9 +46,9 @@ const FeedbackList = ({ refreshKey }) => {
     try {
       await deleteFeedback(feedback.id);
       setFeedbackItems((prev) => prev.filter((f) => f.id !== feedback.id));
-      sweetAlert.toast("Review deleted successfully!");
+      toast.success("Review deleted successfully!");
     } catch (error) {
-      sweetAlert.error(error.response?.data?.message || "Failed to delete review");
+      toast.error(error.response?.data?.message || "Failed to delete review");
     }
   };
 

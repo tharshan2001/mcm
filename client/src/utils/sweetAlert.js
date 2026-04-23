@@ -18,21 +18,11 @@ export const sweetAlert = {
   },
 
   success: (message) => {
-    return Swal.fire({
-      icon: "success",
-      title: "Success",
-      text: message,
-      confirmButtonColor: "#5C4033",
-    });
+    Toast.fire({ icon: "success", title: message });
   },
 
   error: (message) => {
-    return Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: message,
-      confirmButtonColor: "#5C4033",
-    });
+    Toast.fire({ icon: "error", title: message });
   },
 
   confirm: (title, text, confirmText = "Delete", icon = "warning") => {

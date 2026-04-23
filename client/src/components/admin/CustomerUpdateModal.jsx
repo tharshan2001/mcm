@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { X, Loader2 } from "lucide-react";
 import { getCustomerById, updateCustomer } from "../../service/userService";
-import sweetAlert from "../../utils/sweetAlert";
+import toast from "react-hot-toast";
 
 export default function CustomerUpdateModal({ isOpen, onClose, customerId, onSuccess }) {
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function CustomerUpdateModal({ isOpen, onClose, customerId, onSuc
         phone: customer.phone || "",
       });
     } catch (error) {
-      sweetAlert.error("Failed to load customer details");
+      toast.error("Failed to load customer details");
       onClose();
     } finally {
       setFetching(false);
@@ -47,11 +47,11 @@ export default function CustomerUpdateModal({ isOpen, onClose, customerId, onSuc
     setLoading(true);
     try {
       await updateCustomer(customerId, formData);
-      sweetAlert.toast("Customer updated successfully!");
+      toast.success("Customer updated successfully!");
       onSuccess();
       onClose();
     } catch (error) {
-      sweetAlert.error(error.response?.data?.message || "Failed to update customer");
+      toast.error(error.response?.data?.message || "Failed to update customer");
     } finally {
       setLoading(false);
     }

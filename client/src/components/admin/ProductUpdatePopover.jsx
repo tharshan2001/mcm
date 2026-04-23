@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { updateProduct } from "../../service/product";
 import api from "../../service/api";
 import { Upload, X, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function ProductUpdatePopover({ productData, onClose, onUpdated }) {
 
@@ -97,8 +98,7 @@ export default function ProductUpdatePopover({ productData, onClose, onUpdated }
 
     try {
       await updateProduct(productData.id, product, files);
-
-      setSuccess(true);
+      toast.success("Product updated successfully!");
 
       if (onUpdated) onUpdated();
 

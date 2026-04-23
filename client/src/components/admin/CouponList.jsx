@@ -5,6 +5,7 @@ import CouponCreate from "./CouponCreate";
 import { Loader2, Plus, PackageOpen, AlertCircle } from "lucide-react";
 import { fetchCoupons, deleteCoupon } from "../../service/couponService";
 import sweetAlert from "../../utils/sweetAlert";
+import toast from "react-hot-toast";
 
 export default function CouponList() {
   const [coupons, setCoupons] = useState([]);
@@ -42,9 +43,9 @@ export default function CouponList() {
     try {
       await deleteCoupon(coupon.id);
       loadCoupons();
-      sweetAlert.toast("Coupon deleted successfully!");
+      toast.success("Coupon deleted successfully!");
     } catch (err) {
-      sweetAlert.error("Failed to delete coupon");
+      toast.error("Failed to delete coupon");
     }
   };
 
